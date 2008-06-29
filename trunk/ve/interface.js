@@ -72,11 +72,51 @@ function createXMLHTTPObject() {
    return xmlHttp;
 }
 
+// AJAX CALLS
+
+function lookupSubject(){
+	var term = document.getElementById('subject').value;
+	if(term.length > 3) {
+		document.getElementById('subjectOut').innerHTML = "querying DBpedia.org for subject '" + term + "' ...";
+		sendRequest('wrapper.php?lookup=' + term, processLookupSubject);			
+	}
+	else document.getElementById('subjectOut').innerHTML = term + "?"; 
+}
+
+function processLookupSubject(req){
+	document.getElementById('subjectOut').innerHTML = req.responseText;
+}
+
+function findTarget(){
+	var linkTarget = document.getElementById('linkTarget').value;
+	if(linkTarget.length > 3) {
+		document.getElementById('lsOut').innerHTML = "querying sindice.com for target '" + linkTarget + "' ...";
+		sendRequest('wrapper.php?find=' + linkTarget, processFindTarget);			
+	}
+	else document.getElementById('lsOut').innerHTML = linkTarget + "?"; 
+}
+
+function processFindTarget(req){
+	document.getElementById('lsOut').innerHTML = req.responseText;
+}
+
+
+// END oF AJAX CALLS
 
 function resetField(fieldID) {
 	document.getElementById(fieldID).value = "";
 }
+function resetOut(outID){
+	document.getElementById(outID).innerHTML = ""; 	
+}
 
+function useAsSubject(subjectURI){
+	document.getElementById('subject').value = subjectURI;
+}
+
+function useAsTarget(targetURI){
+	document.getElementById('linkTarget').value = targetURI;
+}
 
 /* UTIL */
 // http://kevin.vanzonneveld.net/techblog/article/javascript_equivalent_for_phps_urlencode/

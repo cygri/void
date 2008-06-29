@@ -30,7 +30,7 @@
 		<div>
 		<div>
 			<br/>Subject(s)<br/>
-			<input type="text" size="40" id="subject" value="type a subject of your linked dataset here"  onclick="javascript:resetField('subject')" /> 		
+			<input type="text" size="40" id="subject" value="type a subject of your linked dataset here"  onclick="resetField('subject');resetOut('subjectOut');" onkeyup="javascript:lookupSubject();" /> 		
 	  </div>	
 		<div id="subjectOut"></div>
 		<div>
@@ -38,7 +38,7 @@
 		</div>
 		<div id="linksets">
 			<br/>Interlinking<br/> 
-			<input type="text" size="80" id="linkTarget" value="type a target dataset here your dataset links to"  onclick="javascript:resetField('linkTarget')" /> 
+			<input type="text" size="80" id="linkTarget" value="type a target dataset here your dataset links to"  onclick="resetField('linkTarget');resetOut('lsOut');" onkeyup="javascript:findTarget();" /> 
 		</div>
 		<div id="lsOut"></div>
 		<div>
