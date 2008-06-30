@@ -2,6 +2,8 @@
 include_once("C:/Program Files/Apache Software Foundation/Apache2.2/htdocs/arc2/ARC2.php");
 
 $DEBUG = false;
+$VOID_SEEDS_URI = "http://sw.joanneum.at/ve/void-seeds.rdf";
+$VOID_SEEDS_GRAPH = "http://sw.joanneum.at/void-seeds/";
 $DBPEDIA_GRAPH = "http://dbpedia.org";
 $DBPEDIA_RES_URI = "http://dbpedia.org/resource/";
 $SINDICE_GRAPH  = "http://sindice.com/";
@@ -44,9 +46,13 @@ $NAMESPACES = array(
 
 // SPARQL end point at http://143.224.254.32/ve/sparql.php
 
+// http://143.224.254.32/ve/service.php?reset
 if(isset($_GET['reset'])) {
 		$store->reset();
-		echo "store has been reseted, master\n";
+		echo "store has been reseted, master<br />\n";
+		initSeeds();
+		echo "init seeds:<br />\n";	
+		echo listSeeds();			
 }
 
 if(isset($_GET['lookup'])){ 
@@ -56,7 +62,8 @@ if(isset($_GET['lookup'])){
 
 if(isset($_GET['find'])){ 
 	$name = $_GET['find']; 			
-	echo lookupNameInSindice($name);		
+	//echo lookupNameInSindice($name);		
+	echo listSeeds($name);
 }		
 
 
@@ -81,7 +88,7 @@ function lookupDBpediaConcept($term){
   $r .= "<div>";  
   if($rows != null) {
     //echo var_dump($rows['result']['rows']);
-  	$r .= "<p>Found &lt;<a href=\"$dbpResourceURI\">$dbpResourceURI</a>&gt; as a subject [<a href=\"javascript:useThisAsSubject('" .  $dbpResourceURI . "');\">use this</a>].</p>";
+  	$r .= "<p>Found &lt;<a href=\"$dbpResourceURI\">$dbpResourceURI</a>&gt; as a subject [<a href=\"javascript:useAsSubject('" .  $dbpResourceURI . "');\">use this</a>].</p>";
 	 	$r .= "<p>There are aliases that might have more information:</p><ul>";
 	 	foreach ($rows['result']['rows'] as $row) {
 	 		$alias = $row['redirect'];	  		  			
@@ -120,6 +127,50 @@ function getDBpediaConcept($term){
 	return $rs;
 }
 
+
+function initSeeds(){
+	global $store;
+	global $DEBUG;
+	global $VOID_SEEDS_URI;
+	global $VOID_SEEDS_GRAPH;
+	
+	$load = "LOAD <$VOID_SEEDS_URI> INTO <$VOID_SEEDS_GRAPH>"; 
+  if($DEBUG) echo htmlentities($load) . "<br />";
+  $store->query($load);
+}
+
+
+function listSeeds($name){
+	$rows = getSeeds($name);
+	$r = "<div><p>Following seed datasets are available:</p>";
+	if($rows != null) {
+	    $r .= "<ul>";
+		 	foreach ($rows['result']['rows'] as $row) {
+		 		$label = $row['label'];	  		  			
+		 		$home = $row['home'];	  		  			
+		 		$r .= "<li><a href=\"$home\">$label</a> [<a href=\"javascript:useAsTarget('" . $home . "')\">use this</a>]</li>";				
+			}
+			$r .= "</ul>";
+		}		
+	$r .= "</div>";
+	return $r;
+}
+	
+function getSeeds($name){
+	global $store;
+	global $DEBUG;
+	global $VOID_SEEDS_GRAPH;
+	
+	if(isset($name)){
+		$q = "PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>  SELECT DISTINCT * FROM <$VOID_SEEDS_GRAPH> { ?dataset owl:sameAs ?home; rdfs:label ?label . FILTER regex(?label, \"$name\", \"i\") }";	
+	}
+	else {
+		$q = "PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>  SELECT DISTINCT * FROM <$VOID_SEEDS_GRAPH> { ?dataset owl:sameAs ?home; rdfs:label ?label . }";	
+	}	
+	if($DEBUG) echo htmlentities($q) . "<br />";
+	$rs = $store->query($q);
+	return $rs;
+}
 
 
 // lookup a name in sindice (to find a target dataset)
