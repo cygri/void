@@ -89,7 +89,7 @@ function processLookupSubject(req){
 
 function findTarget(){
 	var linkTarget = document.getElementById('linkTarget').value;
-	if(linkTarget.length > 3) {
+	if(linkTarget.length > 2) {
 		document.getElementById('lsOut').innerHTML = "querying sindice.com for target '" + linkTarget + "' ...";
 		sendRequest('wrapper.php?find=' + linkTarget, processFindTarget);			
 	}
