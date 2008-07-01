@@ -9,12 +9,21 @@
 
 # DBpedia - the Wikipedia content as linked data
 seed:DBpedia a void:Dataset ; 
+				rdfs:label "DBpedia. A community effort to extract structured information from Wikipedia" ;
 				owl:sameAs <http://dbpedia.org/> ;
         dc:subject <http://dbpedia.org/resource/DBpedia> .
 
+# revyu.com
+seed:revyu a void:Dataset ; 
+				rdfs:label "Revyu.com is a web site where you can review and rate things" ;
+				owl:sameAs <http://revyu.com/> ;
+        dc:subject <http://dbpedia.org/resource/Rating> ;
+        dc:subject <http://dbpedia.org/resource/Review> .
+
+
 # US census data
 seed:uscensus a void:Dataset ; 
-	    rdfs:label "US Census data" ;
+	    rdfs:label "The 2000 US Census data" ;
       owl:sameAs <http://www.rdfabout.com/demo/census/> ;
       dc:subject <http://dbpedia.org/resource/Statistics> ;
       dc:subject <http://dbpedia.org/resource/United_States> .
@@ -31,11 +40,30 @@ seed:DBLP a void:Dataset ;
 			rdfs:label "DBLP Bibliography Database" ;
 			owl:sameAs <http://www4.wiwiss.fu-berlin.de/dblp/all> ;
       dc:subject <http://dbpedia.org/resource/Computer_science> ; 
-      dc:subject <http://dbpedia.org/page/Journal> ;
+      dc:subject <http://dbpedia.org/resource/Journal> ;
       dc:subject <http://dbpedia.org/resource/Proceedings> .
 
 # Geonames - linked dataset with geolocation data
 seed:Geonames a void:Dataset ; 
 			rdfs:label "GeoNames geographical database" ;
 			owl:sameAs <http://sws.geonames.org/> ;
-      dc:subject <http://dbpedia.org/resource/Location> .     
+      dc:subject <http://dbpedia.org/resource/Location> .
+      
+# WordNet
+seed:Wordnet a void:Dataset ; 
+			rdfs:label "RDF/OWL representation of WordNet" ;
+			owl:sameAs <http://www.w3.org/TR/wordnet-rdf/> ;
+      dc:subject <http://dbpedia.org/resource/WordNet> .
+      
+# Wikicompany
+seed:Wikicompany a void:Dataset ; 
+			rdfs:label "Wikicompany (en)" ;
+			owl:sameAs <http://dbpedia.openlinksw.com/wikicompany/resource/Wikicompany> ;
+      dc:subject <http://dbpedia.org/resource/Business> .                      
+
+# Jamendo
+seed:Jamendo a void:Dataset ; 
+			rdfs:label "Jamendo RDF server" ;
+			owl:sameAs <http://dbtune.org/jamendo/> ;
+      dc:subject <http://dbpedia.org/resource/Jamendo> .                      
+      

@@ -100,6 +100,37 @@ function processFindTarget(req){
 	document.getElementById('lsOut').innerHTML = req.responseText;
 }
 
+function genVoid(){	
+	var myDataset = document.getElementById('datasetURI').value;
+	var subject = document.getElementById('subject').value;
+	var linkTarget = document.getElementById('linkTarget').value;
+	var buffer = "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n";
+	buffer =  buffer + "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n";
+	buffer =  buffer +  "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n";
+	buffer =  buffer +  "@prefix dc: <http://purl.org/dc/elements/1.1/> .\n";
+	buffer =  buffer +  "@prefix void: <http://purl.org/vocab/voiD/ns#> .\n";
+	buffer =  buffer +  "@prefix : <" + myDataset+ "/void#> .\n\n";
+	buffer =  buffer +  ":myDataset rdf:type void:Dataset ;\n";
+	buffer =  buffer +  "           owl:sameAs <" + myDataset +"> ;\n";
+	buffer =  buffer +  "           dc:subject <" + subject +"> ;\n";
+	buffer =  buffer +  "           void:containsLinks :myLinkset .\n";
+	buffer =  buffer +  ":myLinkset rdf:type void:Linkset ;\n";
+	buffer =  buffer +  "           void:target <" + linkTarget + ">\n";
+	document.getElementById('voidOut').value = buffer;
+	
+}
+
+function discoverDataset(){
+	var myDataset = document.getElementById('datasetURI').value;
+	setStatus('trying to auto-discover voiD description for ' + myDataset);
+	sendRequest('wrapper.php?discover=' + myDataset, processDiscoverDataset);		
+}
+
+function processDiscoverDataset(req){
+	setStatus('found void description');
+	document.getElementById('voidOut').value = req.responseText;
+	
+}
 
 // END oF AJAX CALLS
 
@@ -132,21 +163,7 @@ function getCacheBusterParam(){
 	return  "&rcb=" + parseInt(Math.random()*99999999); 
 }
 
-function genVoid(){	
-	var myDataset = document.getElementById('datasetURI').value;
-	var subject = document.getElementById('subject').value;
-	var linkTarget = document.getElementById('linkTarget').value;
-	var buffer = "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n";
-	buffer =  buffer + "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n";
-	buffer =  buffer +  "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n";
-	buffer =  buffer +  "@prefix dc: <http://purl.org/dc/elements/1.1/> .\n";
-	buffer =  buffer +  "@prefix void: <http://purl.org/vocab/voiD/ns#> .\n\n";
-	buffer =  buffer +  ":myDataset rdf:type void:Dataset ;\n";
-	buffer =  buffer +  "           owl:sameAs <" + myDataset +"> ;\n";
-	buffer =  buffer +  "           dc:subject <" + subject +"> ;\n";
-	buffer =  buffer +  "           void:containsLinks :myLinkset .\n";
-	buffer =  buffer +  ":myLinkset rdf:type void:Linkset ;\n";
-	buffer =  buffer +  "           void:target <" + linkTarget + ">\n";
-	document.getElementById('voidOut').value = buffer;
+function setStatus(msg){
+	document.getElementById('status').innerHTML = "<p>" + msg + "</p>";
 }
 

@@ -19,31 +19,33 @@
 <span rel="dc:creator" resource="http://sw-app.org/mic.xhtml#i"></span>
 <h1 style="font-style: italic;" property="dc:title">ve - the voiD editor</h1>
 <h2>"... vi was yesterday"</h2>
-<p><a href="http://sw.joanneum.at/ve/">reset</a></p>
+<p><a href="http://sw.joanneum.at/ve/">reset</a> <a rel="rdfs:seeAlso" href="http://community.linkeddata.org/MediaWiki/index.php?VoiD">help</a></p>
+<div id="status"></div>
 <div id="left" style="float:left">
 	<fieldset>
 		<legend>Dataset Description</legend>
 		<div align="right"><input type="button" id="gen"  onclick="javascript:genVoid();" value="generate voiD" /></div>
 		<div>
 			<br/>URI<br/>
-			<input type="text" size="80" id="datasetURI" value="type the URI of your linked dataset"  onclick="javascript:resetField('datasetURI')" /> 		
+			<input type="text" size="80" id="datasetURI" value="type the HTTP URI of your linked dataset"  onclick="javascript:resetField('datasetURI')" /> 
+			<input type="button" id="discover"  onclick="javascript:discoverDataset();" value="?" />		
 		<div>
 		<div>
 			<br/>Subject(s)<br/>
 			<input type="text" size="40" id="subject" value="type a subject of your linked dataset here"  onclick="resetField('subject');resetOut('subjectOut');" onkeyup="javascript:lookupSubject();" /> 		
 	  </div>	
 		<div id="subjectOut"></div>
-		<div>
+		<!--<div>
 			<input type="button" id="addSubject"  onclick="javascript:addSubject();" value="+" />
-		</div>
+		</div>-->
 		<div id="linksets">
 			<br/>Interlinking<br/> 
 			<input type="text" size="80" id="linkTarget" value="type a target dataset here your dataset links to"  onclick="resetField('linkTarget');resetOut('lsOut');" onkeyup="javascript:findTarget();" /> 
 		</div>
 		<div id="lsOut"></div>
-		<div>
+		<!--<div>
 			<input type="button" id="addLinkset"  onclick="javascript:addLinkset();" value="+" />
-		</div>
+		</div>-->
 	</fieldset>
 </div>
 <div id="right" style="float:left">
