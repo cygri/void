@@ -2,6 +2,8 @@
 include_once("C:/Program Files/Apache Software Foundation/Apache2.2/htdocs/arc2/ARC2.php");
 
 $DEBUG = false;
+
+$SITEMAP = "sitemap.xml";
 $VOID_SEEDS_URI = "http://sw.joanneum.at/ve/void-seeds.rdf";
 $VOID_SEEDS_GRAPH = "http://sw.joanneum.at/void-seeds/";
 $DBPEDIA_GRAPH = "http://dbpedia.org";
@@ -38,7 +40,10 @@ $NAMESPACES = array(
   	'sioc' => 'http://rdfs.org/sioc/ns#',
   	'sioct' => 'http://rdfs.org/sioc/types#',
   	'xfn' => 'http://gmpg.org/xfn/11#',
-  	'twitter' => 'http://twitter.com/'   	
+  	'twitter' => 'http://twitter.com/',
+  	'dbpres' => 'http://dbpedia.org/resource/',
+  	'dbpprop' => 'http://dbpedia.org/property/',
+  	'void' => 'http://vocab.dowhatimean.net/neologism/void-tmp#'   	
 );
 
 
@@ -66,6 +71,10 @@ if(isset($_GET['find'])){
 	echo listSeeds($name);
 }		
 
+if(isset($_GET['discover'])){ 
+	$dataset = $_GET['discover']; 			
+	echo discoverVoidDescription($dataset);
+}
 
 /* LIB */
 
@@ -172,6 +181,47 @@ function getSeeds($name){
 	return $rs;
 }
 
+//http://143.224.254.32/ve/service.php?discover=http://riese.joanneum.at/data/
+function discoverVoidDescription($dataset) {
+	global $DEBUG;
+	global $SITEMAP;
+	global $NAMESPACES;
+	 
+  if($DEBUG) echo $dataset;
+  
+  // find sitemap
+  preg_match('@^(?:http://)?([^/]+)@i',    $dataset, $matches); // extract the domain part (incl. protocol)
+	if($DEBUG) var_dump($matches);	
+	$sitemapDoc = $matches[0] . "/" . $SITEMAP;
+	
+	// find voiD document
+	$xmlDoc = new DOMDocument();
+	$xmlDoc->load($sitemapDoc);
+	$x = $xmlDoc->documentElement;
+	foreach ($x->childNodes as $item) {  	
+  	if($item->nodeName == 'sc:dataset') {
+  		foreach ($item->childNodes as $datasetItems) {  			
+  			if($datasetItems->nodeName == 'sc:datasetURI') {
+  				$voidDoc = $datasetItems->nodeValue;
+  			}
+  		}
+  	} 	
+  }	  
+  if($DEBUG) echo $voidDoc;
+  
+  // read content of voiD document
+  $parser = ARC2::getRDFParser();		
+	$parser->parse($voidDoc);
+	$triples = $parser->getTriples();
+ 
+  // serialise RDF in Turtle 
+  $conf = array('ns' => $NAMESPACES);
+  $ser = ARC2::getTurtleSerializer($conf);
+	return $ser->getSerializedTriples($triples);
+}
+
+
+/* SINDICE */
 
 // lookup a name in sindice (to find a target dataset)
 // use, e.g., http://143.224.254.32/ve/service.php?find=statistics

@@ -10,4 +10,9 @@ if(isset($_GET['find'])){
   echo file_get_contents("http://143.224.254.32/ve/service.php?find=" . $name);
 }
 
+if(isset($_GET['discover'])){ 
+	$dataset = $_GET['discover']; 				
+  echo file_get_contents("http://143.224.254.32/ve/service.php?discover=" . $dataset);
+}
+
 ?>
