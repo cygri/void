@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://sw.joanneum.at/ve/void-seeds.rdf#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:seed="http://sw.joanneum.at/ve/void-seeds.rdf#"
+    xmlns:void="http://vocab.dowhatimean.net/neologism/void-tmp#">
+
+    <void:Dataset rdf:about="http://sw.joanneum.at/ve/void-seeds.rdf#DBLP">
+        <dc:subject rdf:resource="http://dbpedia.org/resource/Computer_science"/>
+        <dc:subject rdf:resource="http://dbpedia.org/resource/Journal"/>
+        <dc:subject rdf:resource="http://dbpedia.org/resource/Proceedings"/>
+        <rdfs:label>DBLP Bibliography Database</rdfs:label>
+        <owl:sameAs rdf:resource="http://www4.wiwiss.fu-berlin.de/dblp/all"/>
+    </void:Dataset>
+
+    <void:Dataset rdf:about="http://sw.joanneum.at/ve/void-seeds.rdf#DBpedia">
+        <dc:subject rdf:resource="http://dbpedia.org/resource/DBpedia"/>
+        <rdfs:label>DBpedia. A community effort to extract structured information from Wikipedia</rdfs:label>
+        <owl:sameAs rdf:resource="http://dbpedia.org/"/>
+    </void:Dataset>
+
+    <void:Dataset rdf:about="http://sw.joanneum.at/ve/void-seeds.rdf#Geonames">
+        <dc:subject rdf:resource="http://dbpedia.org/resource/Location"/>
+        <rdfs:label>GeoNames geographical database</rdfs:label>
+        <owl:sameAs rdf:resource="http://sws.geonames.org/"/>
+    </void:Dataset>
+
+    <void:Dataset rdf:about="http://sw.joanneum.at/ve/void-seeds.rdf#Jamendo">
+        <dc:subject rdf:resource="http://dbpedia.org/resource/Jamendo"/>
+        <rdfs:label>Jamendo RDF server</rdfs:label>
+        <owl:sameAs rdf:resource="http://dbtune.org/jamendo/"/>
+    </void:Dataset>
+
+    <void:Dataset rdf:about="http://sw.joanneum.at/ve/void-seeds.rdf#Wikicompany">
+        <dc:subject rdf:resource="http://dbpedia.org/resource/Business"/>
+        <rdfs:label>Wikicompany (en)</rdfs:label>
+        <owl:sameAs rdf:resource="http://dbpedia.openlinksw.com/wikicompany/resource/Wikicompany"/>
+    </void:Dataset>
+
+    <void:Dataset rdf:about="http://sw.joanneum.at/ve/void-seeds.rdf#Wordnet">
+        <dc:subject rdf:resource="http://dbpedia.org/resource/WordNet"/>
+        <rdfs:label>RDF/OWL representation of WordNet</rdfs:label>
+        <owl:sameAs rdf:resource="http://www.w3.org/TR/wordnet-rdf/"/>
+    </void:Dataset>
+
+    <void:Dataset rdf:about="http://sw.joanneum.at/ve/void-seeds.rdf#revyu">
+        <dc:subject rdf:resource="http://dbpedia.org/resource/Rating"/>
+        <dc:subject rdf:resource="http://dbpedia.org/resource/Review"/>
+        <rdfs:label>Revyu.com is a web site where you can review and rate things</rdfs:label>
+        <owl:sameAs rdf:resource="http://revyu.com/"/>
+    </void:Dataset>
+
+    <void:Dataset rdf:about="http://sw.joanneum.at/ve/void-seeds.rdf#riese">
+        <dc:subject rdf:resource="http://dbpedia.org/resource/Europe"/>
+        <dc:subject rdf:resource="http://dbpedia.org/resource/Statistics"/>
+        <rdfs:label>riese - RDFizing and Interlinking the EuroStat Data Set Effort</rdfs:label>
+        <owl:sameAs rdf:resource="http://riese.joanneum.at/data/"/>
+    </void:Dataset>
+
+    <void:Dataset rdf:about="http://sw.joanneum.at/ve/void-seeds.rdf#uscensus">
+        <dc:subject rdf:resource="http://dbpedia.org/resource/Statistics"/>
+        <dc:subject rdf:resource="http://dbpedia.org/resource/United_States"/>
+        <rdfs:label>The 2000 US Census data</rdfs:label>
+        <owl:sameAs rdf:resource="http://www.rdfabout.com/demo/census/"/>
+    </void:Dataset>
+</rdf:RDF>

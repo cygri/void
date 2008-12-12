@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:sc="http://sw.deri.org/2007/07/sitemapextension/scschema.xsd">
+  <sc:dataset>
+    <sc:datasetLabel>Example Corp. Product Catalog</sc:datasetLabel>
+    <sc:datasetURI>http://example.com/catalog.rdf#catalog</sc:datasetURI>
+    <sc:linkedDataPrefix slicing="subject-object">http://example.com/products/</sc:linkedDataPrefix>
+    <sc:sampleURI>http://example.com/products/widgets/X42</sc:sampleURI>
+    <sc:sampleURI>http://example.com/products/categories/all</sc:sampleURI>
+    <sc:sparqlEndpointLocation slicing="subject-object">http://example.com/sparql</sc:sparqlEndpointLocation>
+    <sc:dataDumpLocation>http://example.com/data/catalogdump.rdf.gz</sc:dataDumpLocation>
+    <sc:dataDumpLocation>http://example.org/data/catalog_archive.rdf.gz</sc:dataDumpLocation>
+    <sc:dataDumpLocation>http://example.org/data/product_categories.rdf.gz</sc:dataDumpLocation>
+    <changefreq>weekly</changefreq>
+  </sc:dataset>
+</urlset>
