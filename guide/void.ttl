@@ -24,8 +24,8 @@
 			dcterms:modified "2008-11-17"^^xsd:date ;
 			void:feature :RDFXML ;
 			void:sparqlEndpoint <http://dbpedia.org/sparql> ;
-			void:containsLinks :DBpedia2DBLP ;
-			void:containsLinks :DBpedia2Geonames .
+			void:subset :DBpedia2DBLP ;
+			void:subset :DBpedia2Geonames .
 
 :FU_Berlin	a foaf:Organization ;
 			rdfs:label "Freie Universität Berlin" ;
@@ -51,7 +51,7 @@
 			dcterms:subject <http://purl.uniprot.org/core/Gene> .
 
 :Jamendo	a void:Dataset ;
-			void:containsLinks :Jamendo2Geonames .
+			void:subset :Jamendo2Geonames .
 
 # INTERLINKING
 
