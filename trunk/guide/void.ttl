@@ -25,7 +25,7 @@
 			void:subset :DBpedia2Geonames .
 
 ex:DBpedia	a void:Dataset ;
-			dcterms:title "DBPedia" ;
+			dcterms:title "DBPedia: Wikipedia as Linked Data" ;
 			foaf:homepage <http://dbpedia.org/> ;
 			dcterms:contributor :FU_Berlin ;
 			dcterms:contributor :University_Leipzig ;
