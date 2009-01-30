@@ -13,7 +13,7 @@ SELECT DISTINCT ?dataset
 FROM <http://void-impl.googlecode.com/svn/trunk/guide/void.ttl>
 WHERE {
  ?dataset a void:Dataset;
-          void:containsLinks ?linkset .
+          void:subset ?linkset .
 ?linkset void:subjectsTarget ?dataset ;
          void:objectsTarget :Geonames ;
          void:linkPredicate foaf:based_near .
