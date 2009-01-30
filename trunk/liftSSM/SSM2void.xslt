@@ -100,7 +100,7 @@
 
 <!-- map sc:linkedDataPrefix to void:uriPattern -->
 <template match="sc:linkedDataPrefix">
-	<xsl:element name="void:uriPattern">^<xsl:value-of select="." />$</xsl:element>  
+	<xsl:element name="void:uriRegexPattern">^<xsl:value-of select="." />$</xsl:element>  
 </template>  
 
 
