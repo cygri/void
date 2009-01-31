@@ -10,7 +10,7 @@ $config = array(
   'store_name' => 'lde',
   'sem_html_formats' => 'adr-foaf dc erdf hcard-foaf openid rdfa rel-tag-skos xfn',
   /* endpoint */
-  'endpoint_features' => array( 'select', 'ask', 'load', 'insert', 'delete'),
+  'endpoint_features' => array( 'select', 'ask', 'construct', 'load', 'insert', 'delete'),
   'endpoint_timeout' => 60, /* not implemented in ARC2 preview */
   'endpoint_max_limit' => 1000, /* optional */
 );
