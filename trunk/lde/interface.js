@@ -77,7 +77,7 @@ function createXMLHTTPObject() {
 function lookupTopic(){
 	var topic = document.getElementById('topic').value;
 	if(topic.length > 3) {
-		document.getElementById('out').innerHTML = "querying sindice.com for target '" + topic + "' ...";
+		document.getElementById('out').innerHTML = "querying target '" + topic + "' ...";
 		sendRequest('service.php?lookup=' + topic, processLookupTopic);			
 	}
 	else document.getElementById('out').innerHTML = topic + "?"; 

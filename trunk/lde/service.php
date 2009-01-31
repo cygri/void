@@ -2,11 +2,16 @@
 include_once("../arc/ARC2.php");
 include_once("cloud-lib.php");
               
-$DEBUG = false;
+$DEBUG = true;
 $SINDICE_GRAPH  = "http://sindice.com/";
-$VOID_SEEDS_URI = "http://localhost:8888/lde/void-seeds.n3";
+$VOID_SEEDS_URI = "http://localhost:8888/lde/void-seeds.ttl";
 $VOID_SEEDS_GRAPH = "http://ld2sd.deri.org/void-seeds/";
 $DBPEDIA_GRAPH = "http://dbpedia.org/";
+
+// visualsation
+$MIN_RANGE = 1;
+$MAX_RANGE = 100;
+
 
 /* ARC RDF store config */
 $config = array(
@@ -29,13 +34,13 @@ if(isset($_GET['reset'])) {
                 initSeeds();
                 echo "init seeds:<br />\n";     
                 echo listSeeds();
+                echo "<p>go <a href=\"index.html\">back</a> ...</p>\n";     
 }
 
 
 if(isset($_GET['lookup'])){ 
         $name = $_GET['lookup'];                        
-        //echo lookupNameInSindice($name); 
-        lookupNameInDatasets($name);
+        echo lookupNameInDBpedia(ucfirst($name)); // turn first character into upper cases as DBpedia concepts always start uppercase
 }
 
 if(isset($_GET['browse'])){                        
@@ -52,6 +57,12 @@ if(isset($_GET['explore'])){
 		if($DEBUG) echo $dataset;
 		echo renderLinkedDataset($dataset);
 }
+
+if(isset($_GET['listbysize'])){ 
+		echo renderLinkedDatasetbySize();
+}
+
+
 
 /* VOID SEEDS */
 
@@ -141,7 +152,7 @@ function getLinkedDataset(){
         global $DEBUG;
         global $VOID_SEEDS_GRAPH;
         
-		$q = "PREFIX dc: <http://purl.org/dc/elements/1.1/> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>  SELECT DISTINCT * FROM <$VOID_SEEDS_GRAPH> { ?dataset foaf:homepage ?home; rdfs:label ?label. }";     
+		$q = "PREFIX dcterms: <http://purl.org/dc/terms/> PREFIX foaf: <http://xmlns.com/foaf/0.1/>  SELECT DISTINCT * FROM <$VOID_SEEDS_GRAPH> { ?dataset foaf:homepage ?home; dcterms:title ?label. }";     
         if($DEBUG) echo htmlentities($q) . "<br />";
         $rs = $store->query($q);
         return $rs;
@@ -154,18 +165,32 @@ function getLinkedDatasetFull(){
         global $DEBUG;
         global $VOID_SEEDS_GRAPH;
           
-		$q = "PREFIX dc: <http://purl.org/dc/elements/1.1/> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX scovo: <http://purl.org/NET/scovo#> PREFIX void: <http://rdfs.org/ns/void#>   SELECT DISTINCT * FROM <$VOID_SEEDS_GRAPH> { ?dataset foaf:homepage ?home; rdfs:label ?label. OPTIONAL { ?dataset void:statItem ?stat. ?stat rdf:value ?numTriple; scovo:dimension void:numOfTriples . } }";     
+		$q = "PREFIX dcterms: <http://purl.org/dc/terms/> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX scovo: <http://purl.org/NET/scovo#> PREFIX void: <http://rdfs.org/ns/void#>   SELECT DISTINCT * FROM <$VOID_SEEDS_GRAPH> { ?dataset foaf:homepage ?home; dcterms:title ?label. OPTIONAL { ?dataset void:statItem ?stat. ?stat rdf:value ?numTriple; scovo:dimension void:numberOfTriples . } }";     
 	    if($DEBUG) echo htmlentities($q) . "<br />";
         $rs = $store->query($q);
         return $rs;
 }
+
+
+function getLinkedDatasetBySize(){
+        global $store;
+        global $DEBUG;
+        global $VOID_SEEDS_GRAPH;
+          
+		$q = "PREFIX scovo: <http://purl.org/NET/scovo#> PREFIX void: <http://rdfs.org/ns/void#> SELECT DISTINCT * FROM <$VOID_SEEDS_GRAPH> { ?dataset a void:Dataset; void:statItem ?stat. ?stat rdf:value ?numTriple; scovo:dimension void:numberOfTriples .  }";     
+	    if($DEBUG) echo htmlentities($q) . "<br />";
+        $rs = $store->query($q);
+        return $rs;
+}
+
+
 
 function getTopicsOfLinkedDataset($dsURI){
         global $store;
         global $DEBUG;
         global $VOID_SEEDS_GRAPH;
         
-		$q = "PREFIX dc: <http://purl.org/dc/elements/1.1/> SELECT DISTINCT * FROM <$VOID_SEEDS_GRAPH> { <$dsURI> dc:subject ?topic . }";     
+		$q = "PREFIX dcterms: <http://purl.org/dc/terms/> SELECT DISTINCT * FROM <$VOID_SEEDS_GRAPH> { <$dsURI> dcterms:subject ?topic . }";     
         if($DEBUG) echo htmlentities($q) . "<br />";
         $rs = $store->query($q);
         return $rs;
@@ -177,7 +202,7 @@ function findLinkedDatasetWithTopic($topic){
         global $DEBUG;
         global $VOID_SEEDS_GRAPH;
         
-		$q = "PREFIX dc: <http://purl.org/dc/elements/1.1/> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX scovo: <http://purl.org/NET/scovo#> PREFIX void: <http://rdfs.org/ns/void#>   SELECT DISTINCT * FROM <$VOID_SEEDS_GRAPH> { ?dataset dc:subject <$topic> ; foaf:homepage ?home; rdfs:label ?label. OPTIONAL { ?dataset void:statItem ?stat. ?stat rdf:value ?numTriple; scovo:dimension void:numOfTriples . } }";     
+		$q = "PREFIX dcterms: <http://purl.org/dc/terms/> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX scovo: <http://purl.org/NET/scovo#> PREFIX void: <http://rdfs.org/ns/void#>   SELECT DISTINCT * FROM <$VOID_SEEDS_GRAPH> { ?dataset dcterms:subject <$topic> ; foaf:homepage ?home; dcterms:title ?label. OPTIONAL { ?dataset void:statItem ?stat. ?stat rdf:value ?numTriple; scovo:dimension void:numberOfTriples . } }";     
         if($DEBUG) echo htmlentities($q) . "<br />";
         $rs = $store->query($q);
         return $rs;
@@ -188,7 +213,7 @@ function listLinkedDatasetLinks($dataset){
         global $DEBUG;
         global $VOID_SEEDS_GRAPH;
         
-		$q = "PREFIX dc: <http://purl.org/dc/elements/1.1/> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX void: <http://rdfs.org/ns/void#>   SELECT DISTINCT * FROM <$VOID_SEEDS_GRAPH> { <$dataset> void:containsLinks ?linking. ?linking void:target ?target . ?target rdfs:label ?label . }";     
+		$q = "PREFIX dcterms: <http://purl.org/dc/terms/> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX void: <http://rdfs.org/ns/void#>   SELECT DISTINCT * FROM <$VOID_SEEDS_GRAPH> { <$dataset> void:subset ?linking. ?linking void:target ?target .  ?target dcterms:title ?label .  FILTER ( ?target != <$dataset>)}";     
         if($DEBUG) echo htmlentities($q) . "<br />";
         $rs = $store->query($q);
         return $rs;
@@ -260,7 +285,7 @@ function renderLinkedDataset($datasetURI){
 		global $store;
         global $DEBUG;
 
-		$q = "PREFIX dc: <http://purl.org/dc/elements/1.1/> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX scovo: <http://purl.org/NET/scovo#> PREFIX void: <http://rdfs.org/ns/void#>   SELECT DISTINCT * FROM <$VOID_SEEDS_GRAPH> { <$datasetURI> foaf:homepage ?home; rdfs:label ?label. OPTIONAL { <$datasetURI> void:statItem ?stat. ?stat rdf:value ?numTriple; scovo:dimension void:numOfTriples . } }";     
+		$q = "PREFIX dcterms: <http://purl.org/dc/terms/> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX scovo: <http://purl.org/NET/scovo#> PREFIX void: <http://rdfs.org/ns/void#>   SELECT DISTINCT * FROM <$VOID_SEEDS_GRAPH> { <$datasetURI> foaf:homepage ?home; dcterms:title ?label. OPTIONAL { <$datasetURI> void:statItem ?stat. ?stat rdf:value ?numTriple; scovo:dimension void:numberOfTriples . } }";     
         if($DEBUG) echo htmlentities($q) . "<br />";
         $datasets = $store->query($q);       
 
@@ -319,6 +344,36 @@ function renderLinkedDataset($datasetURI){
 }
 
 
+function renderLinkedDatasetbySize(){
+	global $VOID_SEEDS_URI;
+	global $MAX_RANGE;
+	$chartBaseURI ="http://chart.apis.google.com/chart?chs=500x600&chds=1,100,1,100&cht=s&chf=c,lg,90,006600,1,000000,0|bg,s,ffff,1,2&chm=o,f0f0f0,1,1.0,100.0&chf=c,lg,90,006600,1,000000,0|bg,s,ffffff&chd=t:20,30,40,50,60,70,80,90|20,30,40,50,60,70,80|";
+	
+    $datasets = getLinkedDatasetBySize();
+    $r = "<div>";
+    if($datasets != null) {
+		foreach ($datasets['result']['rows'] as $dataset) {
+			$datasetURI = $dataset['dataset'];         
+			$numTriple = $dataset['numTriple'];
+			$dMap[$datasetURI] = $numTriple;
+		}
+		arsort($dMap);
+		$maxVal = max($dMap);
+		foreach ($dMap as $ds => $num) {
+			$r .= "$ds: $num (normalised:". ($num*$MAX_RANGE)/$maxVal  . ")<br />";
+		}
+		$r .= "<a href=\"" .  $chartBaseURI;
+		foreach ($dMap as $ds => $num) {
+			$r .= ($num*$MAX_RANGE)/$maxVal;
+			$i++;
+			if ($i < count($dMap)) $r .= "," ;
+		}
+		$r .= "\" >view</a>";
+		
+	}
+	$r .= "</div>";
+	return $r;
+}
 
 /* DBPEDIA */
 function getDBpediaInfo($resource){
@@ -346,6 +401,25 @@ function dbpediaInfoAvailable($resource){
     if($DEBUG) echo htmlentities($q) . "<br />";
     $rs = $store->query($q);
     return $rs['result'];
+}
+
+
+function lookupNameInDBpedia($name){
+	global $DBPEDIA_GRAPH;     
+	
+	$resource = $DBPEDIA_GRAPH . "resource/" . $name;
+	$r = "<p>Do you mean <a href=\"$resource\">$name</a>? <a href=\"javascript:useAsTopic('" . $resource . "')\" title=\"use as topic to search for datasets\">Yes!</a> <a href=\"index.html\">No ...</a></p>";    	
+	$r .= "<div style=\"background-color: #f0f0f0; width: 40%; padding: 10px;\">";
+	$topicDesc = getDBpediaInfo($resource);	
+	if($topicDesc != null) {
+		foreach ($topicDesc['result']['rows'] as $desc) {
+			$r .= "<div style=\"border: 1px #c0c0c0 dotted; padding: 10px; margin-bottom: 5px; text-align: justify; font-size: 100%\">" . $desc['desc'] . "</div>"; 
+		}
+	}
+	else $r .= "no description found";
+	$r .= "</div>";
+	
+	return $r;
 }
 
 
@@ -417,7 +491,7 @@ function getSindiceName($name){
         
         $sindiceNameURI = $SINDICE_GRAPH . $name; 
         
-        $q = "PREFIX s: <http://sindice.com/vocab/search#> PREFIX dc: <http://purl.org/dc/elements/1.1/> SELECT DISTINCT ?link ?label FROM <$sindiceNameURI> { ?res a s:Result ; s:link ?link ; dc:title ?label . }";
+        $q = "PREFIX s: <http://sindice.com/vocab/search#> PREFIX dcterms: <http://purl.org/dc/terms/> SELECT DISTINCT ?link ?label FROM <$sindiceNameURI> { ?res a s:Result ; s:link ?link ; dcterms:title ?label . }";
         if($DEBUG) echo htmlentities($q) . "<br />";
         $rs = $store->query($q);
         return $rs;

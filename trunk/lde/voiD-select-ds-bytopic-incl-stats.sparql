@@ -1,0 +1,18 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX dcterms: <http://purl.org/dc/terms/> 
+PREFIX foaf: <http://xmlns.com/foaf/0.1/> 
+PREFIX scovo: <http://purl.org/NET/scovo#>   
+PREFIX void: <http://rdfs.org/ns/void#>
+PREFIX : <http://localhost:8888/lde/void-seeds.ttl#>
+
+
+SELECT DISTINCT * FROM <http://ld2sd.deri.org/void-seeds/> { 
+	?ds dcterms:subject <http://dbpedia.org/resource/Europe> ; 
+	foaf:homepage ?home; 
+	dcterms:title ?label. 
+	OPTIONAL { 
+		?ds void:statItem ?stat. 
+		?stat rdf:value ?numTriple ;
+		scovo:dimension void:numberOfTriples .
+	} 
+}

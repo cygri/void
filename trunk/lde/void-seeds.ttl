@@ -1,0 +1,129 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix scovo: <http://purl.org/NET/scovo#> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix seed: <#> .
+
+### mhausenblas@2009-01-31
+
+## sources:
+## http://richard.cyganiak.de/2007/10/lod/
+## http://esw.w3.org/topic/TaskForces/CommunityProjects/LinkingOpenData/DataSets
+
+# DBpedia - the Wikipedia content as linked data
+seed:DBpedia a void:Dataset ; 
+			dcterms:title "DBpedia" ;
+			foaf:homepage <http://dbpedia.org/> ;
+			dcterms:subject <http://dbpedia.org/resource/DBpedia> ;
+			void:subset seed:DBpedia2revyu ;
+			void:subset seed:DBpedia2uscensus ;		
+			void:subset seed:DBpedia2DBLP ;	
+			void:statItem [
+				rdf:value 109750000 ;
+				scovo:dimension void:numberOfTriples .
+			] .
+
+seed:DBpedia2revyu a void:Linkset ;
+			void:target seed:DBpedia ;
+			void:target seed:revyu .
+
+seed:DBpedia2uscensus a void:Linkset ;
+				void:target seed:DBpedia ;
+				void:target seed:uscensus .		
+					
+seed:DBpedia2DBLP a void:Linkset ;
+			void:target seed:DBpedia ;
+			void:target seed:DBLP .			
+
+# revyu.com
+seed:revyu a void:Dataset ; 
+			dcterms:title "Revyu.com" ;
+			foaf:homepage <http://revyu.com/> ;
+			dcterms:subject <http://dbpedia.org/resource/Rating> ;
+			dcterms:subject <http://dbpedia.org/resource/Review> ;
+			void:statItem [
+				rdf:value 20000 ;
+				scovo:dimension void:numberOfTriples .
+			].
+
+# US census data
+seed:uscensus a void:Dataset ; 
+		dcterms:title "2000 US Census" ;
+		foaf:homepage <http://www.rdfabout.com/demo/census/> ;
+		dcterms:subject <http://dbpedia.org/resource/Statistics> ;
+		dcterms:subject <http://dbpedia.org/resource/United_States> ;
+		void:subset seed:uscensus2Geonames ;
+		void:statItem [
+			rdf:value 2000000000 ;
+			scovo:dimension void:numberOfTriples .
+		].
+
+seed:uscensus2Geonames a void:Linkset ;
+				void:target seed:uscensus ;
+				void:target seed:Geonames .
+				
+# Eurostat data
+seed:riese a void:Dataset ; 
+			dcterms:title "riese" ;
+			foaf:homepage <http://riese.joanneum.at/> ;
+			dcterms:subject <http://dbpedia.org/resource/Statistics> ;
+			dcterms:subject <http://dbpedia.org/resource/Europe> ;
+			void:statItem [
+				rdf:value 3000000 ;
+				scovo:dimension void:numberOfTriples .
+			] .
+
+# DBLP - linked dataset of the DBLP Bibliography Database 
+seed:DBLP a void:Dataset ; 
+			dcterms:title "DBLP" ;
+			foaf:homepage <http://www4.wiwiss.fu-berlin.de/dblp/all> ;
+			dcterms:subject <http://dbpedia.org/resource/Computer_science> ; 
+			dcterms:subject <http://dbpedia.org/resource/Journal> ;
+			dcterms:subject <http://dbpedia.org/resource/Proceedings> ;
+			void:statItem [
+				rdf:value 28000000 ;
+				scovo:dimension void:numberOfTriples .
+			] .
+
+# Geonames - linked dataset with geolocation data
+seed:Geonames a void:Dataset ; 
+			dcterms:title "GeoNames" ;
+			foaf:homepage <http://sws.geonames.org/> ;
+			dcterms:subject <http://dbpedia.org/resource/Location_%28geography%29> ;
+			void:statItem [
+				rdf:value 93000000 ;
+				scovo:dimension void:numberOfTriples .
+			] . 
+      
+# WordNet
+seed:Wordnet a void:Dataset ; 
+			dcterms:title "WordNet" ;
+			foaf:homepage <http://www.w3.org/TR/wordnet-rdf/> ;
+			dcterms:subject <http://dbpedia.org/resource/WordNet> ;
+			void:statItem [
+				rdf:value 710000 ;
+				scovo:dimension void:numberOfTriples .
+			] .
+      
+# Wikicompany
+seed:Wikicompany a void:Dataset ; 
+			dcterms:title "Wikicompany (en)" ;
+			foaf:homepage <http://dbpedia.openlinksw.com/wikicompany/resource/Wikicompany> ;
+			dcterms:subject <http://dbpedia.org/resource/Business> .                      
+
+# Jamendo
+seed:Jamendo a void:Dataset ; 
+			dcterms:title "Jamendo" ;
+			foaf:homepage <http://dbtune.org/jamendo/> ;
+			dcterms:subject <http://dbpedia.org/resource/Music> ;
+			void:subset seed:Jamendo2Geonames ;
+			void:statItem [
+				rdf:value 1100000 ;
+				scovo:dimension void:numberOfTriples .
+			] .
+			
+seed:Jamendo2Geonames a void:Linkset ;
+					void:target seed:Jamendo ;
+					void:target seed:Geonames .
