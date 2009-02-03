@@ -12,6 +12,7 @@ PREFIX : <#>
 CONSTRUCT {
  :DBpedia ?p ?o
 }
+FROM <http://void-impl.googlecode.com/svn/trunk/guide/void.ttl>
 WHERE {
   ?dataset a void:Dataset; foaf:homepage <http://dbpedia.org/> ; ?p ?o .
 }
