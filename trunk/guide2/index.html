@@ -1,0 +1,1421 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>voiD Guide 2 Draft</title>
+</head>
+<body>
+<h1>voiD Guide 2 Draft</h1>
+<!-- begin Drupal content -->
+
+
+
+
+<p>
+voiD is a vocabulary and a set of instructions that enables the discovery and usage of linked datasets. A dataset is a collection of data, published and maintained by a single provider, available as RDF, and accessible, for example, through dereferenceable HTTP URIs or a SPARQL endpoint. Based on the <a href="http://rdfs.org/ns/void">voiD vocabulary</a> this document explains how to use voiD in a practical setup, for both data consumers and data providers.
+</p>
+<p>
+Note: For your convenience,  there is also a <a href="voiD-guide_v63.pdf">PDF version of the voiD guide</a> available.
+</p>
+
+<h3>29 January 2009</h3>
+<dl>
+	<dt>
+		This version:
+	</dt>
+	<dd>
+		<a href="">$Id: index.html 63 2009-01-29 16:54:55Z michau $</a>
+	</dd>
+	<dt>
+		Latest version:
+	</dt>
+	<dd>
+		<a href="http://rdfs.org/ns/void-guide">http://rdfs.org/ns/void-guide</a>
+	</dd>
+	<dt>
+		Authors:
+	</dt>
+	<dd>
+		<a href="http://semanticweb.org/wiki/Keith_Alexander">K. Alexander</a> (Talis) <br/> 
+		<a href="http://semanticweb.org/wiki/Richard_Cyganiak">R. Cyganiak</a> (DERI, National University of Ireland, Galway) <br/> 
+		<a href="http://semanticweb.org/wiki/Michael_Hausenblas">M. Hausenblas</a> (DERI, National University of Ireland, Galway) <br/> 
+		<a href="http://semanticweb.org/wiki/Jun_Zhao">J. Zhao</a> (University of Oxford) <br/>
+	</dd>
+</dl>
+<div style="font-size:80%">
+	Note: The content is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 License</a>.
+	<img src="img/cc-license.png" style="width: 88px;" alt="Creative Commons Attribution 3.0 License" />.
+</div>
+<hr />
+<div>
+	<h2>
+		<a id="sec_Abstract" name="sec_Abstract"></a> Abstract
+	</h2>
+	<p>
+		voiD is a vocabulary and a set of instructions that enables the discovery and usage of linked datasets. A dataset is a collection of data, published and maintained by a single provider, available as RDF, and accessible, for example, through dereferenceable HTTP URIs or a SPARQL endpoint. Based on the <a href="http://rdfs.org/ns/void">voiD vocabulary</a> this document explains how to use voiD in a practical setup, for both data consumers and data providers.
+	</p>
+	<h2>
+		<a id="Table_of_Contents" name="Table_of_Contents"></a> Table of Contents
+	</h2>
+	<div>
+		<ul style="list-style: disc; list-style: none;">
+			<li>
+				<a href="#sec_Scope" >Scope</a>
+			</li>
+			<li>
+				<a href="#sec_Introduction" >Introduction</a>
+			</li>
+			<li>
+				<a href="#sec_1_Describing_Datasets" >1. Describing Datasets</a>
+				<ul style="list-style: disc; list-style: none;">
+					<li>
+						<a href="#sec_1_1_General_Dataset_Metadata" >1.1 General Dataset Metadata</a>
+					</li>
+					<li>
+						<a href="#sec_1_2_Categorize_Datasets" >1.2 Categorise Datasets</a>
+						<ul style="list-style: disc; list-style: none;">
+							<li>
+								<a href="#sec_1_2_1_General_Case" >1.2.1 General Case</a>
+							</li>
+							<li>
+								<a href="#sec_1_2_2_Domain_specific" >1.2.2 Domain specific</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#sec_1_3_Announcing_the_license_of" >1.3 Announcing the license of a dataset</a>
+					</li>
+					<li>
+						<a href="#sec_1_4_Partitioning_Datasets" >1.4 Describing partitioned datasets</a>
+					</li>
+					<li>
+						<a href="#sec_1_5_Technical_description_features" >1.5 Technical Description (Features)</a>
+					</li>
+					<li>
+						<a href="#sec_1_6_SPARQL_endpoint_and_Examp" >1.6 SPARQL endpoints, URI lookup, and RDF data dumps</a>
+					</li>
+					<li>
+						<a href="#sec_1_7_Vocabularies_used" >1.7 Vocabularies used in a dataset</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#sec_2_Describing_Dataset_Interlink" >2. Describing Dataset Interlinking</a>
+				<ul style="list-style: disc; list-style: none;">
+					<li>
+						<a href="#sec_2_1_Classic_vs_3rd_party" >2.1 Classic LOD vs. 3rd-party Interlinking</a>
+					</li>
+					<li>
+						<a href="#sec_2_2_Directed_vs_Non_directed" >2.2 Non-directed vs. Directed</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#sec_3_Expressing_dataset_statistic" >3. Expressing dataset statistics</a>
+				<ul style="list-style: disc; list-style: none;">
+					<li>
+						<a href="#sec_3_1_Basic_dataset_statistics" >3.1 Basic dataset statistics</a>
+					</li>
+					<li>
+						<a href="#sec_3_2_Statistics_about_linksets" >3.2 Statistics about linksets</a>
+					</li>
+					<li>
+						<a href="#sec_3_3_Number_of_instances_of_class_or_prop" >3.3 Number of instances of a class or property</a>
+					</li>
+					<li>
+						<a href="#sec_3_4_Attributing_statistics_to_source" >3.4 Attributing statistics to a source</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#sec_4_Publishing_voiD" >4. Publishing voiD descriptions of datasets</a>
+				<ul style="list-style: disc; list-style: none;">
+					<li>
+						<a href="#sec_4_1_Publishing_a_voiD_file" >4.1 Publishing a voiD file</a>
+					</li>
+					<li>
+						<a href="#sec_4_2_Back-links" >4.2 Back-links</a>
+					</li>
+					<li>
+						<a href="#sec_4_3_Publishing_tools" >4.3 Tools</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#sec_5_Consuming_voiD" >5. Consuming voiD descriptions</a>
+				<ul style="list-style: disc; list-style: none;">
+					<li>
+						<a href="#sec_5_1_Discovery_via_links_in_docs" >5.1 Discovery via links in the dataset's documents</a>
+					</li>
+					<li>
+						<a href="#sec_5_2_Discovery_via_sitemaps" >5.2 Discovery via sitemap.xml</a>
+					</li>
+					<li>
+						<a href="#sec_5_3_Smushing_based_on_dataset_homepage" >5.3 Smushing based on dataset homepages</a>
+					</li>
+					<li>
+						<a href="#sec_5_4_Example_Queries" >5.4 Example Queries</a>
+						<ul style="list-style: disc; list-style: none;">
+							<li>
+								<a href="#sec_5_4_1_Example_Query_By_Category" >5.4.1 By Category</a>
+							</li>
+							<li>
+								<a href="#sec_5_4_2_Example_Query_By_Interlinking_with_certain_Dataset" >5.4.2 By Interlinking with a Certain Dataset</a>
+							</li>
+							<li>
+								<a href="#sec_5_4_3_Example_Query_By_Interlinking_with_certain_Type" >5.4.3 By Interlinking with a Certain Type</a>
+							</li>
+							<li>
+								<a href="#sec_5_4_4_Example_Query_By_Vocabulary" >5.4.4 By Vocabulary</a>
+							</li>
+							<li>
+								<a href="#sec_5_4_5_Example_Query_By_URI_regex" >5.4.5 By URI (Regex) Pattern</a>
+							</li>
+							<li>
+								<a href="#sec_5_4_6_Example_Query_By_Identifier_Of_Dataset">5.4.6 By the Identifier of a Dataset
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#sec_cheatsheet" >Cheat Sheet</a>
+			</li>			
+			<li>
+				<a href="#sec_References" >References</a>
+			</li>
+			<li>
+				<a href="#sec_Acknowledgements" >Acknowledgements</a>
+			</li>
+		</ul>
+	</div>
+	<h2>
+		<a id="sec_Scope" name="sec_Scope"></a> Scope 
+	</h2>
+	<p>
+		This document, the voiD guide, is one of the two core resources of voiD; the other is the <strong>voiD vocabulary</strong> document  <a href="#ref-voiD-voc">[voiD vocabulary]</a>. The voiD guide is aimed at both <strong>dataset publishers</strong> (those involved in maintaining, administering, and hosting, datasets), and <strong>data users</strong> (those involved in finding, querying, crawling, and indexing, datasets). We assume that readers of this document are familiar with the core concepts about the Web of Data, such as URIs and RDF, and have some basic knowledge about certain widely-used vocabularies such as Dublin Core (DC) and Friend of a Friend (FOAF).
+	</p>
+	<h2>
+		<a id="sec_Introduction" name="sec_Introduction"></a> Introduction
+	</h2>
+	<p>
+		The Web of Data (WoD) aims at providing technologies to support tasks that are tedious, time-consuming or otherwise non-human-friendly. Two technologies form the base of the WoD, namely URIs and RDF. URIs enable the worldwide, universal addressing of resources (such as people, documents, etc.); RDF provides a common data model that defines how to express properties and relations between resources. These resources could be published as a collection of data, i.e., a dataset, by anyone, in a distributed manner onto the Web. Such datasets already form a huge pool of real-world data available on the WoD. Still, it is an open issue on how to effectively and efficiently find the right data for the right task <a href="#ref-nodmag4-discovery">[WOD Discovery]</a>.
+	</p>
+	<p>
+		The Vocabulary of Interlinked Datasets (voiD) therefore aims to provide a vocabulary to bridge data publishers and data users, so that users can find the right data for their tasks more easily using the voiD description about a linked dataset. With discovery of datasets we mean the identification of datasets given certain attributes, trying to answer the question: <i>given a set of attributes, which available resources match the desired set and what is their location?</i>
+	</p>
+	<p>
+	The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <a href="#ref-RFC2119">[RFC2119]</a>. All examples in this document are informative, and are not meant to be interpreted as normative requirements.
+	</p>
+	<p><em>Note: Feedback on this document should be sent to <strong>void-rdfs-internals[AT]googlegroups.com</strong>. We also try to be available via IRC, on <a href="http://swig.xmlhack.com/">#swig</a> channel at <a href="irc://irc.freenode.net">irc.freenode.net</a>. You may further want to subscribe to the <a href="http://identi.ca/group/void">!voiD</a> group on identi.ca in order to receive latest news and/or to discuss voiD.</em></p>
+	
+	<h2>
+		<a id="sec_1_Describing_Datasets" name="sec_1_Describing_Datasets"></a> 1. Describing Datasets
+	</h2>
+	<p>
+		The basic functionality that voiD offers is describing a dataset. A <strong>dataset</strong> in voiD (<code>void:Dataset</code>) is a collection of data, which is:</p>
+		<ul>
+			<li>published and maintained by a <strong>single provider</strong>, and</li>
+			<li>available as <strong>RDF</strong>, and </li>
+			<li><strong>accessible</strong>, for example, through dereferenceable HTTP URIs or a SPARQL endpoint.</li>
+		 </ul>
+	<p>
+		<em>Note: A voiD dataset <code>void:Dataset</code> is a subclass of a DCMI dataset (<code><a href="http://purl.org/dc/dcmitype/Dataset">dcmi:Dataset</a></code>). Consult the DCMI type vocabulary <a href="#ref-DCMI-typevoc">[DCMI type voc]</a> for further information.</em>
+	</p>
+		
+	<p>	
+		In the following we describe the most common cases for using voiD along with reusing terms from other, widely deployed vocabularies such as <a href="http://dublincore.org/documents/dcmi-terms/">Dublin Core</a> or <a href="http://xmlns.com/foaf/spec/">FOAF</a>. Throughout the document, the following namespaces are used:
+	</p>
+	<pre>
+        <code>
+    @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+    @prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+    @prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+    @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+    @prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
+    @prefix dcterms: &lt;http://purl.org/dc/terms/&gt; .
+    @prefix scovo: &lt;http://purl.org/NET/scovo#&gt; .
+    @prefix void: &lt;http://rdfs.org/ns/void#&gt; .</code>
+    </pre>
+	
+	<p>All examples in this document are written in the Turtle RDF syntax <a href="#ref-turtle">[Turtle]</a>. To keep the examples simple and consistent, we will assume that we are creating a file called <code><a href="examples/void.ttl" title="void.ttl">void.ttl</a></code> which will contain a voiD description of the dataset under discussion in the example. We will further assume that the empty prefix is bound to the file like this:
+		</p>
+		<pre>
+	        <code>
+    @prefix : &lt;#&gt; .</code>
+		 </pre>
+	<p>
+		This allows us to quickly mint new identifiers in the local namespace: <code>:MyDataset</code>, <code> :DBpedia</code> and so on. For further information about publishing and deploying voiD descriptions see section  <a href="#sec_4_Publishing_voiD" >4. Publishing voiD descriptions of datasets</a>.</p>
+		<h3>
+			<a id="sec_1_1_General_Dataset_Metadata" name="sec_1_1_General_Dataset_Metadata"></a>1.1 General Dataset Metadata 
+		</h3>
+		<p>Let us assume that we are describing a well-known linked dataset, <a href="http://dbpedia.org/" title="DBpedia">DBpedia</a>. We will first mint an identifier, and type it as a <code>void:Dataset</code>:</p>
+		<pre>
+	        <code>
+    :DBpedia a void:Dataset .</code>
+		</pre>
+		<p>Next, we will add some basic information about the dataset: its <b>name</b>, a short <b>description</b>, its <b>homepage</b>, and links to some <b>example resources</b> that give a quick impression of the kind of data available in the dataset. This can be considered the most basic information that should be provided in any voiD description.</p>
+			<pre>
+				<code> 
+    :DBpedia a void:Dataset ;
+             dcterms:title "DBPedia" ;
+             dcterms:description "RDF data extracted from Wikipedia" ;
+             foaf:homepage &lt;http://dbpedia.org/&gt; ;
+             void:exampleResource &lt;http://dbpedia.org/resource/Berlin&gt; ; 
+             void:exampleResource &lt;http://dbpedia.org/resource/Physics&gt; ;
+             void:exampleResource &lt;http://dbpedia.org/resource/Ludwig_van_Beethoven&gt; .</code>
+				</pre>
+			<p><em>Note: As <code><a href="http://xmlns.com/foaf/spec/#term_homepage" title="foaf:homepage">foaf:homepage</a></code> is an Inverse Functional Property (<a href="http://esw.w3.org/topic/InverseFunctionalProperty" title="Inverse Functional Property">IFP</a>), providing the homepage URI  allows one to connect different descriptions of DBpedia that are provided in different places on the Web.</em></p>
+					<p>Additional metadata can be provided. <a href="#tab-general-metadata">[Table 1]</a> below lists some RDF properties that are especially useful and recommended, many from the <a href="http://dublincore.org/documents/dcmi-terms/" title="Dublin Core Metadata Terms">Dublin Core Metadata Terms</a>. Other properties can also be used, if not listed here.</p>
+			
+			<a name="tab-general-metadata" id="tab-general-metadata"></a>
+			   <div style="text-align:center;">
+			   <table summary="Using Dublin Core Metadata Terms in voiD for general dataset metadata" border="1" cellpadding="5px" cellspacing="2px">
+			   <caption><strong>Table 1.:</strong> Using Dublin Core Metadata Terms in voiD for general dataset metadata.</caption>
+			   <tbody>
+							<tr>
+								<td>
+									<code>foaf:homepage</code>
+								</td>
+								<td>
+									The homepage of the dataset. Note, this must be different from the homepage of the creator or publisher to avoid incorrect 'smushing'. If the dataset has no homepage dedicated to it, then <code>foaf:page</code> can be used instead.
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<code>void:exampleResource</code>
+								</td>
+								<td>
+									Link to some representative entity described within the dataset. This is intended to give users a quick impression of the kind of data contained in the dataset.
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<code>void:uriRegexPattern</code>
+								</td>
+								<td>
+									A regular expression pattern that matches one or more URI in the dataset. The pattern should use the same regular expression syntax as SPARQL, which uses the syntax definition of <a href="http://www.w3.org/TR/xmlschema-2/#regexs" title="The Regular Expression syntax defined by XML Schema Part 2">XML Schema 2: Regular Expressions</a>.
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<code>dcterms:title</code>
+								</td>
+								<td>
+									The name of the dataset.
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<code>dcterms:description</code>
+								</td>
+								<td>
+									A textual description of the dataset.
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<code>dcterms:creator</code>
+								</td>
+								<td>
+									An entity, such as a person, organisation, or service, that is primarily responsible for creating the dataset. The creator should be described as an RDF resource, rather than just providing the name as a literal.
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<code>dcterms:publisher</code>
+								</td>
+								<td>
+									An entity, such as a person, organisation, or service, that is responsible for making the dataset available. The publisher should be described as an RDF resource, rather than just providing the name as a literal.
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<code>dcterms:contributor</code>
+								</td>
+								<td>
+									An entity, such as a person, organisation, or service, that is responsible for making contributions to the dataset. The contributor should be described as an RDF resource, rather than just providing the name as a literal.
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<code>dcterms:source</code>
+								</td>
+								<td>
+									A related resource from which the dataset is derived. The source should be described as an RDF resource, rather than as a literal.
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<code>dcterms:date</code>
+								</td>
+								<td>
+									A point or period of time associated with an event in the life-cycle of the resource. The value should be formatted and data-typed as an <code>xsd:date</code>.
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<code>dcterms:created</code>
+								</td>
+								<td>
+									Date of creation of the dataset. The value should be formatted and data-typed as an <code>xsd:date</code>.
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<code>dcterms:issued</code>
+								</td>
+								<td>
+									Date of formal issuance (e.g., publication) of the dataset. The value should be formatted and datatyped as an <code>xsd:date</code>.
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<code>dcterms:modified</code>
+								</td>
+								<td>
+									Date on which the dataset was changed. The value should be formatted and datatyped as an <code>xsd:date</code>.
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				  </div>
+					
+				
+			<p>
+				The next example shows a more complete description of DBpedia that uses many of the properties above:
+			</p>
+				<pre>
+					<code>
+    :DBpedia a void:Dataset ; 
+             dcterms:title "DBPedia" ; 
+             dcterms:description "RDF data extracted from Wikipedia" ; 
+             foaf:homepage &lt;http://dbpedia.org/&gt; ; 
+             void:exampleResource &lt;http://dbpedia.org/resource/Berlin&gt; ; 
+             void:exampleResource &lt;http://dbpedia.org/resource/Physics&gt; ; 
+             void:exampleResource &lt;http://dbpedia.org/resource/Ludwig_van_Beethoven&gt; ; 
+             void:uriRegexPattern "http://dbpedia.org/resource/.+" ;     
+             dcterms:contributor :FU_Berlin ; 
+             dcterms:contributor :University_Leipzig ; 
+             dcterms:contributor :OpenLink_Software ; 
+             dcterms:contributor :DBpedia_community ; 
+             dcterms:source &lt;http://dbpedia.org/resource/Wikipedia&gt; ; 
+             dcterms:modified "2008-11-17"^^xsd:date .
+
+    :FU_Berlin a foaf:Organization ; 
+               rdfs:label "Freie Universit&auml;t Berlin" ; 
+               foaf:homepage &lt;http://www.fu-berlin.de/&gt; . 
+    
+     # Similar descriptions of the other contributors go here</code>
+				</pre>
+		<h3>
+			<a id="sec_1_2_Categorize_Datasets" name="sec_1_2_Categorize_Datasets"></a> 1.2 Categorise Datasets 
+		</h3>
+	</div>
+	<p>
+		When someone wants to select a dataset, one of the fundamental questions is, what does the dataset actually offer? There are datasets such as DBpedia that cover quite a range of topics, whereas there are others that only talk about a certain domain (books, places, etc.). 
+	</p> 
+	<p>
+	In voiD, the <code><a href="http://dublincore.org/documents/dcmi-terms/#terms-subject" title="dcterms:subject">dcterms:subject</a></code>  property should be used to categorise or describe the topic covered by datasets.
+	</p> 
+	<h4>
+		<a id="sec_1_2_1_General_Case" name="sec_1_2_1_General_Case"></a> 1.2.1 General Case 
+	</h4>
+	<p>
+	For the general case, we recommend the use of a DBpedia resource URI (<code>http://dbpedia.org/resource/XXX</code>) to categorise a dataset, where XXX stands for the thing which best describes the main topic of what the dataset is about. 
+</p> 
+<p>Two examples are given below. <a href="http://www4.wiwiss.fu-berlin.de/dblp/all" title="DBLP">DBLP</a> is a computer science bibliography database, and <a href="http://sws.geonames.org/" title="Geonames">Geonames</a> offers data about places. We define this in voiD:</p>
+  	<pre>
+		<code>
+    :DBLP a void:Dataset; 
+          dcterms:subject &lt;http://dbpedia.org/resource/Computer_science&gt; ;  
+          dcterms:subject &lt;http://dbpedia.org/resource/Journal&gt; ;  
+          dcterms:subject &lt;http://dbpedia.org/resource/Proceedings&gt; .  
+
+    :Geonames a void:Dataset; 
+              dcterms:subject &lt;http://dbpedia.org/resource/Location&gt; .</code>
+							</pre>
+<p>In the case of DBLP, we add triples saying that it offers data about proceedings, journals and computer science. Note:  It is assumed that the intersection of all resources defines the topic.</p>  
+		<h4>
+			<a id="sec_1_2_2_Domain_specific" name="sec_1_2_2_Domain_specific"></a>  1.2.2 Domain specific
+		</h4>
+		<p>DBpedia might not contain the concepts for describing some domain specific datasets. For example, there are no exact DBpedia resource URIs for describing that a dataset is about "<i>in situ</i> hybridisation images", or that another one is about "UniProt Genes". We encourage publishers to   describe such datasets   using concepts widely adopted in their own communities, so that they can not only capture   precisely   the categorisation of their datasets but also ensure that these datasets could be connected with other relevant data from their domains. For example, we could define that:</p>
+		<pre>
+			<code>
+    :Bio2RDF a void:Dataset ;   
+             foaf:homepage &lt;http://bio2rdf.org/&gt; ; 
+             dcterms:subject &lt;http://purl.uniprot.org/core/Gene&gt; .</code>
+						</pre>
+			<p>
+			 We also encourage data publishers to use <a href="http://www.w3.org/2004/02/skos/intro" title="SKOS Concepts">SKOS Concepts</a> whenever possible to capture the topics of their datasets.</p>  
+			<h3>
+				<a id="sec_1_3_Announcing_the_license_of" name="sec_1_3_Announcing_the_license_of"></a> 1.3 Announcing the license of a dataset
+			</h3>
+			<p>The <code>dcterms:license</code> property SHOULD be used to to point to the license under which a dataset has been published. This is crucial because without a license, potential users of the dataset do not know under which terms they can use it.</p> 
+			<p> 
+			To allow automatic analysis of datasets, it is important to use canonical identifiers for well-known licenses. The list below provides canonical URIs for some licenses that have been used to publish RDF datasets.</p> 
+<ul>
+	<li>
+		Creative Commons Public Domain Dedication, <a href="http://creativecommons.org/licenses/publicdomain/" title="Creative Commons Public Domain Dedication">http://creativecommons.org/licenses/publicdomain/</a>
+	</li>
+	<li>
+		Other Creative Commons licenses, <a href="http://creativecommons.org/licenses/" title="Creative Commons licenses">http://creativecommons.org/licenses/</a>
+	</li>
+	<li>
+		GNU Free Documentation License, <a href="http://www.gnu.org/copyleft/fdl.html" title="GNU Free Documentation License">http://www.gnu.org/copyleft/fdl.html</a>
+	</li>
+	<li>
+		Open Data Commons Public Domain Dedication and License, <a href="http://www.opendatacommons.org/odc-public-domain-dedication-and-licence/"  title="Open Data Commons Public Domain Dedication and License">http://www.opendatacommons.org/odc-public-domain-dedication-and-licence/</a>
+	</li>
+</ul>
+ 
+		<p>	The example below states that the DBpedia dataset is published under the terms of the GNU Free Documentation License. </p>
+			<pre>
+				<code>
+    :DBpedia a void:Dataset ; 
+             dcterms:license &lt;http://www.gnu.org/copyleft/fdl.html&gt; .</code>
+								</pre>
+					<p><em>Note: Licensing of datasets is a complex issue. Datasets are collections of facts rather than creative works, and different laws apply. Most licenses such as Creative Commons or the GPL are based on copyright and are designed to protect creative works, but not databases, and applying them to datasets might not have the desired legal result. Meanwhile, efforts such as <a href="http://www.opendatacommons.org/" title="Open Data Commons">Open Data Commons</a>, <a href="http://sciencecommons.org/" title="Science Commons">Science Commons</a> and <a href="http://sciencecommons.org/projects/healthcommons/" title="Health Commons">Health Commons</a> are developing dedicated licenses for data, and the <a href="http://www.opendoar.org/tools/en/policies.php" title="OpenDOAR">OpenDOAR</a> project provides tools allowing open-access digital repositories to create customised policies.</em></p>
+						
+<h3><a id="sec_1_4_Partitioning_Datasets" name="sec_1_4_Partitioning_Datasets"></a>1.4 Describing partitioned datasets</h3>
+
+<p>The <code>void:subset</code> property can be used to provide descriptions of <em>parts</em> of a dataset. A part of a dataset is is itself a <code>void:Dataset</code>, and any of the annotations for datasets listed in this Guide can be applied to the subset. Reasons for subdividing a dataset might include:</p>
+
+<ul>
+  <li>Parts have different provenance (different <code>dcterms:source</code>)</li>
+  <li>Parts have different publication dates (different <code>dcterms:date</code>)</li>
+  <li>Parts are accesible through different SPARQL endpoints (different <code>void:sparqlEndpoint</code>)</li>
+  <li>Parts are about different topics (different <code>dcterms:subject</code>)</li>
+  <li>Parts can be downloaded separately in different RDF dumps (different <code>void:dataDump</code>)</li>
+</ul>
+
+<p>The last example is expressed in the following snippet, which expresses the fact that parts of the DBpedia dataset can be downloaded <a href="http://wiki.dbpedia.org/Downloads">as separate RDF dumps</a>:</p>
+
+<pre>:DBpedia a void:Dataset;
+    void:subset :DBpedia_shortabstracts;
+    void:subset :DBpedia_infoboxes;
+    .
+:DBpedia_shortabstracts a void:Dataset;
+    dc:title "DBpedia Short Abstracts";
+    dc:description "Short Abstracts (max. 500 chars long) of Wikipedia Articles";
+    void:dataDump &lt;http://downloads.dbpedia.org/3.3/en/shortabstract_en.nt.bz2&gt;
+    .
+:DBpedia_infoboxes a void:Dataset;
+    dc:title "DBpedia Infoboxes";
+    dc:description "Information that has been extracted from Wikipedia infoboxes.";
+    void:dataDump &lt;http://downloads.dbpedia.org/3.3/en/infobox_en.nt.bz2&gt;
+    .</pre>
+
+<p>Making such statements about a subset emphasizes the fact that the statements apply only to a part of the dataset, and not the whole dataset. Note that the <code>void:subset</code> mechanism can also be used to describe <em>aggregated</em> datasets, in addition to partitioned datasets. The aggregation of two datasets <code>:DS_A</code> and <code>:DS_B</code> can be described like this:</p>
+
+<pre>:Aggregate_DS a void:Dataset;
+    dcterms:title "Aggregate Dataset";
+    dcterms:description "An aggregate of the A and B datasets.";
+    void:sparqlEndpoint &lt;http://example.org/sparql&gt;;
+    void:subset :DS_A;
+    void:subset :DS_B;
+    .</pre>
+
+			<h3>
+				<a id="sec_1_5_Technical_description_features" name="sec_1_5_Technical_description_features"></a> 1.5 Technical Description (Features) 
+			</h3>
+		<p>
+			To express a certain technical feature of a dataset, such as formats in which the data is available, there are two ways to realise this. 
+			 
+			In the simple case use <code>void:feature</code> along with a blank node. If one, for example, wants to say “this dataset is available as RDF/XML”, simply using the MIME type solves this:</p> 
+<pre>
+                    <code>
+    :DBpedia void:feature [ dcterms:format "application/rdf+xml" ; ] .</code>
+
+</pre>
+
+						<p>
+			 However, there may be use cases where you want to talk about the feature in greater detail. In this case, create a new instance for a feature using <code>void:TechnicalFeature</code> and connect it to the dataset using <code>void:feature</code>:</p> 
+<pre>
+                <code>
+    :RDFXML a void:TechnicalFeature;
+            rdfs:label "RDF/XML" ;
+            rdfs:comment "Available as linked data in RDF/XML format" ;
+            dcterms:format "application/rdf+xml" . 
+
+    :DBpedia void:feature :RDFXML .</code>
+
+</pre>
+<p><em>Note: voiD does not include a collection of pre-defined <code>void:TechnicalFeature</code> instances for particular technologies. Therefore, to describe technical features, it is necessary to define your own <code>void:TechnicalFeature</code>  instances as in the examples above. This is perhaps most useful for larger collections of voiD descriptions, where feature instances can be re-used across multiple voiD descriptions.</em>
+			</p>
+			<h3>
+				<a id="sec_1_6_SPARQL_endpoint_and_Examp" name="sec_1_6_SPARQL_endpoint_and_Examp"></a>  1.6 SPARQL endpoints, URI lookup, and RDF data dumps 
+			</h3>
+			<p>
+				 There are many different ways in which clients can access the actual data that is contained in a dataset. If the entities described in the dataset are identified by HTTP URIs, then it is a reasonable assumption that resolving such a URI will return an RDF description of the resource. 
+			</p>
+			<p>A SPARQL endpoint that provides access to a dataset via the SPARQL protocol can be announced using <code>void:sparqlEndpoint</code>:</p>
+				<pre>
+				      <code>
+    :DBpedia void:sparqlEndpoint &lt;http://dbpedia.org/sparql&gt; .</code>
+
+</pre>
+<p><em>
+	Note: It is assumed that the default graph of the SPARQL endpoint is the dataset itself.</em>
+</p>	
+			<p>
+				Besides the SPARQL protocol, a simple URI lookup protocol for accessing a dataset is supported by voiD:
+			</p>
+				<ol>
+					<li>Take the URI of a resource <strong>R</strong> that is described in the dataset 
+					</li>
+					<li>Urlencode the URI, and append it to the dataset's <strong>URI lookup endpoint</strong> 
+					</li>
+					<li>Perform an HTTP GET request on the resulting concatenated URI 
+					</li>
+					<li>The HTTP response is expected to be an RDF description of <strong>R</strong>. 
+					</li>
+				</ol>
+			<p><em>
+				Note: The HTTP request should be performed with an HTTP Accept header that indicates the formats supported by the requesting client, e.g. <code>"Accept: application/rdf+xml"</code> for a client that only supports RDF/XML.</em>
+			</p>
+			<p>
+				The following example shows how the <a href="http://sindice.com/developers/api" title="Sindice API">Sindice API</a> could be described as a voiD dataset with a URI lookup endpoint:
+			</p>
+			<pre>
+ <code>
+    :Sindice void:uriLookupEndpoint &lt;http://api.sindice.com/v2/search?qt=term&amp;q=&gt; .</code>
+
+</pre>
+			<p>If an RDF dump of the dataset is available, then its location can be announced using <code>void:dataDump</code>:</p>   
+			<pre>
+ <code>
+    :GenenameDS void:dataDump &lt;http://openflydata.org/flyted/dump/&gt; .</code>
+
+</pre>
+			<p>
+			Several values of this property can provided if the dataset is split into multiple dumps.
+		</p>
+		<p>
+			We do not prescribe the format of such data dumps, but clients should expect dumps to be in any of the <a href="http://sw.deri.org/2007/07/sitemapextension/#formats" title="formats that are supported by the Semantic Sitemaps specification">formats that are supported by the Semantic Sitemaps specification</a>.</p>
+
+		<h3>
+			<a id="sec_1_7_Vocabularies_used" name="sec_1_7_Vocabularies_used"></a> 1.7 Vocabularies used in a dataset
+		</h3>
+		<p>
+		Every RDF dataset uses one or more RDFS vocabularies or OWL ontologies. The vocabulary provides the terms (classes and properties) for expressing the data. The <code>void:vocabulary</code> property can be used to list vocabularies used in a dataset: 
+			</p>
+<pre>
+<code>
+    :LiveJournal a void:Dataset;
+                 void:vocabulary &lt;http://xmlns.com/foaf/0.1/&gt; .</code>
+
+</pre>
+<p>This dataset uses the <a href="http://xmlns.com/foaf/spec/" title="FOAF vocabulary">FOAF vocabulary</a>. </p>
+			<p>The vocabulary should be identified with the URI that's used with <code>rdfs:isDefinedBy</code> in the RDFS/OWL specification of the vocabulary. 
+			<em>Note: It is not necessary to list all vocabularies. Typically, only the most important vocabularies will be listed, especially those that can be useful in querying the dataset.</em>
+			</p>
+			<p>
+				To express that particular classes and properties occur in the dataset, statistics (see section <a href="#sec_3_Expressing_dataset_statistic" >3. Expressing dataset statistics</a>) can be used.
+			</p>
+			<h2>
+				<a id="sec_2_Describing_Dataset_Interlink" name="sec_2_Describing_Dataset_Interlink"></a> 2. Describing Dataset Interlinking
+			</h2>
+			<p>Now, as we are able to describe the basic characteristics of datasets we want to express how datasets are interlinked. 
+			In voiD, the interlinking is modelled using a class, <code>void:Linkset</code>. This means, the interlinking in voiD is a first-class citizen. This modelling enables a flexible and powerful way to talk in great detail about the interlinking between two datasets, such as how many links there exist, which kind of links (e.g. <code>owl:sameAs</code> or <code>foaf:knows</code>) are present, or stating who claims these statements.
+			</p>
+			<p>
+			A <strong>linkset</strong> in voiD (<code>void:Linkset</code>) is a subset of a voiD dataset (<code>void:Dataset</code>), used for storing triples to express the interlinking relationship between datasets. In each interlinking triple, the subject is a resource hosted in one dataset and the object is a resource hosted in another dataset. The following figure depicts this:</p>
+			
+			 <div style="text-align:center;">
+				<img src="img/void-linkset-conceptual.png" style="width: 600px;" alt="concept of a voiD linkset" />
+			</div>			
+			
+			<p>In voiD we differentiate between the following orthogonal dimensions when talking about the interlinking:</p> 
+			 <ul>
+				<li>classic LOD vs. 3rd-party, which differs in terms of where the interlinking statements are kept. In the first case the interlinking triples, i.e. a linkset, are hosted in one of the two involved datasets, while in the latter case there is a third dataset involved that contains the interlinking triples, i.e. the linkset;
+				</li>
+				<li>non-directed vs. directed, which addresses the issue if someone is interested in stating the direction of the interlinking or not (for example with <code>owl:sameAs</code>) 
+				</li>
+			</ul>
+			
+				<p>We basically use three properties for interlinking descriptions:</p> 
+					<ul>
+						<li>
+							<code>void:subset</code> to signal where the triples are physically hosted (read: a dataset <code>:DS</code> has a linkset <code>:LS</code>); 
+						</li>
+						<li>
+							<code>void:target</code> to declare an interlinking target; 
+						</li>
+						<li>
+							<code>void:linkPredicate</code> to talk about the type (RDF predicate type) of the interlinking. 
+						</li>
+					</ul> 
+					<p>
+					In case of a directed interlinking, voiD provides two properties, <code>void:subjectsTarget</code> and <code>void:objectsTarget</code>, which are sub-properties of <code>void:target</code>.  
+					</p>
+					 
+			<p>
+				The following <a href="#tab-void-interlinking-cap">[Table 2]</a> renders the possibilities along the two orthogonal dimensions: 
+			</p>
+		
+			<a name="tab-void-interlinking-cap" id="tab-void-interlinking-cap"></a>
+			   <div style="text-align:center;">
+			   <table summary="Interlinking description capabilities of voiD" border="1" cellpadding="5px" cellspacing="2px">
+			   <caption><strong>Table 2.:</strong> Interlinking description capabilities of voiD.</caption>
+			   <tbody>
+						<tr>
+							<td align="center">
+								<b>3rd-party</b> 
+							</td>
+							<td>
+								<pre>
+								<code>
+ :DSC void:subset :LS . 
+ :LS void:target :DSA ; 
+     void:target :DSB .
+								</code>
+								</pre>
+							</td>
+							<td>
+								<pre>
+								<code>
+ :DSC void:subset :LS . 
+ :LS void:subjectsTarget :DSA ; 
+     void:objectsTarget :DSB .
+								</code>
+								</pre>
+							</td>
+						</tr>
+						<tr>
+							<td align="center">
+								<b>classic LOD</b>
+							</td>
+							<td>
+								<pre>
+								<code>
+ :DSX void:subset :LS . 
+ :LS void:target :DSX ; 
+     void:target :DSY .
+								</code>
+								</pre>
+							</td>
+							<td>
+								<pre>
+								<code>
+ :DSX void:subset :LS .
+ :LS void:subjectsTarget :DSX ;
+     void:objectsTarget :DSY .
+								</code>
+								</pre>
+							</td>
+						</tr>
+						<tr align="center">
+							<td align="center"></td>
+							<td style="text-align: center;">
+								<b>non-directed</b> 
+							</td>
+							<td style="text-align: center;">
+								<b>directed</b> 
+							</td>
+						</tr>
+					</tbody>
+				</table>
+		</div>
+		
+	
+			<p>In the following we will show the different possibilities in detail. For example queries (that is how to find certain datasets) see section <a href="#sec_5_4_Example_Queries" >5.4 Example Queries</a>. </p>
+			<h3>
+				<a id="sec_2_1_Classic_vs_3rd_party" name="sec_2_1_Classic_vs_3rd_party"></a>  2.1 Classic LOD vs. 3rd-party  Interlinking
+			</h3>
+			<p>The simplest interlinking case (the <b>classic LOD</b> case), found in many of the current LOD clouds, is, that two datasets are interlinked and one of the datasets actually hosts the interlinking triples. Let us assume we want to model the interlinking we find in DBpedia regarding to its links to DBLP in voiD:</p>   
+<pre>
+	<code>
+    :DBpedia void:subset :DBpedia2DBLP .  
+
+    :DBpedia2DBLP rdf:type void:Linkset ;
+                  void:target :DBpedia ;
+                  void:target :DBLP .</code>
+
+</pre>  
+<p>
+	The above example basically states that DBpedia and DBLP are interlinked and that these links are contained in the DBpedia dataset. The according RDF graph would then render as follows:
+</p>
+ <div style="text-align:center;">
+	<img src="img/EXAMPLE_classic_non-directed.png" style="width: 600px;" alt="example interlinking for the classic LOD, non-directed case" />
+</div>
+<p>
+	Further, there may be cases where a third dataset contains the data that talks about the interlinking between two datasets (<b>3rd-party</b> case). Let us assume a provider (<code>:myDS</code> ) keeping track of the interlinking between DBpedia and DBLP (maybe offering some more detailed information, such as statistics, etc.) wants to express this using voiD:
+</p>
+<pre>
+ <code>
+    :myDS void:subset :DBpedia2DBLP .  
+
+    :DBpedia2DBLP rdf:type void:Linkset ;  
+                  void:target :DBpedia ;  
+                  void:target :DBLP .</code>
+
+</pre>  
+<p> The above example states that DBpedia and DBLP are interlinked, and that these links are contained in the <code>:myDS</code> dataset. <code>:myDS</code> could also contain interlinking information about many other datasets. The RDF graph for this example is:</p> 
+			 
+<div style="text-align:center;">
+<img src="img/EXAMPLE_3rdparty_non-directed.png" style="width: 600px;" alt="example interlinking for the 3rd-party, non-directed case" />
+</div>
+			<h3>
+				<a id="sec_2_2_Directed_vs_Non_directed" name="sec_2_2_Directed_vs_Non_directed"></a>    2.2 Non-directed vs. Directed   
+			</h3>
+			<p>Depending on the type of interlinking, one may be interested in stating the direction of the interlinking.</p> 
+			<p> 
+			In the <b>non-directed</b> case (i.e., the interlinking predicate is symmetric, such as <code>owl:sameAs</code>) you can simply use <code>void:target</code> (possibly along with <code>void:linkPredicate</code> to further specify the interlinking):</p> 
+<pre>
+ <code>
+    :DBpedia void:subset :DBpedia2Geonames .  
+
+    :DBpedia2Geonames a void:Linkset ; 
+                       void:linkPredicate owl:sameAs ;
+                       void:target :DBpedia ;
+                       void:target :Geonames .</code>
+
+</pre>  
+<p>The voiD snippet above basically states that there are <code>owl:sameAs</code> links between DBpedia and Geonames and that these links are contained in the DBpedia dataset, which can also be seen in the RDF graph below:</p> 
+			 
+ <div style="text-align:center;">
+	<img src="img/EXAMPLE_classic_non-directed_with-link-predicate.png" style="width: 600px;" alt="example interlinking for the classic LOD, non-directed case with a link predicate" />
+	</div>
+			<p>In the <b>directed</b> case (for example with <code>foaf:based_near</code>) you would use <code>void:subjectsTarget</code> and <code>void:objectsTarget</code> along with <code>void:linkPredicate</code> to state the direction of the interlinking:</p> 
+<pre>
+ <code>
+    :Jamendo void:subset :Jamendo2Geonames .  
+
+    :Jamendo2Geonames a void:Linkset ;  
+                      void:linkPredicate foaf:based_near ;  
+                      void:subjectsTarget :Jamendo ;  
+                      void:objectsTarget :Geonames .</code>
+
+</pre>  
+<p>The above snippet basically states that there are <code>foaf:based_near</code> links <strong>from</strong> Jamendo <strong>to</strong> Geonames and that these links are contained in the Jamendo dataset (see also the RDF graph in the following).</p> 
+ <div style="text-align:center;">
+	<img src="img/EXAMPLE_classic_directed_with-link-predicate.png" style="width: 600px;" alt="example interlinking for the classic LOD, directed case with a link predicate" />
+	</div>
+			<p>
+			The directed case may of course as well play together with the 3rd-party interlinking such as in the following example where some dataset (<code>:myDS</code>) contains information about the interlinking between Jamendo and Geonames:</p> 
+			<pre>
+				<code>
+    :myDS void:subset :Jamendo2Geonames .  
+
+    :Jamendo2Geonames a void:Linkset ;  
+                      void:linkPredicate foaf:based_near;  
+                      void:subjectsTarget :Jamendo ;  
+                      void:objectsTarget :Geonames .</code>
+
+</pre>  
+<p>Again, the according RDF graph may render these facts more clearly:</p> 
+ <div style="text-align:center;">
+	<img src="img/EXAMPLE_3rdparty_directed_with-link-predicate.png" style="width: 600px;" alt="example interlinking for the 3rd-party, directed case with a link predicate" />
+	</div>
+			<h2>
+				<a id="sec_3_Expressing_dataset_statistic" name="sec_3_Expressing_dataset_statistic"></a> 3. Expressing dataset statistics
+			</h2>
+			<div style="color: #F00; font-size:80%; border: 1px solid yellow; padding: 10px">
+			<p>
+				<em>Note: The mechanism described in this section is considered experimental and may be removed or significantly changed in future versions of this document.</em></p>
+				<p> We have discovered several issues with the mechanism as described here:  
+			</p>
+			<ul>
+					<li>In SCOVO, <code>scovo:Items</code> are grouped into <code>scovo:Datasets</code>, and there seems to be an implicit assumption that all items in such a dataset share the same dimensions. As described here, we attach items directly to a <code>void:Dataset</code>, which leads to mixing of items of different dimensionality. On the other hand, the correct SCOVO modelling would lead to awkwardly complex notation for simple statistics.   
+					</li>
+					<li>We encourage the use of classes and properties in places where SCOVO requires an instance of <code>scovo:Dimension</code>. This breaks the symmetry of the SCOVO model. SCOVO would require us to create a <code>scovo:Dimension</code> for each class or property. This would be quite verbose.   
+					</li>
+					<li>Because of the issues above, SPARQLing for statistics can be awkward. It will often require a verbose check to make sure that an item has only certain dimensions and no others.   
+					</li>
+				</ul>
+			<p>Users of the statistics feature should be aware of these issues, and of the possibility that this mechanism might be changed or replaced in the future. 	</p>
+			</div>
+			 
+			<p>This section describes how to express statistics about a dataset, such as the number of RDF triples contained in the dataset, or the number of resources described in the dataset. We use the <a href="http://sw.joanneum.at/scovo/schema.html" title="Statistical Core Vocabulary">Statistical Core Vocabulary</a> (SCOVO). The main concept in SCOVO is the <code>scovo:Item</code>, which records a single number or statistical value. We use the <code> void:statItem</code> property to connect a <code>scovo:Item</code> to the <code>void:Dataset</code> it describes. 
+		</p>
+		<h3>
+			<a id="sec_3_1_Basic_dataset_statistics" name="sec_3_1_Basic_dataset_statistics"></a> 3.1 Basic dataset statistics 
+		</h3>
+		<p>
+			 The following example states the number of triples in the DBpedia dataset.  
+			</p>
+				<pre>
+					<code>
+    :DBpedia a void:Dataset ;
+             ...
+             void:statItem [
+                scovo:dimension void:numberOfTriples ;
+                rdf:value 212576239 ;
+             ] ;</code>
+
+			</pre>
+			<p>A statistical data item is always used together with one or more <strong>dimensions</strong>, to indicate what kind of value the item represents. In voiD three dimensions are defined:</p>
+			<a name="tab-defined-stat-dimensions" id="tab-defined-stat-dimensions"></a>
+			    <div style="text-align:center;">
+			   <table summary="Defined statistical dimensions of voiD" border="1" cellpadding="5px" cellspacing="2px">
+			   <caption><strong>Table 3.:</strong> Defined statistical dimensions of voiD.</caption>
+			   <tbody>
+						<tr style="text-align: left;">
+							<td>
+								 <code>void:numberOfTriples</code>  
+							</td>
+							<td>
+								 The <code>scovo:Item</code> represents the number of RDF triples.  
+							</td>
+						</tr>
+						<tr style="text-align: left;">
+							<td>
+								 <code>void:numberOfResources</code>   
+							</td>
+							<td>
+								 The  <code>scovo:Item</code> represents the number of RDF resources, usually with distinct URIs.  
+							</td>
+						</tr>
+						<tr style="text-align: left;">
+							<td>
+								 <code>void:numberOfDocuments</code>   
+							</td>
+							<td>
+								 The  <code>scovo:Item</code> represents the number of documents that contain RDF data, such as RDF/XML documents or RDFa-annotated web pages. Non-RDF documents, such as web pages in HTML or images, are usually not included in this count. 
+							</td>
+						</tr>
+						<tr style="text-align: left;">
+							<td>
+								 <code>void:numberOfDistinctSubjects</code>   
+							</td>
+							<td>
+								 The  <code>scovo:Item</code> represents the number of distinct subjects, that is, the count of resources in an RDF statement <code>S P O</code> in the <code>S</code> position, with duplicates removed. 
+							</td>
+						</tr>
+						<tr style="text-align: left;">
+							<td>
+								 <code>void:numberOfDistinctObjects</code>   
+							</td>
+							<td>
+								 The  <code>scovo:Item</code> represents the number of distinct objects, that is, the count of resources in an RDF statement <code>S P O</code> in the <code>O</code> position, with duplicates removed. 
+							</td>
+						</tr>
+					</tbody>
+				</table>
+</div>
+			<p>
+				 SCOVO is extensible, and arbitrary other dimensions may be defined and used to provide statistical information about a dataset or linkset. 
+			</p>
+			<h3>
+				 <a id="sec_3_2_Statistics_about_linksets" name="sec_3_2_Statistics_about_linksets"></a> 3.2 Statistics about linksets  
+			</h3>
+			<p> The same as with datasets, statistics about linksets can be provided. Most importantly, the <code>void:numberOfTriples</code> dimension can be used to record the number of links in a linkset. Example:</p>
+<pre>
+<code>
+ :DBpedia2DBLP a void:Linkset;
+               void:target :DBpedia;
+               void:target :DBLP;
+               void:linkPredicate owl:sameAs;
+               void:statItem [ 
+                  rdf:value 10000;
+                  scovo:dimension void:numberOfTriples;
+               ] .</code>
+
+</pre>
+			<h3>
+				<a id="sec_3_3_Number_of_instances_of_class_or_prop" name="sec_3_3_Number_of_instances_of_class_or_prop"></a> 3.3 Number of instances of a class or property 
+			</h3>
+			<p>
+				How can I say how many instances of a particular class, such as <code>foaf:Person</code>, are described in a dataset? By using the class as a second <code>scovo:dimension</code> property in addition to <code>void:numberOfResources</code>:</p> 
+				<pre>
+<code>
+    void:statItem [ 
+       rdf:value 20000;
+       scovo:dimension void:numberOfResources ;
+       scovo:dimension foaf:Person ;
+    ] .</code>
+
+</pre>
+				<p> 
+				The number of triples with a particular predicate can be expressed with the same approach, by using the property as a dimension together with <code>void:numberOfTriples</code> .
+			</p>
+			<h3>
+				<a id="sec_3_4_Attributing_statistics_to_source" name="sec_3_4_Attributing_statistics_to_source"></a> 3.4 Attributing statistics to a source  
+			</h3>
+			<p>
+				Sometimes it can be useful to record where a statistical data point came from. Does this number come from the dataset's homepage, or from a blog post by the dataset publisher, or from a manual count? We use <code>dcterms:source</code> on the <code>scovo:Item</code> to record additional information about the number's provenance. 
+			</p>
+				<pre>
+<code>
+    void:statItem [ 
+       rdf:value 22000;
+       scovo:dimension void:numberOfTriples ;
+       dcterms:source &lt;http://lists.example.org/Archives/2008Sep/0327.html&gt;  ;
+    ] .</code>
+
+</pre>
+				<p>
+					Of course, additional information about the source can be recorded:
+				</p>
+				<pre>
+				<code>
+ &lt;http://lists.example.org/Archives/2008Sep/0327.html&gt; 
+    dcterms:title "Mail from Joe Bloggs announcing the new dataset" ;
+    dcterms:date "2008-09-23"^^xsd:date .</code>
+				</pre>
+			
+			<h2>
+				<a id="sec_4_Publishing_voiD" name="sec_4_Publishing_voiD"></a> 4. Publishing voiD descriptions of datasets
+			</h2>
+			<p>
+				Publishers of RDF datasets should publish a voiD description together with the dataset itself. This helps users to find and access the dataset, and to integrate it with other sources of data. This section describes how to publish such a voiD description alongside a dataset. We note that when voiD descriptions are published along with their dataset, they can be crawled and indexed by search engines and semantic indexer and data user can hence query for it based on dataset characteristics (such as categories, vocabularies used, interlinking, statistics, available under license X).</p>
+			<h3>
+				<a id="sec_4_1_Publishing_a_voiD_file" name="sec_4_1_Publishing_a_voiD_file"></a> 4.1 Publishing a voiD file
+			</h3>
+			<p>
+				Publishing a voiD file means to physically deploy it on the Web in an RDF serialisation. When deploying a voiD file one has basically three options:
+			</p>
+			<ol>
+				<li>Deploy it using Turtle RDF syntax <a href="#ref-turtle">[Turtle]</a> in a file called <code>void.ttl</code>and make it accessible by assign an URI. <b>Pro</b>: easily readable by humans. <b>Con</b>: current parser support not overly well; higher costs of setup when accessing.
+				</li>
+				<li>Deploy it using RDF/XML syntax <a href="#ref-rdfxml">[RDF/XML]</a> in a file called <code>void.rdf</code> and make it accessible by assign an URI. <b>Pro</b>: wide parser support. <b>Con</b>: awkward syntax.</li>
+				<li>Deploy it using XHTML+RDFa syntax <a href="#ref-rdfa">[RDFa]</a> in the homepage of the dataset. <b>Pro</b>: can be directly embedded into the web page that describes the dataset hence does not require the publisher to maintain a separate voiD file. <b>Con</b>: weak current parser support (incl. SPARQL consumption).</li>
+			</ol>
+			<div>
+				<p><em>Note: We have not decided on the canonical deployment format, yet. For the casual user, Turtle may seem to be the best option currently, but implementers are free to choose their deployment format as fit with their infrastructure. We explicitly solicit feedback on this issue!</em>
+					</p>
+			</div>
+			<h3>
+				<a id="sec_4_2_Back-links" name="sec_4_2_Back-links"></a> 4.2 Back-links 
+			</h3>In  voiD a dataset can be published as many documents on the Web. These documents can point back to the <code>void:Dataset</code>  URI using <code>dcterms:isPartOf</code> such as shown below: 
+			<pre>
+ <code>
+    &lt;http://dbpedia.org/data/Berlin&gt; <a href="http://dublincore.org/documents/dcmi-terms/#terms-isPartOf" title="dcterms:isPartOf">dcterms:isPartOf</a> :DBpedia .</code>
+				</pre>
+				<p>  
+			 If the dataset consists of resources identified by dereferenceable URIs, dereferencing a URI will redirect to a document containing a description of that resource, and the <code>dcterms:isPartOf</code> triple linking back from the document to the dataset.  This is especially handy in case when <a href="http://inkdroid.org/journal/2008/01/04/following-your-nose-to-the-web-of-data/">applying the follow-your-nose principle</a> where one often has a single URI as a starting point. The question is then how to find the way from this URI to the entire dataset, that is, in the first place to identify the according voiD description; see also section <a href="#sec_5_1_Discovery_via_links_in_docs" >5.1 Discovery via links in the dataset's documents</a> for the discovery process.</p> 
+			<h3>
+				<a id="sec_4_3_Publishing_tools" name="sec_4_3_Publishing_tools"></a> 4.3 Tools 
+			</h3>
+			<p>In order to support you to create voiD descriptions, we expect tools and libraries to emerge in the near future. One example currently already available is <a href="http://code.google.com/p/void-impl/source/browse/#svn/trunk/liftSSM" title="liftSSM XSLT">liftSSM</a>, an XSLT that takes a semantic sitemap in XML and creates a stub voiD description in RDF/XML. Take for example the following semantic sitemap as the starting point:</p>
+			<pre>
+ <code>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;  
+  &lt;urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+          xmlns:sc="http://sw.deri.org/2007/07/sitemapextension/scschema.xsd"&gt;  
+    &lt;sc:dataset&gt;  
+      &lt;sc:datasetLabel&gt;Example Corp. Product Catalog&lt;/sc:datasetLabel&gt;  
+      &lt;sc:datasetURI&gt;http://example.com/catalog.rdf#catalog&lt;/sc:datasetURI&gt;  
+      &lt;sc:linkedDataPrefix slicing="subject-object"&gt;http://example.com/products/&lt;/sc:linkedDataPrefix&gt;  
+      &lt;sc:sampleURI&gt;http://example.com/products/widgets/X42&lt;/sc:sampleURI&gt;  
+      &lt;sc:sampleURI&gt;http://example.com/products/categories/all&lt;/sc:sampleURI&gt;  
+      &lt;sc:sparqlEndpointLocation slicing="subject-object"&gt;http://example.com/sparql&lt;/sc:sparqlEndpointLocation&gt;  
+      &lt;sc:dataDumpLocation&gt;http://example.com/data/catalogdump.rdf.gz&lt;/sc:dataDumpLocation&gt;  
+      &lt;sc:dataDumpLocation&gt;http://example.org/data/catalog_archive.rdf.gz&lt;/sc:dataDumpLocation&gt;  
+      &lt;sc:dataDumpLocation&gt;http://example.org/data/product_categories.rdf.gz&lt;/sc:dataDumpLocation&gt;  
+      &lt;changefreq&gt;weekly&lt;/changefreq&gt;  
+    &lt;/sc:dataset&gt;  
+  &lt;/urlset&gt;</code>
+				</pre>   
+			 <p>After applying the liftSSM transformation the resulting RDF/XML document would look like:</p> 
+<pre>
+ <code>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+  &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+           xmlns:sc="http://sw.deri.org/2007/07/sitemapextension/scschema.xsd" 
+           xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" 
+           xmlns:dcterms="http://purl.org/dc/terms/" 
+           xmlns:foaf="http://xmlns.com/foaf/0.1/"
+           xmlns:scovo="http://purl.org/NET/scovo#" 
+           xmlns:void="http://rdfs.org/ns/void#"&gt;
+    &lt;void:Dataset rdf:about="http://example.com/catalog.rdf#catalog"&gt; 
+      &lt;dcterms:comment&gt;Example Corp. Product Catalog&lt;/dcterms:comment&gt;
+      &lt;foaf:homepage rdf:resource="http://example.org/dataset.html"/&gt;
+      &lt;dcterms:subject rdf:resource="http://dbpedia.org/resource/EXAMPLE"/&gt;
+      &lt;dcterms:creator rdf:resource="http://example.org/creator#me"/&gt;
+      &lt;dcterms::license rdf:resource="http://creativecommons.org/licenses/by/3.0/"/&gt; 
+      &lt;void:statItem rdf:parseType="Resource"&gt; 
+        &lt;scovo:dimension rdf:resource="http://rdfs.org/ns/void#numOfTriples"/&gt; 
+        &lt;rdf:value rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"&gt;0&lt;/void:value&gt;
+      &lt;/void:statItem&gt; 
+      &lt;void:exampleResource rdf:resource="http://example.com/products/widgets/X42"/&gt; 
+      &lt;void:exampleResource rdf:resource="http://example.com/products/categories/all"/&gt; 
+      &lt;void:sparqlEndpoint rdf:resource="http://example.com/sparql"/&gt;
+      &lt;void:dataDump rdf:resource="http://example.com/data/catalogdump.rdf.gz"/&gt; 
+      &lt;void:dataDump rdf:resource="http://example.org/data/catalog_archive.rdf.gz"/&gt; 
+      &lt;void:dataDump rdf:resource="http://example.org/data/product_categories.rdf.gz"/&gt; 
+      &lt;void:uriPattern&gt;^http://example.com/products/$&lt;/void:uriPattern&gt; 
+    &lt;/void:Dataset&gt; 
+  &lt;/rdf:RDF&gt;</code>
+
+</pre>      
+			 
+			<h2>
+				<a id="sec_5_Consuming_voiD" name="sec_5_Consuming_voiD"></a> 5. Consuming voiD descriptions
+			</h2>
+			<p>When a user retrieves a document containing data that may belong to a dataset, they may well want to know about the dataset it belongs to.  How can dataset publishers make this information available?</p> 
+			<h3>
+				<a id="sec_5_1_Discovery_via_links_in_docs" name="sec_5_1_Discovery_via_links_in_docs"></a> 5.1 Discovery via links in the dataset's documents
+			</h3>
+			<p>For datasets that are published as a collection of RDF documents in the linked data style, the preferred mechanism of discovering an associated voiD description is the back-link mechanism described in section <a href="#sec_4_2_Back-links" >4.2 Back-links</a>. Clients should look for a <code>dcterms:isPartOf</code>  triple that links the RDF document to the dataset:</p> 
+<pre>
+  <code>
+    &lt;document.rdf&gt; <a href="http://dublincore.org/documents/dcmi-terms/#terms-isPartOf" title="dcterms:isPartOf">dcterms:isPartOf</a> &lt;void.ttl#MyDataset&gt;</code>
+
+</pre>  
+			 
+			<h3>
+				<a id="sec_5_2_Discovery_via_sitemaps" name="sec_5_2_Discovery_via_sitemaps"></a> 5.2 Discovery via sitemap.xml
+			</h3>
+			<p>This section describes a discovery mechanism for voiD descriptions based on <code>robots.txt</code> and <code>sitemap.xml</code>. This is useful in several situations:
+		</p>
+			<ul>
+				<li>Datasets where individual documents contain no back-links 
+				</li>
+				<li>Datasets that are not available as linked data 
+				</li>
+				<li>Where the client only knows the SPARQL endpoint of a dataset 
+				</li>
+				<li>For checking if a given domain contains any RDF datasets 
+				</li>
+			</ul>
+		
+		<p>
+			The discovery-via-sitemaps in voiD is defined as follows:
+		</p>
+			 
+			<ol>
+				<li>Given a domain name, the client gets the file <code>robots.txt</code> and searches for a line that starts with '<code>Sitemap :</code>'; the rest of that line is the URI of a sitemap. See the specifications for <a href="http://www.robotstxt.org/wc/norobots.html" title="robots.txt">robots.txt</a> and the <a href="http://www.sitemaps.org/" title="sitemap protocol">sitemap protocol</a> for more details.
+				</li>
+				<li>The <a href="http://sw.deri.org/2007/07/sitemapextension/" title="semantic sitemaps extension">semantic sitemaps extension</a> to the sitemap protocol defines a <code>&lt;sc:dataset&gt;</code> element that can have a <code>&lt;sc:datasetURI&gt;</code> child element. The value of that element is a URI that identifies the dataset.
+				</li>
+				<li>The dataset URI is dereferenced (as always, this might involve truncating the hash part of the URI or following an HTTP redirect). The final result of the dereferencing should be a voiD description of the dataset. 
+				</li>
+			</ol>
+		<h3>
+			<a id="sec_5_3_Smushing_based_on_dataset_homepage" name="sec_5_3_Smushing_based_on_dataset_homepage"></a> 5.3 Smushing based on dataset homepages 
+		</h3>
+		<p>
+			One scenario for the use of voiD is to aggregate voiD descriptions of different datasets from different providers into a single collection. In this case, the same dataset can occur multiple times with different URIs. For example, if DBpedia publishes a voiD description, then it might use this URI: 
+		</p>
+<pre>
+<code>
+    http://dbpedia.org/void.ttl#DBpedia</code>
+
+</pre>	  
+		<p>
+			But if Geonames publishes a voiD description, including a linkset for their links to DBpedia, it might use a different URI: 
+		</p>
+<pre>
+<code>
+    http://geonames.org/void.rdf#dbpedia</code>
+
+</pre>	  
+		<p>  
+		 In a voiD collection that contains both these voiD descriptions, it is often desirable to 'smush' these two URIs into a single resource. The recommended process is <strong>IFP smushing</strong> on <code>foaf:homepage</code> property: dataset resources that have the exact same homepage URI should be combined into a single resource.
+			</p> 
+			
+			
+			<h3>
+				<a id="sec_5_4_Example_Queries" name="sec_5_4_Example_Queries"></a> 5.4 Example Queries
+			</h3>
+			<p>The following queries allow the selection of datasets from a collection of voiD descriptions based on different criteria.</p> 
+			<h4>
+				<a id="sec_5_4_1_Example_Query_By_Category" name="sec_5_4_1_Example_Query_By_Category"></a> 5.4.1 By Category
+			</h4>
+			<pre>
+			<code>
+ SELECT DISTINCT ?dataset
+ WHERE {
+   ?dataset a void:Dataset .
+   ?dataset dcterms:subject &lt;http://dbpedia.org/resource/Computer_science&gt; .
+ }</code>
+
+</pre>
+<p>Returns all datasets that are about '<a href="http://dbpedia.org/resource/Computer_science">Computer Science</a>'. See also <a href="examples/ex1.sparql" title="example query 1">example query 1</a> online.</p>
+			<h4>
+				<a id="sec_5_4_2_Example_Query_By_Interlinking_with_certain_Dataset" name="sec_5_4_2_Example_Query_By_Interlinking_with_certain_Dataset"></a> 5.4.2 By Interlinking with a Certain Dataset</h4>
+			<pre>
+			<code>
+ SELECT DISTINCT ?dataset
+ WHERE {
+   ?dataset a void:Dataset .
+   ?linkset void:target ?dataset ;
+   			void:target :Geonames .
+ }</code>
+
+</pre>
+<p>Returns all datasets that contain links that interlink them with Geonames. 	See also <a href="examples/ex2.sparql" title="example query 2">example query 2</a> online.</p>
+			<h4>
+				<a id="sec_5_4_3_Example_Query_By_Interlinking_with_certain_Type" name="sec_5_4_3_Example_Query_By_Interlinking_with_certain_Type"></a> 5.4.3 By Interlinking with a Certain Type
+			</h4>
+			<pre>
+			<code>
+ SELECT ?dataset 
+ WHERE { 
+   ?dataset a void:Dataset ;
+   void:subset ?linkset .
+   ?linkset void:subjectsTarget ?dataset ;
+   void:objectsTarget :Geonames;
+   void:linkPredicate foaf:based_near .
+ }</code>
+
+</pre>
+			<p>
+			Returns all datasets that contain <code>foaf:based_near</code>-links to Geonames.
+			See also <a href="examples/ex3.sparql" title="example query 3">example query 3</a> online.</p>
+
+		<h4>
+			<a id="sec_5_4_4_Example_Query_By_Vocabulary" name="sec_5_4_4_Example_Query_By_Vocabulary"></a> 5.4.4 By Vocabulary 
+		</h4>
+		<pre>
+		<code>
+ SELECT ?dataset
+ WHERE {
+   ?dataset a void:Dataset ;
+   void:vocabulary &lt;http://xmlns.com/foaf/0.1/&gt; .
+ }</code>
+
+</pre>
+		<p>
+			Returns all dataset that use the FOAF vocabulary.
+			See also <a href="examples/ex4.sparql" title="example query 4">example query 4</a> online.	
+		</p>
+			
+			
+			<h4>
+				<a id="sec_5_4_5_Example_Query_By_URI_regex" name="sec_5_4_5_Example_Query_By_URI_regex"></a> 5.4.5 By URI (Regex) Pattern
+			</h4>
+			<p>If we have a URI <code>http://dbpedia.org/resource/Amsterdam</code>, and we want to find datasets that might contain triples using that URI, we can do the following query:</p> 
+			
+				<pre>
+				<code>
+ SELECT ?dataset
+ WHERE {
+   ?dataset a void:Dataset .
+   ?dataset void:uriRegexPattern ?pattern .
+   FILTER(REGEX("http://dbpedia.org/resource/Amsterdam", ?pattern))
+ }</code>
+
+</pre>
+<p>Returns all datasets with a URI Regex Pattern that matches <code>"http://dbpedia.org/resource/Amsterdam"</code>. 
+	
+		See also <a href="examples/ex5.sparql" title="example query 5">example query 5</a> online.	
+	</p>
+<h4>
+				<a id="sec_5_4_6_Example_Query_By_Identifier_Of_Dataset" name="sec_5_4_6_Example_Query_By_Identifier_Of_Dataset"></a> 5.4.6 By the Identifier of a Dataset
+			</h4>
+			<p>If multiple voiD descriptions about a dataset are published by different parties, this dataset might be given different URIs in each voiD description. Thus, we will use the <code>foaf:homepage</code> property, which uniquely identifies the dataset, to gather these descriptions, smushing them under a single URI. </p> 
+			
+				<pre>
+					<code>
+CONSTRUCT {
+ :DBpedia ?p ?o
+}
+WHERE {
+  ?dataset a void:Dataset; foaf:homepage &lt;http://dbpedia.org/&gt; ; ?p ?o .
+}
+ 					</code>
+				</pre>
+			
+				<p>Smushes all the properties of any dataset description with a <code><a href="http://xmlns.com/foaf/spec/homepage">foaf:homepage</a></code> property of <a href="http://dpbedia.org/">http://dpbedia.org/</a>, into a single RDF description.
+
+See also <a href="examples/ex6.sparql" title="example query 6">example query 6</a> online.	
+						
+				</p>
+	
+<h2>
+	<a id="sec_cheatsheet" name="sec_cheatsheet"></a> Cheat Sheet
+</h2>
+<p><em>Note that classes start with a capital letter, properties with lower case. The following table is intended to give a quick overview; it is not normative. The only normative place is at the voiD vocabulary location at <a href="http://rdfs.org/ns/void/">http://rdfs.org/ns/void/</a>.</em>
+	</p>
+<p>
+	The entities defined in the voiD vocabulary (in alphabetical order, classes first) are:
+</p>
+<p>
+	<a name="tab-void-cs" id="tab-void-cs"></a>
+</p>
+<div style="text-align:center;">
+	<table summary="voiD cheat sheet" border="1" cellpadding="10" cellspacing="2">
+		<caption>voiD cheat sheet.</caption>
+
+
+		<tbody>
+			<tr>
+				<th>
+					<strong>voiD entity</strong>
+				</th>
+				<th>
+					<strong>description</strong>
+				</th>
+				<th>
+					<strong>example</strong>
+				</th>
+			</tr>
+			<tr>
+				<td style="text-align:center">
+					<code><a href="http://rdfs.org/ns/void/html#Dataset">void:Dataset</a></code>
+				</td>
+				<td>A dataset is a collection of data, published and maintained by a single provider, available as RDF on the Web, where at least some of the resources in the dataset are identified by dereferencable URIs.</td>
+				<td style="vertical-align: top;">see section <a href="#sec_1_Describing_Datasets">1. Describing Datasets</a></td>
+			</tr>
+			<tr>
+				<td style="text-align:center">
+					<code><a href="http://rdfs.org/ns/void/html#Linkset">void:Linkset</a></code>
+				</td>
+				<td>A linkset is a subset of a dataset, consisting of triples where the subject is a resource hosted in one dataset, and the object is a resource hosted in another.</td>
+				<td style="vertical-align: top;">see section <a href="#sec_2_Describing_Dataset_Interlink">2. Describing Dataset Interlinking</a></td>
+			</tr>
+			<tr>
+				<td style="text-align:center">
+					<code><a href="http://rdfs.org/ns/void/html#TechnicalFeature">void:TechnicalFeature</a></code>
+				</td>
+				<td>To express a certain technical feature of a dataset, such as formats (available in RDF/XML, etc.).</td>
+				<td style="vertical-align: top;">see section <a href="#sec_1_5_Technical_description_features">1.5 Technical Description (Features)</a></td>
+			</tr>
+			<tr>
+				<td style="text-align:center">
+					<code><a href="http://rdfs.org/ns/void/html#dataDump">void:dataDump</a></code>
+				</td>
+				<td>If an RDF dump of the dataset is available, then its location can be announced using this property.</td>
+				<td style="vertical-align: top;">see section <a href="#sec_1_6_SPARQL_endpoint_and_Examp">1.6 SPARQL endpoints, URI lookup, and RDF data dumps </a></td>
+			</tr>
+			<tr>
+				<td style="text-align:center">
+					<code><a href="http://rdfs.org/ns/void/html#exampleResource">void:exampleResource</a></code>
+				</td>
+				<td>Gives an example of a representative resource of a dataset.</td>
+				<td style="vertical-align: top;">see section <a href="#sec_1_1_General_Dataset_Metadata">1.1 General Dataset Metadata</a></td>
+			</tr>
+			<tr>
+				<td style="text-align:center">
+					<code><a href="http://rdfs.org/ns/void/html#feature">void:feature</a></code>
+				</td>
+				<td>Defines which technical features a dataset supports.</td>
+				<td style="vertical-align: top;">see section <a href="#sec_1_5_Technical_description_features">1.5 Technical Description (Features)</a></td>
+			</tr>
+			<tr>
+				<td style="text-align:center">
+					<code><a href="http://rdfs.org/ns/void/html#linkPredicate">void:linkPredicate</a></code>
+				</td>
+				<td>States that the interlinking is about a certain RDF predicate.</td>
+				<td style="vertical-align: top;">see section <a href="#sec_2_Describing_Dataset_Interlink">2. Describing Dataset Interlinking</a></td>
+			</tr>
+			<tr>
+				<td style="text-align:center">
+					<code><a href="http://rdfs.org/ns/void/html#objectsTarget">void:objectsTarget</a></code>
+				</td>
+				<td>For RDF properties (such as <code>foaf:based_near</code>) where the direction shall be stated explicitly this property is used to indicate the sink of the interlinking.</td>
+				<td style="vertical-align: top;">see section <a href="#sec_2_2_Directed_vs_Non_directed">2.2 Non-directed vs. Directed</a></td>
+			</tr>
+			<tr>
+				<td style="text-align:center">
+					<code><a href="http://rdfs.org/ns/void/html#sparqlEndpoint">void:sparqlEndpoint</a></code>
+				</td>
+				<td>Announcement of a SPARQL endpoint.</td>
+				<td style="vertical-align: top;">see section <a href="#sec_1_6_SPARQL_endpoint_and_Examp">1.6 SPARQL endpoints, URI lookup, and RDF data dumps </a></td>
+			</tr>
+			<tr>
+				<td style="text-align:center">
+					<code><a href="http://rdfs.org/ns/void/html#statItem">void:statItem</a></code>
+				</td>
+				<td>States a certain quantitative measure.</td>
+				<td style="vertical-align: top;">see section <a href="#sec_3_1_Basic_dataset_statistics">3.1 Basic dataset statistics</a></td>
+			</tr>
+			<tr>
+				<td style="text-align:center">
+					<code><a href="http://rdfs.org/ns/void/html#subjectsTarget">void:subjectsTarget</a></code>
+				</td>
+				<td>For RDF properties (such as <code>foaf:based_near</code>) where the direction shall be stated explicitly this property is used to indicate the source of the interlinking.</td>
+				<td style="vertical-align: top;">see section <a href="#sec_2_2_Directed_vs_Non_directed">2.2 Non-directed vs. Directed</a></td>
+			</tr>
+			<tr>
+				<td style="text-align:center">
+					<code><a href="http://rdfs.org/ns/void/html#subset">void:subset</a></code>
+				</td>
+				<td>Defines a logical subset of a dataset (a linkset or a dataset containing only certain resources of a domain, for example).</td>
+				<td style="vertical-align: top;">see section <a href="#sec_2_Describing_Dataset_Interlink">2. Describing Dataset Interlinking</a></td>
+			</tr>
+			<tr>
+				<td style="text-align:center">
+					<code><a href="http://rdfs.org/ns/void/html#target">void:target</a></code>
+				</td>
+				<td>States that a linkset has a certain dataset as its target.</td>
+				<td style="vertical-align: top;">see section <a href="#sec_2_Describing_Dataset_Interlink">2. Describing Dataset Interlinking</a></td>
+			</tr>
+			<tr>
+				<td style="text-align:center">
+					<code><a href="http://rdfs.org/ns/void/html#uriLookupEndpoint">void:uriLookupEndpoint</a></code>
+				</td>
+				<td>Defines a simple URI look-up protocol for accessing a dataset based on an URI end-point.</td>
+				<td style="vertical-align: top;">see section <a href="#sec_1_6_SPARQL_endpoint_and_Examp">1.6 SPARQL endpoints, URI lookup, and RDF data dumps </a></td>
+			</tr>
+			<tr>
+				<td style="text-align:center">
+					<code><a href="http://rdfs.org/ns/void/html#uriRegexPattern">void:uriRegexPattern</a></code>
+				</td>
+				<td>A regular expression pattern that matches one or more URI in the dataset.</td>
+				<td style="vertical-align: top;">see section <a href="#sec_1_1_General_Dataset_Metadata">1.1 General Dataset Metadata</a></td>
+			</tr>
+			<tr>
+				<td style="text-align:center">
+					<code><a href="http://rdfs.org/ns/void/html#vocabulary">void:vocabulary</a></code>
+				</td>
+				<td>Links a dataset to an RDFS vocabulary or OWL ontology whose classes and properties are used in the dataset.</td>
+				<td style="vertical-align: top;">see section <a href="#sec_1_7_Vocabularies_used">1.7 Vocabularies used in a dataset</a></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+
+
+<h2>
+	<a id="sec_References" name="sec_References"></a> References
+</h2>
+<dl>
+	<dt>
+		<a name="ref-DCMI-typevoc" id="ref-DCMI-typevoc"></a>[DCMI type voc]
+	</dt>
+	<dd><a href="http://dublincore.org/documents/2008/01/14/dcmi-type-vocabulary/"><cite>DCMI Type Vocabulary</cite></a>, January 2008. URI: http://dublincore.org/documents/2008/01/14/dcmi-type-vocabulary/
+	</dd>
+	<dt>
+		<a name="ref-RFC2119" id="ref-RFC2119"></a>[RFC2119]
+	</dt>
+	<dd><a href="http://www.rfc-editor.org/rfc/rfc2119.txt"><cite>Key words for use in RFCs to indicate requirement levels</cite></a>, RFC 2119, S. Bradner, March 1997. URI: http://www.rfc-editor.org/rfc/rfc2119.txt
+	</dd>
+	<dt>
+		<a name="ref-rdfa" id="ref-rdfa"></a>[RDFa]
+	</dt>
+	<dd>
+		<a href="http://www.w3.org/TR/2008/NOTE-xhtml-rdfa-primer-20081014/"><cite>RDFa Primer</cite></a>, B. Adida, M. Birbeck,W3C Working Group Note 14 October 2008. URI: http://www.w3.org/TR/2008/NOTE-xhtml-rdfa-primer-20081014/
+	</dd>
+	<dt>
+		<a name="ref-rdfxml" id="ref-rdfxml"></a>[RDF/XML]
+	</dt>
+	<dd>
+		<a href="http://www.w3.org/TR/2004/REC-rdf-syntax-grammar-20040210/"><cite>RDF/XML Syntax Specification (Revised)</cite></a>, D. Beckett, W3C Recommendation 10 February 2004. URI: http://www.w3.org/TR/2004/REC-rdf-syntax-grammar-20040210/
+	</dd>	
+	<dt>
+		<a name="ref-turtle" id="ref-turtle"></a>[Turtle]
+	</dt>
+	<dd>
+		<a href="http://www.w3.org/TeamSubmission/2008/SUBM-turtle-20080114/"><cite>Turtle - Terse RDF Triple Language</cite></a>, D. Beckett, T. Berners-Lee, W3C Team Submission 14 January 2008. URI: http://www.w3.org/TeamSubmission/2008/SUBM-turtle-20080114/
+	</dd>
+
+	<dt>
+		<a name="ref-voiD-voc" id="ref-voiD-voc"></a>[voiD vocabulary]
+	</dt>
+	<dd>
+		<a href="http://rdfs.org/ns/void/"><cite>voiD Vocabulary</cite></a>, K. Alexander, R. Cyganiak, M. Hausenblas, J. Zhao, January 2009. URI: http://rdfs.org/ns/void/
+	</dd>
+	<dt>
+		<a name="ref-nodmag4-discovery" id="ref-nodmag4-discovery"></a>[WOD Discovery]
+	</dt>
+	<dd>
+		<a href="http://www.talis.com/nodalities/pdf/nodalities_issue4.pdf"><cite>Discovery and Usage of Linked Datasets on the Web of Data</cite></a>, M. Hausenblas, NodMag #4, 2008. URI: http://www.talis.com/nodalities/pdf/nodalities_issue4.pdf
+	</dd>		
+</dl>
+
+<h2>
+	<a id="sec_Acknowledgements" name="sec_Acknowledgements"></a> Acknowledgements
+</h2>
+<p>Our thanks go out to some chaps who influenced the design of voiD, provided use cases and ensured that we would never get bored too quickly. These people were (alphabetically): Orri Erling, Hugh Glaser, Olaf Hartig, Tom Heath, Ian Millard, Marc-Alexandre Nolin, Yves Raimond, Yrj&auml;n&auml; Rankka, Francois Scharffe, Giovanni Tummarello.</p>
+<p>The work has partly been supported by the following projects: EC FP7 project ICT-2007.1.2 ROMULUS (<a href="http://www.ict-romulus.eu/">http://www.ict-romulus.eu/</a>), etc.</p>
+
+</div>
+
+
+<!-- end Drupal content -->
+</body></html>
