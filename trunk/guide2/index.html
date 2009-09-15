@@ -96,6 +96,9 @@ Note: For your convenience,  there is also a <a href="voiD-guide_v63.pdf">PDF ve
 					<li>
 						<a href="#sec_1_7_Vocabularies_used" >1.7 Vocabularies used in a dataset</a>
 					</li>
+					<li>
+						<a href="#sec_1_8_Example_resources" >1.8 Example resources</a>
+					</li>
 				</ul>
 			</li>
 			<li>
@@ -234,6 +237,7 @@ Note: For your convenience,  there is also a <a href="voiD-guide_v63.pdf">PDF ve
     @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
     @prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
     @prefix dcterms: &lt;http://purl.org/dc/terms/&gt; .
+    @prefix dbp: &lt;http://dbpedia.org/property/&gt; .
     @prefix scovo: &lt;http://purl.org/NET/scovo#&gt; .
     @prefix void: &lt;http://rdfs.org/ns/void#&gt; .</code>
     </pre>
@@ -282,12 +286,6 @@ Note: For your convenience,  there is also a <a href="voiD-guide_v63.pdf">PDF ve
 								</td>
 							</tr>
 							<tr>
-								<td>
-									<code>void:exampleResource</code>
-								</td>
-								<td>
-									Link to some representative entity described within the dataset. This is intended to give users a quick impression of the kind of data contained in the dataset.
-								</td>
 							</tr>
 							<tr>
 								<td>
@@ -525,7 +523,7 @@ Note: For your convenience,  there is also a <a href="voiD-guide_v63.pdf">PDF ve
 			In the simple case use <code>void:feature</code> along with a blank node. If one, for example, wants to say “this dataset is available as RDF/XML”, simply using the MIME type solves this:</p> 
 <pre>
                     <code>
-    :DBpedia void:feature [ dcterms:format "application/rdf+xml" ; ] .</code>
+    :DBpedia void:feature [ dbp:mime "application/rdf+xml" ; ] .</code>
 
 </pre>
 
@@ -536,7 +534,7 @@ Note: For your convenience,  there is also a <a href="voiD-guide_v63.pdf">PDF ve
     :RDFXML a void:TechnicalFeature;
             rdfs:label "RDF/XML" ;
             rdfs:comment "Available as linked data in RDF/XML format" ;
-            dcterms:format "application/rdf+xml" . 
+            dbp:mime "application/rdf+xml" . 
 
     :DBpedia void:feature :RDFXML .</code>
 
@@ -613,6 +611,24 @@ Note: For your convenience,  there is also a <a href="voiD-guide_v63.pdf">PDF ve
 			<p>
 				To express that particular classes and properties occur in the dataset, statistics (see section <a href="#sec_3_Expressing_dataset_statistic" >3. Expressing dataset statistics</a>) can be used.
 			</p>
+		<h3>
+			<a id="sec_1_8_Example_resources" name="sec_1_8_Example_resources"></a> 1.8 Example resources
+		</h3>
+
+<p>For documentation purposes, it can be helpful to name some representative example resources for a dataset. Looking up these resources allows users to quickly get an impression of the kind of data that is present in a dataset. The <code>void:exampleResource</code> property names one or more such examples:</p>
+
+<pre>:DBpedia a void:Dataset;
+    void:exampleResource &lt;http://dbpedia.org/resource/Berlin&gt; ; 
+    void:exampleResource &lt;http://dbpedia.org/resource/Physics&gt; ;
+    void:exampleResource &lt;http://dbpedia.org/resource/Ludwig_van_Beethoven&gt; ;
+    .</pre>
+
+<p>Example resources can also be given for <em>linksets</em> (see <a href="#sec_2_Describing_Dataset_Interlink">Section 2</a>). The resource should be either the subject or the object of a representative link from the set.</p>
+
+<p>If the linkset is a <code>void:subset</code> of another dataset <strong>D</strong>, that is, the linkset is contained in <strong>D</strong>, then a resource described in <strong>D</strong> should be preferred as the example for the linkset. To illustrate this point, if the linkset <code>:DBpedia_to_Geonames</code> is a subset of DBpedia, and we choose</p>
+<pre>&lt;http://dbpedia.org/resource/Berlin&gt; owl:sameAs &lt;http://sws.geonames.org/2950159/&gt; .</pre>
+<p>as a representative link, then we should use the resource from the DBpedia side as the <code>void:exampleResource</code> for the linkset, because users can look up the example in DBpedia, but not necessarily in Geonames.</p>
+
 			<h2>
 				<a id="sec_2_Describing_Dataset_Interlink" name="sec_2_Describing_Dataset_Interlink"></a> 2. Describing Dataset Interlinking
 			</h2>
