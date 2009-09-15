@@ -435,7 +435,7 @@ Note: For your convenience,  there is also a <a href="voiD-guide_v63.pdf">PDF ve
     :Geonames a void:Dataset; 
               dcterms:subject &lt;http://dbpedia.org/resource/Location&gt; .</code>
 							</pre>
-<p>In the case of DBLP, we add triples saying that it offers data about proceedings, journals and computer science. Note:  It is assumed that the intersection of all resources defines the topic.</p>  
+<p>In the case of DBLP, we add triples saying that it offers data about proceedings, journals and computer science.</p>  
 		<h4>
 			<a id="sec_1_2_2_Domain_specific" name="sec_1_2_2_Domain_specific"></a>  1.2.2 Domain specific
 		</h4>
@@ -872,7 +872,7 @@ Note: For your convenience,  there is also a <a href="voiD-guide_v63.pdf">PDF ve
 								 <code>void:numberOfDocuments</code>   
 							</td>
 							<td>
-								 The  <code>scovo:Item</code> represents the number of documents that contain RDF data, such as RDF/XML documents or RDFa-annotated web pages. Non-RDF documents, such as web pages in HTML or images, are usually not included in this count. 
+								 The  <code>scovo:Item</code> represents the number of documents that contain RDF data, such as RDF/XML documents or RDFa-annotated web pages. Non-RDF documents, such as web pages in HTML or images, are usually not included in this count. This dimension is intended for Linked Data deployments where the total number of triples or resources is harder to determine than the number of documents; but <code>void:numberOfTriples</code> or <code>void:numberOfResources</code> should be preferred where practical. 
 							</td>
 						</tr>
 						<tr style="text-align: left;">
