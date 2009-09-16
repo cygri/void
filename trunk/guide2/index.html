@@ -406,6 +406,7 @@ Note: For your convenience,  there is also a <a href="voiD-guide_v63.pdf">PDF ve
     
      # Similar descriptions of the other contributors go here</code>
 				</pre>
+
 		<h3>
 			<a id="sec_1_2_Categorize_Datasets" name="sec_1_2_Categorize_Datasets"></a> 1.2 Categorise Datasets 
 		</h3>
@@ -992,6 +993,23 @@ Note: For your convenience,  there is also a <a href="voiD-guide_v63.pdf">PDF ve
 				<p><em>Note: We have not decided on the canonical deployment format, yet. For the casual user, Turtle may seem to be the best option currently, but implementers are free to choose their deployment format as fit with their infrastructure. We explicitly solicit feedback on this issue!</em>
 					</p>
 			</div>
+<p>voiD authors are encouraged to provide metadata for their voiD files.
+  This can be done by adding a document metadata block to the voiD file.
+  A typical document metadata block will contain:</p>
+<ul>
+  <li>A statement that types the voiD file as a <code>void:DatasetDescription</code>.</li>
+  <li>A title for the voiD file.</li>
+  <li><code>foaf:topic</code> or <code>foaf:primaryTopic</code> statements that relate the voiD file to the dataset(s) described therein. If the voiD file describes a single dataset, then <code>foaf:primaryTopic</code> should be used. If the file describes several datasets of equal importance, then <code>foaf:topic</code> should be used.</li>
+  <li>Perhaps additional metadata statements, such as the author and creation date of the voiD file (not to be confused with the author and creation date of the dataset that is described in the voiD file).</li>
+</ul>
+
+<p>An example metadata block is shown below. Note the use of an empty-string relative URI (&lt;&gt;) as a syntactic shortcut. In N3 and RDF/XML, the empty string URI stands for the URI of the document that contains the statements.</p>
+
+<pre>    &lt;&gt; a void:DatasetDescription ;
+         dcterms:title "A voiD Description of the DBpedia Dataset" ;
+         foaf:primaryTopic :DBpedia ;
+         dcterms:creator &lt;http://richard.cyganiak.de/foaf.rdf#cygri&gt; .</pre>
+
 			<h3>
 				<a id="sec_4_2_Back-links" name="sec_4_2_Back-links"></a> 4.2 Back-links 
 			</h3>In  voiD a dataset can be published as many documents on the Web. These documents can point back to the <code>void:Dataset</code>  URI using <code>dcterms:isPartOf</code> such as shown below: 
