@@ -9,6 +9,10 @@
 @prefix ex: <http://example.com/void/datasets/> .
 @prefix : <#> .
 
+<> a void:DatasetDescription ;
+   dcterms:title "An example voiD file" ;
+   foaf:primaryTopic :Dbpedia 
+
 :DBpedia	a void:Dataset ;
 			dcterms:title "DBPedia" ;
 			dcterms:description "RDF data extracted from Wikipedia" ;
