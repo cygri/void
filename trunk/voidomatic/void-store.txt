@@ -1,0 +1,21 @@
+
+404:
+http://lod.openlinksw.com/void/Dataset
+
+200:
+http://people.geospecies.org/projects/GeoSpecies_Knowledge_Base/void.rdf
+http://schemacache.test.talis.com/meta.rdf
+http://telegraphis.net/data/void
+http://ontologi.es/decimalised/decimalised.rdf
+http://ontologi.es/rail/void.xhtml
+http://dblp.rkbexplorer.com/models/void.ttl
+http://rdfohloh.wikier.org/about
+http://www.lingvoj.org/void
+http://bbc.openlinksw.com/page/void/Dataset
+http://mediatypes.appspot.com/
+http://climb.dataincubator.org/dataset.rdf
+http://neuroweb.med.yale.edu/senselab/senselab-void.ttl
+
+200, not in Sindice:
+http://lastfm.rdfize.com/meta.n3
+http://www.openpsi.org/openpsi-void.ttl
