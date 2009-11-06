@@ -29,11 +29,32 @@ SELECT (COUNT(*) AS ?no) { ?s ?p ?o  }
 
 == total number of distinct URIs
 
-SELECT (COUNT(?s) AS ?no) { { ?s ?p ?o  } UNION { ?o ?p ?s } } 
+SELECT (COUNT(DISTINCT(?s)) AS ?no) { { ?s ?p ?o  } UNION { ?o ?p ?s } } 
 
 == total number of distinct subject nodes
 
-SELECT (COUNT(?s) AS ?no) {  ?s ?p ?o   } 
+SELECT (COUNT(DISTINCT(?s)) AS ?no) {  ?s ?p ?o   } 
 
+== total number of distinct object nodes
+
+SELECT (COUNT(DISTINCT(?o)) AS ?no) {  ?s ?p ?o   } 
+
+== exhaustive list of classes used in the dataset ==
+
+SELECT DISTINCT ?type { ?s a ?type }
+
+== exhaustive list of properties used in the dataset ==
+
+SELECT DISTINCT ?p { ?s ?p ?o }
+
+== table: class vs. total number of instances of the class ==
+
+SELECT  ?class (COUNT(?s) AS ?count ) { ?s a ?class } GROUP BY ?class
+
+  * table: property vs. total number of triples using the property
+  * table: property vs. total number of distinct subjects in triples using the prop
+  * table: property vs. total number of distinct objects in triples using the prop
+  * list of all domain names occurring in URIs in subjects or objects
+  * table: domain names vs. number of triples where the domain name occurs in subject or object
 
 @@@
