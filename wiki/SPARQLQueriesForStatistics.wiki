@@ -29,15 +29,15 @@ Here are some candidates that we would like to express in SPARQL. Note, the assu
 
 == total number of distinct URIs ==
 
-SELECT (COUNT(DISTINCT(?s)) AS ?no) { { ?s ?p ?o  } UNION { ?o ?p ?s } } 
+SELECT (COUNT(DISTINCT ?s ) AS ?no) { { ?s ?p ?o  } UNION { ?o ?p ?s } } 
 
 == total number of distinct subject nodes ==
 
-SELECT (COUNT(DISTINCT(?s)) AS ?no) {  ?s ?p ?o   } 
+SELECT (COUNT(DISTINCT ?s ) AS ?no) {  ?s ?p ?o   } 
 
 == total number of distinct object nodes ==
 
-SELECT (COUNT(DISTINCT(?o)) AS ?no) {  ?s ?p ?o   } 
+SELECT (COUNT(DISTINCT ?o ) AS ?no) {  ?s ?p ?o   } 
 
 == exhaustive list of classes used in the dataset ==
 
@@ -57,11 +57,11 @@ SELECT  ?p (COUNT(?s) AS ?count ) { ?s ?p ?o } GROUP BY ?p
 
 == table: property vs. total number of distinct subjects in triples using the property ==
 
-SELECT  ?p (COUNT(DISTINCT(?s)) AS ?count ) { ?s ?p ?o } GROUP BY ?p
+SELECT  ?p (COUNT(DISTINCT ?s ) AS ?count ) { ?s ?p ?o } GROUP BY ?p
 
 == table: property vs. total number of distinct objects in triples using the property ==
 
-SELECT  ?p (COUNT(DISTINCT(?o)) AS ?count ) { ?s ?p ?o } GROUP BY ?p
+SELECT  ?p (COUNT(DISTINCT ?o ) AS ?count ) { ?s ?p ?o } GROUP BY ?p
 
   * list of all domain names occurring in URIs in subjects or objects
   * table: domain names vs. number of triples where the domain name occurs in subject or object
