@@ -31,11 +31,11 @@ Here are some candidates that we would like to express in SPARQL. Note, the assu
 
 SELECT (COUNT(DISTINCT(?s)) AS ?no) { { ?s ?p ?o  } UNION { ?o ?p ?s } } 
 
-== total number of distinct subject nodes
+== total number of distinct subject nodes ==
 
 SELECT (COUNT(DISTINCT(?s)) AS ?no) {  ?s ?p ?o   } 
 
-== total number of distinct object nodes
+== total number of distinct object nodes ==
 
 SELECT (COUNT(DISTINCT(?o)) AS ?no) {  ?s ?p ?o   } 
 
