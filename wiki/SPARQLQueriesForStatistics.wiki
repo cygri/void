@@ -25,9 +25,9 @@ Here are some candidates that we would like to express in SPARQL. Note, the assu
 
 == total number of triples ==
 
-SELECT (COUNT(*) AS ?no) { ?s ?p ?o  }
+<pre>SELECT (COUNT(*) AS ?no) { ?s ?p ?o  }</pre>
 
-== total number of distinct URIs
+== total number of distinct URIs ==
 
 SELECT (COUNT(DISTINCT(?s)) AS ?no) { { ?s ?p ?o  } UNION { ?o ?p ?s } } 
 
@@ -51,9 +51,18 @@ SELECT DISTINCT ?p { ?s ?p ?o }
 
 SELECT  ?class (COUNT(?s) AS ?count ) { ?s a ?class } GROUP BY ?class
 
-  * table: property vs. total number of triples using the property
-  * table: property vs. total number of distinct subjects in triples using the prop
-  * table: property vs. total number of distinct objects in triples using the prop
+== table: property vs. total number of triples using the property ==
+
+SELECT  ?p (COUNT(?s) AS ?count ) { ?s ?p ?o } GROUP BY ?p
+
+== table: property vs. total number of distinct subjects in triples using the property ==
+
+SELECT  ?p (COUNT(DISTINCT(?s)) AS ?count ) { ?s ?p ?o } GROUP BY ?p
+
+== table: property vs. total number of distinct objects in triples using the property ==
+
+SELECT  ?p (COUNT(DISTINCT(?o)) AS ?count ) { ?s ?p ?o } GROUP BY ?p
+
   * list of all domain names occurring in URIs in subjects or objects
   * table: domain names vs. number of triples where the domain name occurs in subject or object
 
