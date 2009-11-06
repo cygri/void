@@ -1,0 +1,26 @@
+#summary Collection of SPARQL queries for computing voiD statistics
+
+= Introduction =
+
+This page collects SPARQL queries for computing various statistics that can be computed in voiD.
+
+= Expressible statistics =
+
+Here are some candidates that we would like to express in SPARQL. Note, the assumption is that it's going to be SPARQL 1.1.
+
+  * total number of triples
+  * total number of distinct URIs
+  * total number of distinct subject nodes
+  * total number of distinct object nodes
+  * exhaustive list of classes used in the dataset
+  * exhaustive list of properties used in the dataset
+  * table: class vs. total number of instances of the class
+  * table: property vs. total number of triples using the property
+  * table: property vs. total number of distinct subjects in triples using the prop
+  * table: property vs. total number of distinct objects in triples using the prop
+  * list of all domain names occurring in URIs in subjects or objects
+  * table: domain names vs. number of triples where the domain name occurs in subject or object
+
+= SPARQL queries =
+
+@@@
