@@ -23,4 +23,17 @@ Here are some candidates that we would like to express in SPARQL. Note, the assu
 
 = SPARQL queries =
 
+== total number of triples ==
+
+SELECT (COUNT(*) AS ?no) { ?s ?p ?o  }
+
+== total number of distinct URIs
+
+SELECT (COUNT(?s) AS ?no) { { ?s ?p ?o  } UNION { ?o ?p ?s } } 
+
+== total number of distinct subject nodes
+
+SELECT (COUNT(?s) AS ?no) {  ?s ?p ?o   } 
+
+
 @@@
