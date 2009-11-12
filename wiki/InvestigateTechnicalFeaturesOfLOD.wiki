@@ -14,3 +14,13 @@ Based on Issue 39: http://code.google.com/p/void-impl/issues/detail?id=39
   # RDF/XML (http://telegraphis.net/data/void#RDFXML)
   # N-Triples RDF Serialisation (http://api.talis.com/stores/kwijibo-dev3/items/features/N-Triples)
   # N3 (http://telegraphis.net/data/void#N3)
+
+== Terms used in the ESW wiki ==
+The following terms are used by people to describe their RDF data dump, as summarized at http://esw.w3.org/topic/DataSetRDFDumps:
+ * tab-delimited file
+ * RDF/XML
+ * N3
+ * tab-separated values
+ * OWL
+ 
+A lot of RDF dumps are made available as a zip file, making the actual technical features of these data invisible.
