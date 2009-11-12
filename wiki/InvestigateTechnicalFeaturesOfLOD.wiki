@@ -2,6 +2,8 @@
 
 Based on Issue 39: http://code.google.com/p/void-impl/issues/detail?id=39
 
+The goal of this survey is to understand how void:feature is being used by early adopters and estimate potential impact for proposing alternative patterns in voiD 2.0.
+
 == Query to the Keith's Talis Store ==
 
  * http://tinyurl.com/y94q264 is a query for  features used in existing void descriptions - there aren't many (K.J.W.Alexander). The result shows the following URIs used in voiD descriptions:
@@ -34,4 +36,6 @@ Only one instance was returned, whose features are defined in a locate domain:
 No sign of void:feature or dcterms:format.
 
 == Search in Openlink voiD Store ==
+
+@@@TODO: http://lod.openlinksw.com/void/Dataset
  
