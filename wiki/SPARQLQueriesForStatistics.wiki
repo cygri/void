@@ -2,7 +2,7 @@
 
 = Introduction =
 
-This page collects SPARQL queries for computing various statistics that can be computed in voiD.
+This page collects SPARQL queries for computing various statistics that can be expressed using the voiD vocabulary.
 
 = Expressible statistics =
 
