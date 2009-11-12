@@ -6,13 +6,12 @@ This page collects SPARQL queries for computing various statistics that can be e
 
 = Expressible statistics =
 
-Here are some candidates that we would like to express in SPARQL. Note, the assumption is that it's going to be SPARQL 1.1.
-
+Here are some candidates that we would like to be able to express using voiD and that can be translated as SPARQL queries. Note, the assumption is that it's going to be SPARQL 1.1. For a void:Dataset, we would like to express:
   * total number of triples
   * total number of distinct URIs
   * total number of distinct subject nodes
   * total number of distinct object nodes
-  * exhaustive list of classes used in the dataset
+  * exhaustive list of classes used in the dataset @@J: this and the following are not numbers
   * exhaustive list of properties used in the dataset
   * table: class vs. total number of instances of the class
   * table: property vs. total number of triples using the property
@@ -33,6 +32,7 @@ SELECT (COUNT(*) AS ?no) { ?s ?p ?o  }
 SELECT (COUNT(DISTINCT ?s ) AS ?no) { { ?s ?p ?o  } UNION { ?o ?p ?s } } 
 }}}
 Does this take into account URIs vs. blank nodes?
+@@J: how about the predicates? 
 
 == total number of distinct subject nodes ==
 {{{
@@ -46,8 +46,10 @@ SELECT (COUNT(DISTINCT ?o ) AS ?no) {  ?s ?p ?o   }
 
 == exhaustive list of classes used in the dataset ==
 {{{
-SELECT DISTINCT ?type { ?s a ?type }
+SELECT DISTINCT ?type { ?s rdf:type ?type }
 }}}
+
+@@J: better if a graph URI is given; otherwise all the Openlink's classes are also returned.
 
 == exhaustive list of properties used in the dataset ==
 {{{
