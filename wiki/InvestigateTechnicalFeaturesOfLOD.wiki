@@ -25,7 +25,8 @@ The following terms are used by people to describe their RDF data dump, as summa
  * tab-separated values
  * OWL
  
-A lot of RDF dumps are made available as a zip file, making the actual technical features of these data invisible.
+A lot of RDF dumps are made available as a zip file, making the actual technical features of these data invisible. (maybe zip/tar is also a technical feature ?)
+
 
 == Search in Sindice ==
 Only one instance was returned, whose features are defined in a locate domain:
