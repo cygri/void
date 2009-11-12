@@ -24,3 +24,14 @@ The following terms are used by people to describe their RDF data dump, as summa
  * OWL
  
 A lot of RDF dumps are made available as a zip file, making the actual technical features of these data invisible.
+
+== Search in Sindice ==
+Only one instance was returned, whose features are defined in a locate domain:
+ * http://telegraphis.net/data/void#Turtle
+ * http://telegraphis.net/data/void#RDFXML
+
+== Search in voiD/RKB ==
+No sign of void:feature or dcterms:format.
+
+== Search in Openlink voiD Store ==
+ 
