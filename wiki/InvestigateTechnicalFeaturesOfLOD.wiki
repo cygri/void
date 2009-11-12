@@ -1,1 +1,16 @@
-#summary This wiki page presents our survey of the type of technical features of current LoD.
+#summary Our survey of the type of technical features of current LoD.
+
+Based on Issue 39: http://code.google.com/p/void-impl/issues/detail?id=39
+
+== Query to the Keith's Talis Store ==
+
+ * http://tinyurl.com/y94q264 is a query for  features used in existing void descriptions - there aren't many (K.J.W.Alexander). The result shows the following URIs used in voiD descriptions:
+  # RDF/JSON serialisation:(http://api.talis.com/stores/kwijibo-dev3/items/features/RDF_JSON)
+  # Turtle RDF serialisation: (http://api.talis.com/stores/kwijibo-dev3/items/features/Turtle_RDF)
+  # RDF/XML (http://neuroweb.med.yale.edu/senselab/senselab-void.ttlRDFXML)
+  # RDF/XML serialisation (http://api.talis.com/stores/kwijibo-dev3/items/features/rdfxml)
+  # Turtle (http://telegraphis.net/data/void#Turtle)
+  # HTTP Content Negotiation (http://api.talis.com/stores/kwijibo-dev3/items/features/Content_Negotiation)
+  # RDF/XML (http://telegraphis.net/data/void#RDFXML)
+  # N-Triples RDF Serialisation (http://api.talis.com/stores/kwijibo-dev3/items/features/N-Triples)
+  # N3 (http://telegraphis.net/data/void#N3)
