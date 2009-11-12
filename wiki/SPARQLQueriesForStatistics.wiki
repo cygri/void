@@ -46,7 +46,7 @@ SELECT (COUNT(DISTINCT ?o ) AS ?no) {  ?s ?p ?o   }
 
 == exhaustive list of classes used in the dataset ==
 {{{
-SELECT DISTINCT ?type { ?s rdf:type ?type }
+SELECT DISTINCT ?type { ?s a ?type }
 }}}
 
 @@J: better if a graph URI is given; otherwise all the Openlink's classes are also returned.
