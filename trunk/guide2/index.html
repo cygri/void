@@ -1025,13 +1025,20 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 
 			<h3>
 				<a id="Back-links" name="Back-links"></a> 4.2 Back-links 
-			</h3>In  voiD a dataset can be published as many documents on the Web. These documents can point back to the <code>void:Dataset</code>  URI using <code>dcterms:isPartOf</code> such as shown below: 
+			</h3>In  voiD a dataset can be published as many documents on the Web. These documents can point back to the <code>void:Dataset</code>  URI using <code>void:inDataset</code> such as shown below: 
 			<pre>
  <code>
-    &lt;http://dbpedia.org/data/Berlin&gt; <a href="http://dublincore.org/documents/dcmi-terms/#terms-isPartOf" title="dcterms:isPartOf">dcterms:isPartOf</a> :DBpedia .</code>
+    &lt;http://dbpedia.org/data/Berlin&gt; <a href="http://rdfs.org/ns/void#inDataset" title="void:inDataset">void:inDataset</a> :DBpedia .</code>
 				</pre>
 				<p>  
-			 If the dataset consists of resources identified by dereferenceable URIs, dereferencing a URI will redirect to a document containing a description of that resource, and the <code>dcterms:isPartOf</code> triple linking back from the document to the dataset.  This is especially handy in case when <a href="http://inkdroid.org/journal/2008/01/04/following-your-nose-to-the-web-of-data/">applying the follow-your-nose principle</a> where one often has a single URI as a starting point. The question is then how to find the way from this URI to the entire dataset, that is, in the first place to identify the according voiD description; see also section <a href="#Discovery_via_links_in_docs" >5.1 Discovery via links in the dataset's documents</a> for the discovery process.</p> 
+			 If the dataset consists of resources identified by dereferenceable URIs, dereferencing a URI will redirect to a document containing a description of that resource, and the <code>void:inDataset</code> triple linking back from the document to the dataset.  This is especially handy in case when <a href="http://inkdroid.org/journal/2008/01/04/following-your-nose-to-the-web-of-data/">applying the follow-your-nose principle</a> where one often has a single URI as a starting point. The question is then how to find the way from this URI to the entire dataset, that is, in the first place to identify the according voiD description; see also section <a href="#Discovery_via_links_in_docs" >5.1 Discovery via links in the dataset's documents</a> for the discovery process.</p> 
+			
+			<p>If a document links to a dataset using void:inDataset, it asserts that the data (expressed as triples) serialised in the document <strong>is part of the dataset</strong>; as such, provenance and licensing/waiving of the dataset should be understood as applying to the data in the document.</p>
+			
+<p>
+	(The first version of this guide used to recommend dcterms:isPartOf for the same purpose; it was decided that a voiD specific property for this purpose would be better.)
+</p>			
+			
 			<h3>
 				<a id="Publishing_tools" name="Publishing_tools"></a> 4.3 Tools 
 			</h3>
