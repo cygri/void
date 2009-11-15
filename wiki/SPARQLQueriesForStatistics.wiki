@@ -29,10 +29,12 @@ SELECT (COUNT(*) AS ?no) { ?s ?p ?o  }
 
 == total number of distinct URIs ==
 {{{
-SELECT (COUNT(DISTINCT ?s ) AS ?no) { { ?s ?p ?o  } UNION { ?o ?p ?s } } 
+SELECT (COUNT(DISTINCT ?s ) AS ?no) { { ?s ?p ?o  } UNION { ?o ?p ?s } FILTER(!isBlank(?s) && !isLiteral(?s)) } 	
 }}}
+
 Does this take into account URIs vs. blank nodes?
 @@J: how about the predicates? 
+@@k: fixed - should it include predicates? 
 
 == total number of distinct subject nodes ==
 {{{
@@ -41,7 +43,7 @@ SELECT (COUNT(DISTINCT ?s ) AS ?no) {  ?s ?p ?o   }
 
 == total number of distinct object nodes ==
 {{{
-SELECT (COUNT(DISTINCT ?o ) AS ?no) {  ?s ?p ?o   } 
+SELECT (COUNT(DISTINCT ?o ) AS ?no) {  ?s ?p ?o  filter(!isLiteral(?o)) } 				
 }}}
 
 == exhaustive list of classes used in the dataset ==
@@ -50,6 +52,7 @@ SELECT DISTINCT ?type { ?s a ?type }
 }}}
 
 @@J: better if a graph URI is given; otherwise all the Openlink's classes are also returned.
+@@K: doesn't it get quite implementation specific then? not all datasets are contained within one graph.
 
 == exhaustive list of properties used in the dataset ==
 {{{
@@ -58,22 +61,22 @@ SELECT DISTINCT ?p { ?s ?p ?o }
 
 == table: class vs. total number of instances of the class ==
 {{{
-SELECT  ?class (COUNT(?s) AS ?count ) { ?s a ?class } GROUP BY ?class
+SELECT  ?class (COUNT(?s) AS ?count ) { ?s a ?class } GROUP BY ?class ORDER BY ?count
 }}}
 
 == table: property vs. total number of triples using the property ==
 {{{
-SELECT  ?p (COUNT(?s) AS ?count ) { ?s ?p ?o } GROUP BY ?p
+SELECT  ?p (COUNT(?s) AS ?count ) { ?s ?p ?o } GROUP BY ?p ORDER BY ?count
 }}}
 
 == table: property vs. total number of distinct subjects in triples using the property ==
 {{{
-SELECT  ?p (COUNT(DISTINCT ?s ) AS ?count ) { ?s ?p ?o } GROUP BY ?p
+SELECT  ?p (COUNT(DISTINCT ?s ) AS ?count ) { ?s ?p ?o } GROUP BY ?p ORDER BY ?count
 }}}
 
 == table: property vs. total number of distinct objects in triples using the property ==
 {{{
-SELECT  ?p (COUNT(DISTINCT ?o ) AS ?count ) { ?s ?p ?o } GROUP BY ?p
+SELECT  ?p (COUNT(DISTINCT ?o ) AS ?count ) { ?s ?p ?o } GROUP BY ?p ORDER BY ?count
 }}}
 
 == list of all domain names occurring in URIs in subjects or objects ==
