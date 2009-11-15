@@ -1102,10 +1102,10 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 			<h3>
 				<a id="Discovery_via_links_in_docs" name="Discovery_via_links_in_docs"></a> 5.1 Discovery via links in the dataset's documents
 			</h3>
-			<p>For datasets that are published as a collection of RDF documents in the linked data style, the preferred mechanism of discovering an associated voiD description is the back-link mechanism described in section <a href="#Back-links" >4.2 Back-links</a>. Clients should look for a <code>dcterms:isPartOf</code>  triple that links the RDF document to the dataset:</p> 
+			<p>For datasets that are published as a collection of RDF documents in the linked data style, the preferred mechanism of discovering an associated voiD description is the back-link mechanism described in section <a href="#Back-links" >4.2 Back-links</a>. Clients should look for a <code>void:inDataset</code>  triple that links the RDF document to the dataset:</p> 
 <pre>
   <code>
-    &lt;document.rdf&gt; <a href="http://dublincore.org/documents/dcmi-terms/#terms-isPartOf" title="dcterms:isPartOf">dcterms:isPartOf</a> &lt;void.ttl#MyDataset&gt;</code>
+    &lt;document.rdf&gt; <a href="http://rdfs.org/ns/void#inDataset" title="void:inDataset">void:inDataset</a> &lt;void.ttl#MyDataset&gt;</code>
 
 </pre>  
 			 
