@@ -39,4 +39,7 @@ No sign of void:feature or dcterms:format.
 == Search in Openlink voiD Store ==
 
 @@@TODO: http://lod.openlinksw.com/void/Dataset
+
+== Search in CKAN ==
+@@@TODO: http://ckan.net/group/lod
  
