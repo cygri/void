@@ -19,12 +19,20 @@ The goal of this survey is to understand how void:feature is being used by early
 
 == Terms used in the ESW wiki ==
 The following terms are used by people to describe their RDF data dump, as summarized at http://esw.w3.org/topic/DataSetRDFDumps:
- * tab-delimited file
+
  * RDF/XML
- * N3
- * tab-separated values
  * OWL
- 
+ * RDF/OWL
+ * RDFS
+ * SKOS
+ * N3
+ * N-Triples
+ * Turtle
+ * TSV
+ * tab-separated values
+ * CSV
+ * WARC?
+
 A lot of RDF dumps are made available as a zip file, making the actual technical features of these data invisible. (maybe zip/tar is also a technical feature ?)
 
 
