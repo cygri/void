@@ -49,5 +49,5 @@ No sign of void:feature or dcterms:format.
 @@@TODO: http://lod.openlinksw.com/void/Dataset
 
 == Search in CKAN ==
-@@@TODO: http://ckan.net/group/lod
+http://ckan.net/group/lod has big overlaps to the ESW wiki.
  
