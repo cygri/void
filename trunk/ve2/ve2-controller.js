@@ -54,6 +54,12 @@ function inspectVoiD(){
 
 function announceVoiDURI(){
 	var voiDURI = $("#vdAnnounceURI").val();
+	
+	if(voiDURI == "" || (voiDURI.substring(0,7) != "http://")) {
+		alert("You have to provide an HTTP URI for the voiD file!");
+		return false;
+	}
+	
 	setStatus("Announcing voiD file");
 	$("#busy").show("normal");
 	$("#vdAnnounceResult").show("normal");
