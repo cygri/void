@@ -24,17 +24,25 @@
 	<div id="topnav"><a rel="rdfs:seeAlso" href="http://rdfs.org/ns/void">voiD Specification</a> | <a rel="rdfs:seeAlso"  href="http://rdfs.org/ns/void-guide">voiD Guide</a> | <span id="doAbout">About</span></div>
 	
 	<div id="about">
-		<p><strong>ve2</strong> - the voiD editor is developed and maintained by the <a href="http://linkeddata.deri.ie/">Linked Data Research Centre</a>, DERI, NUI Galway and uses the following services:</p>
-		<ul>
-			<li>The <a href="http://lookup.dbpedia.org/">DBpedia look-up</a> service</li>
-			<li>The <a href="http://kwijibo.talis.com/voiD/">Talis voiD store</a></li>
-			<li>The <a href="http://void.rkbexplorer.com/">RKB voiD store</a></li>
-			<li>The namespace lookup <a href="http://prefix.cc/">prefix.cc</a> for RDF developers</li>
-		</ul>
-		<p>The code is available via <a href="http://code.google.com/p/void-impl/source/browse/#svn/trunk/ve2">Google code</a>.
-		In case you have a feature request or want to file a bug, please visit the <a href="http://code.google.com/p/void-impl/issues/list?q=label%3AProduct-ve">issue tracker</a>.
-		</p>
-		<p>Kudos to <a href="http://richard.cyganiak.de/foaf.rdf#cygri">Richard</a> and <a href="http://www.deri.ie/about/team/member/Lin_Clark#me">Lin</a> for early feedback and lots of good suggestions how to improve the usability ;)</p>
+			<div>
+				<div class="logobar">
+					<a href="http://linkeddata.deri.ie/" class="nav" target="_new"><img src="img/lidrc-logo.png" width="200px" alt="LiDRC logo" /></a> <br /><br />
+					<a href="http://www.nuigalway.ie/" class="nav" target="_new"> <img src="img/nuig-logo.png" width="200px"  alt="NUIG logo"/></a>
+				</div>
+				<p><strong>ve2</strong> - the voiD editor is developed and maintained by <a href="http://sw-app.org/mic.xhtml#i" rel="dcterms:creator">Michael Hausenblas</a> at the <a href="http://linkeddata.deri.ie/">Linked Data Research Centre</a>, DERI, NUI Galway. It is written with jQuery on the browser-side and PHP on the server and depends on the following (external) services:</p>
+			<ul>
+				<li>The <a href="http://lookup.dbpedia.org/">DBpedia look-up</a> service</li>
+				<li>The <a href="http://kwijibo.talis.com/voiD/">Talis voiD store</a></li>
+				<li>The <a href="http://void.rkbexplorer.com/">RKB voiD store</a></li>
+				<li>The namespace lookup <a href="http://prefix.cc/">prefix.cc</a> for RDF developers</li>
+				<li>The <a href="http://pingthesemanticweb.com/">PingtheSemanticWeb.com</a> repository</li>
+				<li>The semantic indexer <a href="http://sindice.com/">Sindice</a></li>
+			</ul>
+			<p>The ve2 code is available via the voiD implementation <a href="http://code.google.com/p/void-impl/source/browse/#svn/trunk/ve2">Google code</a>.
+			In case you have a feature request or want to file a bug, please visit the <a href="http://code.google.com/p/void-impl/issues/list?q=label%3AProduct-ve">issue tracker</a>. If you want to discuss general usefulness or other, voiD-related stuff, please post it to the <a href="http://lists.w3.org/Archives/Public/public-lod/">public-lod@w3.org</a> mailing list (and mention <strong>ve</strong> or <strong>ve2</strong> there ;)
+			</p>
+			<p>Kudos to <a href="http://richard.cyganiak.de/foaf.rdf#cygri">Richard Cyganiak</a> and <a href="http://www.deri.ie/about/team/member/Lin_Clark#me">Lin Clark</a> for early feedback and lots of good suggestions how to improve the usability!</p>
+			</div>
 	</div>
 	
 	<div id="top">
@@ -44,15 +52,23 @@
 			<span id="doCreate" class="btn">Create</span> <span id="doInspectVoiD" class="btn">Inspect</span> <span id="doAnnounce" class="btn">Announce</span>
 		</div>
 	</div>
-
+	
+	<div id="vdAnnounce" class="ui-widget ui-widget-content ui-corner-all">
+		<div style="text-align: right; margin-top: 5px; margin-right: 5px"> <span id="doCloseAnnounce" class="btn">close</span></div>
+		<div class="flabel">URI of the voiD file</div>
+		<input type="text" size="50" id="vdAnnounceURI" value="" /> <span id="doAnnounceURI" class="btn" title="Announce my voiD file now">announce</span>
+		<p class="fyi">The URI of the voiD file you enter will be submitted to the following services:  <a href="http://sindice.com/main/submit">Sindice</a>, the <a href="http://kwijibo.talis.com/voiD/submit">Talis voiD store</a>, and to <a href="http://pingthesemanticweb.com/">PingtheSemanticWeb.com</a>.</p>
+		<div id="vdAnnounceResult"><img src="img/ajax-loader.gif" id="busy" width="16px" alt="busy" /></div>
+	</div>
+	
 	<div id="main">	
 	<div id="dsForm">
 		<div id="dsItemSelection">
 			<div>
 				<h3><a class="nav" href="#">Define general dataset metadata</a></h3>
 				<div>
-					<div class="notebtn"><span class="ui-icon ui-icon-help" title="Explain me what I can do here ..."></span></div>
-					<p class="note">Define general metadata about the dataset. Note that <strong>all</strong> fields here are mandatory. For more information see the voiD guide, section '<a id="ref1" href="" target="_new">General Dataset Metadata</a>'.</p>
+					<div class="notebtn"><span class="ui-icon ui-icon-help" title="Explain me what I can do here ..." id="help1"></span></div>
+					<p class="note" id="help1content">Define general metadata about the dataset. For more information see the voiD guide, section '<a href="ref1" target="_new">General Dataset Metadata</a>'.</p>
 					<div>
 						<div class="flabel">Dataset Homepage URI</div>
 						<input type="text" size="30" id="dsHomeURI" value="http://example.org/" />
@@ -71,16 +87,18 @@
 							<div class="dsExampleURI" id="dsExampleURI0"><input type="text" size="35" value="http://example.org/resource/ex" /> <span class="btn">validate</span></div>
 						</div>
 					</div>
+					<p class="fyi-global"><strong>All</strong> fields here are mandatory.</p>
 				</div>
 			</div>
 			<div>
 				<h3><a class="nav" href="#">Select topics</a></h3>
 				<div>
-					<div class="notebtn"><span class="ui-icon ui-icon-help" title="Explain me what I can do here ..."></span></div>
-					<p class="note">Select one or more topics the dataset talks about. In general voiD uses DBpedia resources to unambiguously represent the topic. The term you enter will be used to perform a look-up at DBpedia, resulting in a list of potential URIs you can select of. For more information see the voiD guide, section '<a id="ref2" href="" target="_new">Categorise Datasets</a>'.</p>
+					<div class="notebtn"><span class="ui-icon ui-icon-help" title="Explain me what I can do here ..." id="help2"></span></div>
+					<p class="note" id="help2content">Select one or more topics your dataset talks about. In general, we use DBpedia resources in voiD to unambiguously represent the topic. For more information see the voiD guide, section '<a href="ref2" target="_new">Categorise Datasets</a>'.</p>
 					<div style="float:left; margin-right: 10px">
 						<div class="flabel">Dataset Topic</div>
 						<input type="text" size="15" id="dsTopic" value="" /> <span id="doClearTopics" class="btn" title="Clear selection">x</span>
+						<p class="fyi">The term you enter will be used to perform a <a href="http://lookup.dbpedia.org/">look-up</a> in DBpedia, resulting in a list of potential URIs you can select of.</p>
 						<div id="dsTopicOut"></div>
 					</div>
 					<div style="clear:left; padding-top: 10px;">
@@ -92,18 +110,20 @@
 			<div>
 				<h3><a class="nav" href="#">Interlink to other datasets</a></h3>
 				<div>
-					<div class="notebtn"><span class="ui-icon ui-icon-help" title="Explain me what I can do here ..."></span></div>
-					<p class="note">Provide the target dataset by specifying the homepage of the dataset you want to link to. The <em>homepage of the dataset</em> is a dedicated document that talks about the dataset. Use the 'peek' button to preview known datasets from voiD stores (currently Talis and RKB). <br/>For the interlinking type, you need to provide an RDF property such as <code>http://www.w3.org/2002/07/owl#sameAs</code> (note: you can type prefixes such as <code>owl</code> or <code>foaf</code> and then use the 'lookup' button to replace it with the fully qualified namespace URI); it's also o.k. to use the 'short form', such as <code>owl:sameAs</code>, which will be replaced automatically. For more information see the voiD guide, section '<a id="ref3" href="" target="_new">Describing Dataset Interlinking</a>'.</p>
+					<div class="notebtn"><span class="ui-icon ui-icon-help" title="Explain me what I can do here ..." id="help3"></span></div>
+					<p class="note" id="help3content">Define one or more datasets, so called <em>target dataset(s)</em>, you link to. For more information see the voiD guide, section '<a href="ref3" target="_new">Describing Dataset Interlinking</a>'.</p>
 					<div class="flabel"><span id="doAddInterlinking" class="ibtn" title="Add interlinking description">+</span>  Interlinking Target Description</div>
 					
 					<div id="tdsPane">
 						<div style="text-align: right;"><span id="doAddTargetDS" class="ibtn" title="Add the target dataset">add</span> <span id="doForgetTargetDS" class="ibtn" title="Cancel editing">cancel</span></div>
 						<div class="flabel">Target Dataset Homepage</div>
-						<input type="text" size="30" id="tdsHomeURI" value="http://dbpedia.org/" /> <span id="doClearTDSPreview" class="btn" title="Clear preview">x</span> <span id="doPeekTargetDataset" class="btn">peek</span>
+						<input type="text" size="30" id="tdsHomeURI" value="http://dbpedia.org/" /> <span id="doClearTDSPreview" class="btn" title="Clear preview">x</span> <span id="doPeekTargetDataset" class="btn">preview</span>
+						<p class="fyi">Define the target dataset by specifying its homepage. The <em>homepage of the dataset</em> is a dedicated document that talks about the dataset. Use the 'preview' button to preview known datasets from voiD stores (currently Talis and RKB).</p>
 						<div id="tdsPreview"></div>
 						<div class="flabel">Interlinking Type</div>
 						<input type="text" size="50" id="tdsLinkType" value="http://www.w3.org/2002/07/owl#sameAs" /> <span id="doLookupPrefix" class="btn" title="Lookup prefix and replace with namespace URI">lookup</span>
-						<div style="margin-top: 10px"><span id="doShowMoreTargetDatasetStuff" class="paction">more ...</span></div>
+						<p class="fyi">State how you link to the target, that is, provide an RDF property such as <code>http://www.w3.org/2002/07/owl#sameAs</code>. You can also just type prefixes such as <code>owl</code> and then use the 'lookup' button to replace it with the fully qualified namespace URI. It's also o.k. to use the 'short form', for the interlinking type, such as <code>owl:sameAs</code>, which will be replaced automatically.</p>
+						<div style="margin-top: 10px"><span id="doShowMoreTargetDatasetStuff" class="paction">more &gt;&gt;  </span></div>
 						<div id="tdsMoreTargetDatasetStuff">
 							<div class="flabel">Target Dataset Name</div>
 							<input type="text" size="20" id="tdsName" value="DBpedia" />
@@ -120,50 +140,57 @@
 			<div>
 				<h3><a class="nav" href="#">List used vocabularies</a></h3>
 				<div>
-					<div class="notebtn"><span class="ui-icon ui-icon-help" title="Explain me what I can do here ..."></span></div>
-					<p class="note">List the vocabularies that are used in the dataset (note: you can type  prefixes such as <code>owl</code> or <code>foaf</code> and then use the 'lookup' button to replace it with the fully qualified namespace URI). For more information see the voiD guide, section '<a id="ref5" href="" target="_new">Vocabularies used in a dataset</a>'.</p>
+					<div class="notebtn"><span class="ui-icon ui-icon-help" title="Explain me what I can do here ..." id="help4"></span></div>
+					<p class="note" id="help4content">List the vocabularies that are used in the dataset. For more information see the voiD guide, section '<a id="ref5" href="" target="_new">Vocabularies used in a dataset</a>'.</p>
 					<div class="flabel"><span id="doAddDSVocURI" class="ibtn" title="Add another vocabulary">+</span> Vocabulary URI</div>
+					<p class="fyi">You can type prefixes such as <code>owl</code> or <code>foaf</code> and then use the 'lookup' button to replace it with the fully qualified namespace URI from <a href="http://prefix.cc/">prefix.cc</a>.</p>
 					<div id="dsVocURIs"></div>
 				</div>
 			</div>
 			<div>
 				<h3><a class="nav" href="#">Tell about provenance and licensing</a></h3>
 				<div>
-					<div class="notebtn"><span class="ui-icon ui-icon-help" title="Explain me what I can do here ..."></span></div>
-					<p class="note">State who publishes the data and what the usage conditions are. For the publisher, provide a URI identifying the person or organisation (Web ID) that actually provides the dataset in RDF. The source is the URI of the original data source (such as an XML document, a database, a Web service, etc.). The license should be specified via an URI representing the license under which the dataset can be used. If you don't want to provide any of this information, just leave it empty - it's optional, but it is advised to provide it. For more information see the voiD guide, section '<a id="ref1" href="" target="_new">General Dataset Metadata</a>' and '<a id="ref4" href="" target="_new">Announcing the license of a dataset</a>'.</p>
+					<div class="notebtn"><span class="ui-icon ui-icon-help" title="Explain me what I can do here ..." id="help5"></span></div>
+					<p class="note" id="help5content">State who publishes the data and what the usage conditions are.  If you don't want to provide any of this information, just leave it empty - it's optional, but it is advised to provide it. For more information see the voiD guide, section '<a href="ref1" target="_new">General Dataset Metadata</a>' and '<a href="ref4" target="_new">Announcing the license of a dataset</a>'.</p>
 					<div>
 						<div class="flabel">Publisher</div>
 						<input type="text" size="25" id="dsPublisherURI" value="http://example.org/me" />
+						<p class="fyi">Provide a URI (<a href="http://esw.w3.org/topic/WebID" target="_new">Web ID</a>) identifying the person or organisation that actually provides the dataset in RDF.</p>
 					</div>
 					<div>
 						<div class="flabel">Source</div>
 						<input type="text" size="40" id="dsSourceURI" value="http://example.org/source.xml" />
+						<p class="fyi">The source is the URI of the original data source, such as an XML document, a database, a Web service, etc.</p>
 					</div>
 					<div>
 						<div class="flabel">License</div>
 						<input type="text" size="50" id="dsLicenseURI" value="http://www.opendatacommons.org/licenses/pddl/1.0/" />
+						<p class="fyi">The license should be specified via an URI representing the license under which the dataset can be used.</p>
 					</div>
-					<p class="fyi">Note that the content of this pane is only used when the <span style="color: white">generate minimal voiD file</span> option is <strong>not</strong> selected. Put in other words: in order so see the changes made here, deselect the respective checkbox above the <span style="color: white">voiD Description</span> output area.</p>
+					<p class="fyi-global">This information is <span style="color: white">not</span> included when the <span style="color: white">generate minimal voiD file</span> option is selected. In order to see the changes made here, deselect the checkbox above the <span style="color: white">voiD Description</span> editing pane.</p>
 				</div>
 			</div>
 			<div>
 				<h3><a class="nav" href="#">Specify access methods (SPARQL endpoint, etc.)</a></h3>
 				<div>
-					<div class="notebtn"><span class="ui-icon ui-icon-help" title="Explain me what I can do here ..."></span></div>
-					<p class="note">Specify (alternative) access methods for the dataset. If you don't want to provide any of this information, just leave it empty - it's optional, but it is advised to provide it. For more information see the voiD guide, section '<a id="ref6" href="" target="_new">SPARQL endpoints, URI lookup, and RDF data dumps</a>'.</p>
+					<div class="notebtn"><span class="ui-icon ui-icon-help" title="Explain me what I can do here ..." id="help6"></span></div>
+					<p class="note" id="help6content">Specify (alternative) access methods for the dataset. If you don't want to provide any of this information, just leave it empty - it's optional, but it is advised to provide it. For more information see the voiD guide, section '<a href="ref6" target="_new">SPARQL endpoints, URI lookup, and RDF data dumps</a>'.</p>
 					<div>
 						<div class="flabel">SPARQL endpoint</div>
 						<input type="text" size="25" id="dsSPARQLEndpointURI" value="http://example.org/sparql" />
+						<p class="fyi">The URI of the SPARQL endpoint for the dataset, for example <a href="http://dbpedia.org/sparql" target="_new">http://dbpedia.org/sparql</a>.</p>
 					</div>
 					<div>
 						<div class="flabel">URI look-up endpoint</div>
 						<input type="text" size="25" id="dsLookupURI" value="http://lookup.example.org/" />
+						<p class="fyi">The URI of the look-up service for the dataset, such as <a href="http://lookup.dbpedia.org/" target="_new">http://lookup.dbpedia.org/</a>.</p>
 					</div>
 					<div>
 						<div class="flabel">RDF data dump</div>
 						<input type="text" size="30" id="dsDumpURI" value="http://example.org/dump.rdf" />
+						<p class="fyi">The URI of the data dump for the dataset.</p>
 					</div>
-					<p class="fyi">Note that the content of this pane is only used when the <span style="color: white">generate minimal voiD file</span> option is <strong>not</strong> selected. Put in other words: in order so see the changes made here, deselect the respective checkbox above the <span style="color: white">voiD Description</span> output area.</p>
+					<p class="fyi-global">This information is <span style="color: white">not</span> included when the <span style="color: white">generate minimal voiD file</span> option is selected. In order to see the changes made here, deselect the checkbox above the <span style="color: white">voiD Description</span> editing pane.</p>
 				</div>
 			</div>
 		</div>

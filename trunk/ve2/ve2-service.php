@@ -1,5 +1,7 @@
 <?php
 
+require_once('xmlrpc/lib/xmlrpc.inc');
+
 $DEBUG = false;
 
 // DBPedia lookup interface
@@ -48,15 +50,28 @@ $SELF_DS rdf:type void:Dataset ;\n";
 
 /* ve2 INTERFACE */
 
-if(isset($_POST['dsParams'])){ 
+
+//// POST interface
+
+if(isset($_POST['dsParams'])){ // generate voiD in Turtle
 	$dsParams = json_decode($_POST['dsParams'], true);
 	echo createVoiDTTL($dsParams);
 }
 
-if(isset($_POST['inspect'])){ 
-	//echo inspectVoiD($_POST['inspect']);
+if(isset($_POST['inspect'])){ // inspect voiD in Turtle
+	echo inspectVoiD($_POST['inspect']); // saves voiD in tmp/ and calls then Web inspector via GET
+	//echo inspectVoiDLive($_POST['inspect']); // direct POST of voiD content to Web inspector
 }
 
+if(isset($_POST['announce'])){ // announce a voiD URI
+	$result = "<p>Result of announce process:</p>";
+	$result .= pingback("Sindice", "http://sindice.com/xmlrpc/api", "voiD file", $_POST['announce']);
+	$result .= ping("Talis voiD store", "http://kwijibo.talis.com/voiD/submit", $_POST['announce']);
+	$result .= ping("PingtheSemanticWeb.com", "http://pingthesemanticweb.com/rest/", $_POST['announce']);
+	echo $result;
+}
+
+//// GET interface
 
 if(isset($_GET['validate'])){ 	
 	echo validateHTTPURI($_GET['validate']);
@@ -352,21 +367,19 @@ function listVoiD($lookupURI){
 	return json_encode($voiDInfoList);
 }
 
-function inspectVoiD($voiDInTTL){
-	$webInspectorServiceURI = "http://sindice.com/developers/inspector";
+function inspectVoiDLive($voiDInTTL){
+	$webInspectorServiceURI = "http://apps.sindice.net:8080/rdfextractor/rdfextract";
 	$fields = array(
-		'rdfextractorContent'=>urlencode($voiDInTTL),
-		'doReasoning'=> urlencode("false")
-		);
+	        'content'=>urlencode($voiDInTTL),
+	        'format'=> "turtle"
+	);
 
-	//url-ify the data for the POST
 	foreach($fields as $key=>$value) {
-		 $fields_string .= $key.'='.$value.'&';
+		$fields_string .= $key.'='.$value.'&';
 	}
 	rtrim($fields_string,'&');
-	//open connection
+	
 	$ch = curl_init();
-	//set the url, number of POST vars, POST data
 	curl_setopt($ch,CURLOPT_URL,$webInspectorServiceURI);
 	curl_setopt($ch,CURLOPT_POST,count($fields));
 	curl_setopt($ch,CURLOPT_POSTFIELDS,$fields_string);
@@ -377,22 +390,98 @@ function inspectVoiD($voiDInTTL){
 	return $result;
 }
 
-function lookupPrefix($prefix){
-		$ret = "";
-		$c = curl_init();
-		curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($c, CURLOPT_HEADER, 0);
-		curl_setopt($c, CURLOPT_URL, "http://prefix.cc/" . strtolower($prefix) . ".json.plain");
-		curl_setopt($c, CURLOPT_TIMEOUT, 30);
-		$result = curl_exec($c);
-		curl_close($c);
-		$result = json_decode($result, true);
-		return $result[strtolower($prefix)];
+function inspectVoiD($voiDInTTL){
+	$webInspectorServiceURI = "http://sindice.com/developers/inspector?url=";
+	$tmpVoiDURI = dumpVoid($voiDInTTL);
+	return $webInspectorServiceURI . urlencode($tmpVoiDURI );
 }
 
+function dumpVoid($voiDInTTL){
+	$search  = array(' ', '.');
+	$replace = array('', '');
+	$tmpVoiDFileName =  "tmp/void_" . microtime();
+	$tmpVoiDFileName =  str_replace ($search, $replace, $tmpVoiDFileName) . ".ttl";
+	
+	$fh = fopen($tmpVoiDFileName, 'a') or die("Can't open temp voiD file ...");
+	fwrite($fh, $voiDInTTL);
+	fclose($fh);
+	return "http://" . $_SERVER["HTTP_HOST"] . "/ve2/" . $tmpVoiDFileName;
+}
 
+function lookupPrefix($prefix){
+	$ret = "";
+	$c = curl_init();
+	curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($c, CURLOPT_HEADER, 0);
+	curl_setopt($c, CURLOPT_URL, "http://prefix.cc/" . strtolower($prefix) . ".json.plain");
+	curl_setopt($c, CURLOPT_TIMEOUT, 30);
+	$result = curl_exec($c);
+	curl_close($c);
+	$result = json_decode($result, true);
+	return $result[strtolower($prefix)];
+}
 
+// ping a service that supports  http://hixie.ch/specs/pingback/pingback
+function pingback($servicetitle, $endpoint, $title, $URI) {
+	global $DEBUG;
+	
+	$client = new xmlrpc_client($endpoint);
+	$payload = new xmlrpcmsg("weblogUpdates.ping");
+	
+	$payload->addParam(new xmlrpcval($title));
+	$payload->addParam(new xmlrpcval($URI));
+	
+	if ($DEBUG) {
+		$client->setDebug(2);
+	}
+	
+	$response = $client->send($payload);
+	$xmlresponsestr = $response->serialize();
+	
+	$xml = simplexml_load_string($xmlresponsestr);
+	$result = $xml->xpath("//value/boolean/text()");
+ 	if($result) {
+		if($result[0] == "0"){
+			return "<p>Submitting $URI to $servicetitle succeeded.</p>";
+		}
+	}
+	else {
+		$err = "Error Code: " . $response->faultCode() . "<br /> Error Message: " . $response->faultString();
+		return "<p>Failed to submit $URI to $servicetitle.</p>";
+	}
+}
 
+// ping a service with RESTful API
+function ping($servicetitle, $endpoint, $URI){
+	$fields = array(
+	        'url'=>urlencode($URI)
+	);
+	foreach($fields as $key=>$value) {
+		$fields_string .= $key.'='.$value.'&';
+	}
+	rtrim($fields_string,'&');
+
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch,CURLOPT_URL,$endpoint);
+	curl_setopt($ch,CURLOPT_POST,count($fields));
+	curl_setopt($ch,CURLOPT_POSTFIELDS,$fields_string);
+	$result = curl_exec($ch);	
+	if(!curl_errno($ch)) {
+		$info = curl_getinfo($ch);
+		if($info['http_code'] == "200") {
+			return "<p>Submitting $URI to $servicetitle succeeded.</p>";
+		}
+		else {
+			return "<p>Failed to submit $URI to $servicetitle.</p>";
+		}
+	}
+	else {
+		 return "<p>Failed to submit $URI to $servicetitle.</p>";
+	}
+	curl_close($ch);
+	return $ret;
+}
 
 
 ?>

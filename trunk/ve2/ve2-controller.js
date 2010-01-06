@@ -29,25 +29,47 @@ function inspectVoiD(){
 		url: ve2ServiceURI,
 		data: "inspect="+ voiDInTTL,
 		success: function(data){
+			window.open(
+				data,
+				'sindiceInspectorWindow',
+				'left=100,top=100,width=800,height=600,toolbar=0,resizable=1'
+			);
+			 
+			return false;
+			/*
 			$('#inspector').dialog({
 								width: 800,
 								height: 600
-								/*,
-								buttons: {
-									"Cancel": function() { 
-										$(this).dialog("close"); 
-									} 
-								}
-								*/
 							});
-			//$("#inspector").html(data);
+			$("#inspector").html("<div>Inspect your voiD file via Sindice's Web Inspector: <a href='" + data +"' target='_new'>start ...</a>.</div>");
 			$("#inspector").dialog("open");
+			*/
 			setStatus("Ready");
 		},
 		error:  function(msg){
 			alert(data);
 		} 
 	});
+}
+
+function announceVoiDURI(){
+	var voiDURI = $("#vdAnnounceURI").val();
+	setStatus("Announcing voiD file");
+	$("#busy").show("normal");
+	$("#vdAnnounceResult").show("normal");
+	$.ajax({
+		type: "POST",
+		url: ve2ServiceURI,
+		data: "announce="+ escape(voiDURI),
+		success: function(data){
+			$("#busy").hide("fast");
+			$("#vdAnnounceResult").append(data);
+			setStatus("Ready");
+		},
+		error:  function(msg){
+			alert(data);
+		} 
+	});	
 }
 
 function validateInput(){
@@ -159,11 +181,14 @@ function lookupSubject(topic){
 		success: function(data){
 			if(data && data.length > 0) {
 				setStatus("Ready");
+				$("#dsTopicOut").html("");
 				for(i in data) {
 					var URI = data[i].URI;
 					var desc = data[i].desc;
 					var label = data[i].label;
-					$("#dsTopicOut").append("<div class='topicopt'><span resource='"+ URI +"' content='"+ label +"' title='"+ desc +"'>" + label + "</span> [<a href='"+ URI + "' target='_new'>URI</a>] </div>");
+					if(i < maxNumOfTopicsProposed) {
+						$("#dsTopicOut").append("<div class='topicopt'><span resource='"+ URI +"' content='"+ label +"' title='"+ desc +"'>" + label + "</span> [<a href='"+ URI + "' target='_new'>URI</a>] </div>");
+					}
 				}
 				$("#dsTopicOut").show("normal");
 			}		

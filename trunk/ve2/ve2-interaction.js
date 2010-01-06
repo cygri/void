@@ -4,7 +4,8 @@
 
 // config
 var  ve2ServiceURI = "ve2-service.php"; // the ve2 service 
-var  topicLookUpMinLength = 2; // min. length for a keyword to trigger live-lookup in DBPedia
+var  topicLookUpMinLength = 2; // min. length for a keyword to trigger live look-up in DBPedia
+var  maxNumOfTopicsProposed = 4; // max. numbers of topics shown in the result of the live look-up in DBPedia
 
 // working vars - don't touch
 var dsExampleURICounter = 1;
@@ -15,12 +16,12 @@ var voiDURIsList = new Array();
 // UI helper methods
 
 function initUI(){
-	$("#ref1").attr("href", vgBase + vgREFGeneral_Dataset_Metadata);
-	$("#ref2").attr("href", vgBase + vgREFCategorize_Datasets);
-	$("#ref3").attr("href", vgBase + vgREFDescribing_Dataset_Interlink);
-	$("#ref4").attr("href", vgBase + vgREFAnnouncing_the_license_of);
-	$("#ref5").attr("href", vgBase + vgREFVocabularies_used);
-	$("#ref6").attr("href", vgBase + vgREFSPARQL_endpoint_and_Examp);
+	$("a[href='ref1']").attr("href", vgBase + vgREFGeneral_Dataset_Metadata);
+	$("a[href='ref2']").attr("href", vgBase + vgREFCategorize_Datasets);
+	$("a[href='ref3']").attr("href", vgBase + vgREFDescribing_Dataset_Interlink);
+	$("a[href='ref4']").attr("href", vgBase + vgREFAnnouncing_the_license_of);
+	$("a[href='ref5']").attr("href", vgBase + vgREFVocabularies_used);
+	$("a[href='ref6']").attr("href", vgBase + vgREFSPARQL_endpoint_and_Examp);
 }
 
 function clearTopics(){
@@ -59,14 +60,13 @@ $(function(){
 		header: "h3",
 		autoHeight: false,
 		change: function(event, ui) {
-			$(".note").hide("fast");
 			createVoiD(); 
 		}
 	 });
 	
 	// general buttons
 	$("#doAbout").click(function () {
-		$("#about").toggle("normal");
+		$("#about").slideToggle("normal");
 	});
 	
 	$("#doCreate").click(function () {
@@ -78,9 +78,19 @@ $(function(){
 	});
 	
 	$("#doAnnounce").click(function () {
-		alert("Not yet implemented. Will allow to submit the URI of a voiD file to voiD stores and semantic indexers.");
+		$("#vdAnnounce").slideDown("normal");
 	});
 	
+	$("#doCloseAnnounce").click(function () {
+		$("#vdAnnounce").slideUp("normal");
+		$("#vdAnnounceResult").html("");	
+		$("#vdAnnounceResult").hide("normal");
+	});
+
+	$("#doAnnounceURI").click(function () {
+		announceVoiDURI();
+	});
+		
 	// auto-update on focus change
 	$("input").focus(function () {
 		autocompletes();
@@ -142,7 +152,7 @@ $(function(){
 		var topic = $("#dsTopic").val();
 		$("#dsTopicOut").html("");
 		$("#dsTopicOut").hide("normal");
-		if (topic.length > topicLookUpMinLength) {
+		if (topic.length >= topicLookUpMinLength) {
 			lookupSubject(topic);
 			$("div:contains('Provided Dataset Topics')").css("color", "white");
 		}
@@ -268,8 +278,9 @@ $(function(){
 	
 	////////
 	// notes
-	$(".ui-icon-help, .note").click(function () {
-		$(".note").toggle("normal");
+	$(".ui-icon-help").click(function () {
+		var helpID = $(this).attr('id');
+		$("#"+helpID+"content").slideToggle("normal");
 	});
 
 });
