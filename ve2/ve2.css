@@ -49,6 +49,10 @@ input {
 	margin-bottom: 5px;
 }
 
+li {
+	margin-bottom: 5px;
+}
+
 #top {
 	margin: 0px;
 	margin-bottom: 5px;
@@ -66,10 +70,14 @@ input {
 }
 
 #about {
+	font-size: 12px;
+	font-family: Lucida Console;
 	display: none;
 	border: 1px solid #0B93D5;
 	color: white;
 	padding: 10px;
+	padding-left: 50px;	
+	padding-right: 10px;		
 }
 
 #main {
@@ -90,6 +98,31 @@ input {
 	padding: 2px;
 	-moz-border-radius: 2px;
 	-webkit-border-radius: 2px;
+}
+
+#vdAnnounce{
+	display: none;
+	border: 1px solid #3f3f3f;
+	padding-left: 10px;
+	padding-bottom: 10px;
+	margin: 0px;		
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#vdAnnounceResult {
+	display: none;
+	background: black;
+	border: 1px solid #2d2d2d;
+	padding: 5px;
+	margin: 0px;
+	margin-top: 20px;
+	margin-right: 10px;	
+	font-size: 90%;
+}
+
+#busy {
+	display: none;	
 }
 
 #vdForm h3 {
@@ -211,6 +244,7 @@ input {
 	position: absolute; 
 	top: 12px;
 	right: 10px;
+	margin-top: 0px;
 	border: 1px solid white;
 	-moz-border-radius: 2px;
 	-webkit-border-radius: 2px;
@@ -219,8 +253,8 @@ input {
 .note {
 	display: none;
 	font-size: 12px;
-	color: #0B93D5;
-	background: #bdbdbd;
+	color: #e0e0e0;
+	background: #1d1d1d;
 	padding: 10px;
 	margin-top: 0px;
 	margin-right: 0px;
@@ -230,7 +264,29 @@ input {
 }
 
 .fyi {
+	margin: 0px;
+	padding-top: 0px;
 	color: #8f8f8f;
 	font-size: 11px;
 	text-align: justify;	
+}
+
+.fyi-global {
+	margin-top: 20px;
+	padding-top: 2px;
+	border-top: 1px solid #8f8f8f;
+	color: #8f8f8f;
+	font-size: 11px;
+	text-align: justify;	
+}
+
+.logobar {
+	float: right;
+	padding: 10px;
+	padding-top: 0px;
+	margin-top: 0px;	
+	margin-bottom: 50px;
+	margin-left: 50px;	
+	text-align: center; 
+	border-left: 1px solid #303030;
 }
