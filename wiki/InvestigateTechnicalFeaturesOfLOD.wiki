@@ -31,9 +31,8 @@ The following terms are used by people to describe their RDF data dump, as summa
  * TSV
  * tab-separated values
  * CSV
- * WARC?
 
-A lot of RDF dumps are made available as a zip file, making the actual technical features of these data invisible. (maybe zip/tar is also a technical feature ?)
+A lot of RDF dumps are made available as a zip file, making the actual technical features of these data invisible. They are data dump format not for describing data serialization format, which is the focus of the technical feature property.
 
 
 == Search in Sindice ==
