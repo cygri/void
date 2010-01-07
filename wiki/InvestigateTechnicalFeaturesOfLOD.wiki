@@ -32,6 +32,10 @@ The following terms are used by people to describe their RDF data dump, as summa
  * tab-separated values
  * CSV
 
+Not appeared in the current datasets yet:
+ * RDFa
+ * RDF/JSON
+
 A lot of RDF dumps are made available as a zip file, making the actual technical features of these data invisible. They are data dump format not for describing data serialization format, which is the focus of the technical feature property.
 
 
