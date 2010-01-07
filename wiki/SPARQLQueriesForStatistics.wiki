@@ -22,6 +22,9 @@ Here are some candidates that we would like to be able to express using voiD and
 
 = SPARQL queries =
 
+== Notes ==
+  * All queries are executed against the default graph. Queries might need modification if only specific named graphs should be taken into account.
+
 == total number of triples ==
 {{{
 SELECT (COUNT(*) AS ?no) { ?s ?p ?o  }
@@ -46,9 +49,6 @@ SELECT (COUNT(DISTINCT ?o ) AS ?no) {  ?s ?p ?o  filter(!isLiteral(?o)) }
 {{{
 SELECT DISTINCT ?type { ?s a ?type }
 }}}
-
-@@J: better if a graph URI is given; otherwise all the Openlink's classes are also returned.
-@@K: doesn't it get quite implementation specific then? not all datasets are contained within one graph.
 
 == exhaustive list of properties used in the dataset ==
 {{{
@@ -76,7 +76,7 @@ SELECT  ?p (COUNT(DISTINCT ?o ) AS ?count ) { ?s ?p ?o } GROUP BY ?p ORDER BY ?c
 }}}
 
 == list of all domain names occurring in URIs in subjects or objects ==
-@@@
+Can't be done yet in SPARQL 1.1, there is no way of assigning the result of an expression to a result variable
 
 == table: domain names vs. number of triples where the domain name occurs in subject or object ==
-@@@
+Can't be done yet in SPARQL 1.1, there is no way of assigning the result of an expression to a result variable
