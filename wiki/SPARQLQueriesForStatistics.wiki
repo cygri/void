@@ -8,7 +8,7 @@ This page collects SPARQL queries for computing various statistics that can be e
 
 Here are some candidates that we would like to be able to express using voiD and that can be translated as SPARQL queries. Note, the assumption is that it's going to be SPARQL 1.1. For a void:Dataset, we would like to express:
   * total number of triples
-  * total number of distinct URIs
+  * total number of distinct resource URIs
   * total number of distinct subject nodes
   * total number of distinct object nodes
   * exhaustive list of classes used in the dataset @@J: this and the following are not numbers
@@ -27,14 +27,10 @@ Here are some candidates that we would like to be able to express using voiD and
 SELECT (COUNT(*) AS ?no) { ?s ?p ?o  }
 }}}
 
-== total number of distinct URIs ==
+== total number of distinct resource URIs ==
 {{{
 SELECT (COUNT(DISTINCT ?s ) AS ?no) { { ?s ?p ?o  } UNION { ?o ?p ?s } FILTER(!isBlank(?s) && !isLiteral(?s)) } 	
 }}}
-
-Does this take into account URIs vs. blank nodes?
-@@J: how about the predicates? 
-@@k: fixed - should it include predicates? 
 
 == total number of distinct subject nodes ==
 {{{
