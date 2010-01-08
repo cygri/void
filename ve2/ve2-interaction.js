@@ -65,6 +65,11 @@ $(function(){
 	 });
 	
 	// general buttons
+	$("#doStart").click(function () {
+		$("#intro").slideUp("slow");
+		$("#main").slideDown("slow");		
+	});
+	
 	$("#doAbout").click(function () {
 		$("#about").slideToggle("normal");
 	});
