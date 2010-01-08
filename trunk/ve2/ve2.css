@@ -80,7 +80,21 @@ li {
 	padding-right: 10px;		
 }
 
+#intro {
+	font-size: 14px;
+	text-align: justify;
+	padding-top: 10px;	
+	padding-left: 80px;
+	padding-right: 80px;
+	margin: 100px;
+	border: 5px solid #f0f0f0;
+	background: white;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;	
+}
+
 #main {
+	display: none;
 	padding: 0px;
 	margin: 0px;	
 }
@@ -94,10 +108,7 @@ li {
 
 #vdForm {
 	float: left;
-	border: 1px solid #3f3f3f;
 	padding: 2px;
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
 }
 
 #vdAnnounce{
@@ -123,15 +134,6 @@ li {
 
 #busy {
 	display: none;	
-}
-
-#vdForm h3 {
-	color: white;
-	font-weight: normal;
-	height: 25px;
-	padding-top: 5px; 
-	padding-left: 10px; 
-	margin-top: 0px;
 }
 
 #fcmd {
@@ -190,6 +192,17 @@ li {
 	text-align: center;
 	font-size: 80%;
 }
+
+.secHead {
+	color: white;
+	font-weight: normal;
+	font-size: 120%;
+	padding-top: 5px; 
+	padding-bottom: 5px; 
+	padding-left: 0px; 
+	margin-top: 2px;
+}
+
 
 .paction {
 	cursor: pointer;
