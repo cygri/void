@@ -83,7 +83,8 @@ function validateInput(){
 		dsHomeURI : "http://example.org/",
 		dsName : "Example Dataset"
 	}
-	
+
+	var dsURI = $("#dsURI").val();	
 	var dsHomeURI = $("#dsHomeURI").val();
 	var dsName = $("#dsName").val();
 	var dsDescription = $("#dsDescription").val();
@@ -98,8 +99,15 @@ function validateInput(){
 	var dsLookupURI = $("#dsLookupURI").val();
 	var dsDumpURI = $("#dsDumpURI").val();
 	
+	
 		
 	// general metadata
+	if(dsURI != "" && (dsURI.substring(0,7) != "http://")) {
+		alert("If you provide a dataset URI, it must be a URI starting with 'http://'.");
+		return false;
+	}
+	else data.dsURI = dsURI;
+
 	if(dsHomeURI == "" || (dsHomeURI.substring(0,7) != "http://")) {
 		alert("You have to provide a dataset homepage. This must be a URI starting with 'http://'.");
 		return false;

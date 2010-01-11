@@ -66,8 +66,7 @@ $(function(){
 	
 	// general buttons
 	$("#doStart").click(function () {
-		$("#intro").slideUp("slow");
-		$("#main").slideDown("slow");		
+		$("#intro").fadeOut("slow");
 	});
 	
 	$("#doAbout").click(function () {

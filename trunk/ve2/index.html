@@ -9,7 +9,8 @@
   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
   xmlns:doap="http://usefulinc.com/ns/doap#" 
-  xmlns:am="http://vocab.deri.ie/app-meta#">
+  xmlns:am="http://vocab.deri.ie/app-meta#"
+  xmlns:ov="http://open.vocab.org/terms/">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>ve2 - the voiD editor</title>
@@ -61,9 +62,11 @@
 					</span>
 			</p>	
 			<p>	 
-			In case you have a feature request or want to file a bug, please visit the <a href="http://code.google.com/p/void-impl/issues/list?q=label%3AProduct-ve">issue tracker</a>. If you want to discuss general usefulness or other, voiD-related stuff, please post it to the <a href="http://lists.w3.org/Archives/Public/public-lod/">public-lod@w3.org</a> mailing list (and mention <strong>ve</strong> or <strong>ve2</strong> there ;)
+				In case you have a feature request or want to file a bug, please visit the <a href="http://code.google.com/p/void-impl/issues/list?q=label%3AProduct-ve">issue tracker</a>. If you want to discuss general usefulness or other, voiD-related stuff, please post it to the <a href="http://lists.w3.org/Archives/Public/public-lod/">public-lod@w3.org</a> mailing list (and mention <strong>ve</strong> or <strong>ve2</strong> there ;)
 			</p>
-			<p>Kudos to <a href="http://richard.cyganiak.de/foaf.rdf#cygri">Richard Cyganiak</a> and <a href="http://www.deri.ie/about/team/member/Lin_Clark#me">Lin Clark</a> for early feedback and lots of good suggestions how to improve the usability!</p>
+			<p about="http://sw-app.org/mic.xhtml#i">
+				Kudos to <a href="http://richard.cyganiak.de/foaf.rdf#cygri" rel="ov:kudosTo">Richard Cyganiak</a>, <a href="http://www.deri.ie/about/team/member/Lin_Clark#me" rel="ov:kudosTo">Lin Clark</a>, and <a href="http://www.jenitennison.com/#me" rel="ov:kudosTo">Jeni Tennison</a> for early feedback and lots of good suggestions how to improve the usability! Further I'd like to thank <a href="http://keithalexander.co.uk/id/me" rel="ov:kudosTo">Keith Alexander</a> for his support re the Talis voiD store.
+			</p>
 			</div>
 			<div about="" rel="dcterms:conformsTo" resource="http://www.w3.org/TR/rdfa-syntax" class="validrdfa">
 				<a href="http://validator.w3.org/check?uri=referer">
@@ -89,17 +92,20 @@
 	</div>
 
 	<div id="intro">
-		<p>
-			This is ve2, the voiD editor. It allows you to generate a voiD file in RDF Turtle format. On the left you'll find a collection of forms where you can define the characteristics of your linked dataset, such as categories, interlinking, technical features, licensing and the like. On the right hand, the respective voiD file is generated on-the-fly (or manually, hitting the 'Create' button).
-		</p>
-		<p>
-			At any time you can inspect your voiD file via the Sindice Web Data inspector using the 'Inspect' button.
-		</p>
-		<p>
-			Once you have adjusted it to you needs, put it on you server and you can announce it to the wide world, here as well with the 'Announce' button.
-		</p>
-		<div style="text-align: center; margin-top: 30px; margin-bottom: 10px;"><span id="doStart" class="ibtn">Start!</span></div>
-	</div>	
+		<div id="introContent">
+			<p>
+				This is ve2, the voiD editor. It allows you to generate a voiD file in RDF Turtle format. On the left you'll find a collection of forms where you can define the characteristics of your linked dataset, such as categories, interlinking, technical features, licensing and the like. On the right hand, the respective voiD file is generated on-the-fly (or manually, hitting the 'Create' button).
+			</p>
+			<p>
+				At any time you can inspect your voiD file via the Sindice Web Data inspector using the 'Inspect' button.
+			</p>
+			<p>
+				Once you have adjusted the voiD file to your needs, put it on your server and you can announce it to the wide world, here as well with the 'Announce' button.
+			</p>
+			<div style="text-align: center; margin-top: 30px; margin-bottom: 30px;"> <span id="doStart" class="ui-state-active ui-corner-all" style="padding: 2px 15px 2px 15px;"> Start ... </span> </div>
+		</div>
+	</div>
+	
 	<div id="main">	
 	<div id="dsForm">
 		<div class="secHead">Input: dataset characteristics</div>
@@ -110,16 +116,22 @@
 					<div class="notebtn"><span class="ui-icon ui-icon-help" title="Explain me what I can do here ..." id="help1"></span></div>
 					<p class="note" id="help1content">Define general metadata about the dataset. For more information see the voiD guide, section '<a href="ref1" target="_new">General Dataset Metadata</a>'.</p>
 					<div>
+						<div class="flabel">Dataset URI</div>
+						<input type="text" size="40" id="dsURI" value="" />
+						<p class="fyi">You can define a URI for your dataset. If you leave it blank, a default  will be used - if the voiD file is deployed at <code>http://example.org/void.ttl</code> the dataset URI is <code>http://example.org/void.ttl#myDS</code>.</p>
+					</div>
+					<div>
 						<div class="flabel">Dataset Homepage URI</div>
 						<input type="text" size="30" id="dsHomeURI" value="http://example.org/" />
+						<p class="fyi">Define your dataset by specifying its homepage. The <em>homepage of the dataset</em> is a dedicated document that talks about the dataset.</p>
 					</div>
 					<div>
 						<div class="flabel">Dataset Name</div>
-						<input type="text" size="20" id="dsName" value="Example Dataset" />
+						<input type="text" size="15" id="dsName" value="Example Dataset" />
 					</div>
 					<div>
 						<div class="flabel">Dataset Description</div>
-						<input type="text" size="50" id="dsDescription" value="A simple dataset in RDF." />
+						<input type="text" size="45" id="dsDescription" value="A simple dataset in RDF." />
 					</div>
 					<div>						
 						<div class="flabel"><span id="doAddDSExampleURI" class="ibtn" title="Add another example resource">+</span> Example Resource</div>
@@ -127,7 +139,6 @@
 							<div class="dsExampleURI" id="dsExampleURI0"><input type="text" size="35" value="http://example.org/resource/ex" /> <span class="btn">validate</span></div>
 						</div>
 					</div>
-					<p class="fyi-global"><strong>All</strong> fields here are mandatory.</p>
 				</div>
 			</div>
 			<div>

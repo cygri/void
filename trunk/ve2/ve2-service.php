@@ -44,8 +44,7 @@ $BASE_TTL = "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix void: <http://rdfs.org/ns/void#> .
 @prefix : <#> .
 
-## your dataset
-$SELF_DS rdf:type void:Dataset ;\n";
+## your dataset\n";
 
 
 /* ve2 INTERFACE */
@@ -133,6 +132,7 @@ function createVoiDTTL($dsParams){
 	global $SELF_DS;
 	global $BASE_TTL;
 	$retVal = $BASE_TTL;
+	$dsURI = $dsParams["dsURI"];
 	$dsHomeURI = $dsParams["dsHomeURI"];
 	$dsName = $dsParams["dsName"];
 	$dsDescription = $dsParams["dsDescription"];
@@ -149,6 +149,12 @@ function createVoiDTTL($dsParams){
 	
 	
 	// the dataset
+	if($dsURI){
+		$retVal .= "<$dsURI> rdf:type void:Dataset ;\n";
+	}
+	else {
+		$retVal .= "$SELF_DS rdf:type void:Dataset ;\n";
+	}
 	$retVal .= " foaf:homepage <$dsHomeURI> ;\n";
 	$retVal .= " dcterms:title \"$dsName\" ;\n";
 	$retVal .= " dcterms:description \"$dsDescription\" ;\n";
