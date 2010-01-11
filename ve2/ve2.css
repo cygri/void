@@ -46,7 +46,7 @@ fieldset {
 }
 
 input {
-	margin-bottom: 5px;
+	margin-bottom: 2px;
 }
 
 li {
@@ -81,20 +81,38 @@ li {
 }
 
 #intro {
+	background: black;
+	color: white;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	margin: 0px;
+	width: 100%;
+	height: 100%;
+	opacity: 0.9;
+	filter:alpha(opacity=90);
+	z-index: 100;
+}
+
+#introContent {
+	opacity: 1.0;
 	font-size: 14px;
 	text-align: justify;
-	padding-top: 10px;	
+	padding-top: 30px;	
 	padding-left: 80px;
 	padding-right: 80px;
 	margin: 100px;
+	margin-top: 200px;
 	border: 5px solid #f0f0f0;
-	background: white;
 	-moz-border-radius: 4px;
-	-webkit-border-radius: 4px;	
+	-webkit-border-radius: 4px;
+}
+
+#doStart {
+	cursor: pointer;
 }
 
 #main {
-	display: none;
 	padding: 0px;
 	margin: 0px;	
 }
@@ -237,8 +255,8 @@ li {
 }
 
 .flabel {
-	margin-top: 15px;
-	margin-bottom: 2px;
+	margin-top: 10px;
+	margin-bottom: 5px;
 	padding: 0px;
 }
 
