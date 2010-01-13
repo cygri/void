@@ -532,28 +532,41 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 				<a id="Technical_description_features" name="Technical_description_features"></a> 1.5 Technical Description (Features) 
 			</h3>
 		<p>
-			To express a certain technical feature of a dataset, such as formats in which the data is available, there are two ways to realise this. 
-			 
-			In the simple case use <code>void:feature</code> along with a blank node. If one, for example, wants to say “this dataset is available as RDF/XML”, simply using the MIME type solves this:</p> 
-<pre>
-                    <code>
-    :DBpedia void:feature [ dbp:mime "application/rdf+xml" ; ] .</code>
+			The property of <code>void:feature</code> can be used to describe the RDF serialization format of a dataset. The domain of the property is <code>void:Dataset</code> and its range is <code>void:TechnicalFeature</code>. After surveying the current linked data on the Web, we propose a list of technical feature URIs under the voiD namespace. These URIs are shown in <a href="#tab-technical-feature">[Table 2]</a> .
+			
+			<a name="tab-technical-feature" id="tab-technical-feature"></a>
+			<div style="text-align:center;">
+				<table summary="Technical Feature URIs under the voiD Namespace" border="1" cellpadding="5px" cellspacing="2px">
+					<caption><strong>Table 2.:</strong> Technical feature URIs that are sub-classes of <code>void:TechnicalFeature</code>.</caption>
+					<tbody>
+						<tr>
+							<td><code>void:N3</code></td><td><a href="http://www.w3.org/TeamSubmission/n3/">Notation3 (N3): A readable RDF syntax: W3C Team Submission 14 January 2008</a></td>
+						</tr>
+						<tr>
+							<td><code>void:NTriples</code></td><td><a href="http://www.w3.org/2001/sw/RDFCore/ntriples/">NTriples: W3C RDF Core WG Internal Working Draft</a></td>
+						</tr>
+						<tr>
+							<td><code>void:RDFXML</code></td><td><a href="http://www.w3.org/TR/REC-rdf-syntax/">RDF/XML Syntax Specification: W3C Recommendation 10 February 2004</a></td>
+						</tr>
+						<tr>	
+							<td><code>void:RDFa</code></td><td><a href="http://www.w3.org/TR/rdfa-syntax/">RDFa in XHTML: Syntax and Processing: W3C Recommendation 14 October 2008</a></td>
+						</tr>
+						<tr>	
+							<td><code>void:Turtle</code></td><td><a href="http://www.w3.org/TeamSubmission/turtle/">Turtle - Terse RDF Triple Language: W3C Team Submission 14 January 2008</a></td>
+						</tr>	
+					</tbody>
+				</table>
+			</div>
+			
+			
+		<p>Now we can use <code>void:feature</code> and the technical feature URIs to express, for example, &ldquo;a dataset is available as RDF/XML&rdquo;:</p> 
+		<pre>
+           <code>
+    		:DBpedia void:feature void:RDFXML .</code>
+		</pre>
 
-</pre>
-
-						<p>
-			 However, there may be use cases where you want to talk about the feature in greater detail. In this case, create a new instance for a feature using <code>void:TechnicalFeature</code> and connect it to the dataset using <code>void:feature</code>:</p> 
-<pre>
-                <code>
-    :RDFXML a void:TechnicalFeature;
-            rdfs:label "RDF/XML" ;
-            rdfs:comment "Available as linked data in RDF/XML format" ;
-            dbp:mime "application/rdf+xml" . 
-
-    :DBpedia void:feature :RDFXML .</code>
-
-</pre>
-<p><em>Note: voiD does not include a collection of pre-defined <code>void:TechnicalFeature</code> instances for particular technologies. Therefore, to describe technical features, it is necessary to define your own <code>void:TechnicalFeature</code>  instances as in the examples above. This is perhaps most useful for larger collections of voiD descriptions, where feature instances can be re-used across multiple voiD descriptions.</em>
+<p><em>Note: in voiD guide 2.0, we name <code>void:feature</code> for expressing certain technical features of a dataset. In voiD guide 3.0, we give a much more specific semantics to this property, as defined above. Describing the MIME types or profiles of a dataset might be considered in the next release of voiD guide if community demands emerge.</em></p>
+<!--p><em>Note: voiD does not include a collection of pre-defined <code>void:TechnicalFeature</code> instances for particular technologies. Therefore, to describe technical features, it is necessary to define your own <code>void:TechnicalFeature</code>  instances as in the examples above. This is perhaps most useful for larger collections of voiD descriptions, where feature instances can be re-used across multiple voiD descriptions.</em-->
 			</p>
 			<h3>
 				<a id="SPARQL_endpoint_and_Examp" name="SPARQL_endpoint_and_Examp"></a>  1.6 SPARQL endpoints, URI lookup, and RDF data dumps 
@@ -687,13 +700,13 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 					</p>
 					 
 			<p>
-				The following <a href="#tab-void-interlinking-cap">[Table 2]</a> renders the possibilities along the two orthogonal dimensions: 
+				The following <a href="#tab-void-interlinking-cap">[Table 3]</a> renders the possibilities along the two orthogonal dimensions: 
 			</p>
 		
 			<a name="tab-void-interlinking-cap" id="tab-void-interlinking-cap"></a>
 			   <div style="text-align:center;">
 			   <table summary="Interlinking description capabilities of voiD" border="1" cellpadding="5px" cellspacing="2px">
-			   <caption><strong>Table 2.:</strong> Interlinking description capabilities of voiD.</caption>
+			   <caption><strong>Table 3.:</strong> Interlinking description capabilities of voiD.</caption>
 			   <tbody>
 						<tr>
 							<td align="center">
@@ -879,7 +892,7 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 			<a name="tab-defined-stat-dimensions" id="tab-defined-stat-dimensions"></a>
 			    <div style="text-align:center;">
 			   <table summary="Defined statistical dimensions of voiD" border="1" cellpadding="5px" cellspacing="2px">
-			   <caption><strong>Table 3.:</strong> Defined statistical dimensions of voiD.</caption>
+			   <caption><strong>Table 4.:</strong> Defined statistical dimensions of voiD.</caption>
 			   <tbody>
 						<tr style="text-align: left;">
 							<td>
@@ -1455,7 +1468,7 @@ See also <a href="examples/ex6.sparql" title="example query 6">example query 6</
 	<dd>
 		<a href="http://www.w3.org/TeamSubmission/2008/SUBM-turtle-20080114/"><cite>Turtle - Terse RDF Triple Language</cite></a>, D. Beckett, T. Berners-Lee, W3C Team Submission 14 January 2008. URI: http://www.w3.org/TeamSubmission/2008/SUBM-turtle-20080114/
 	</dd>
-
+	
 	<dt>
 		<a name="ref-voiD-voc" id="ref-voiD-voc"></a>[voiD vocabulary]
 	</dt>
