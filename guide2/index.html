@@ -103,6 +103,9 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 					<li>
 						<a href="#Directed_vs_Non_directed" >2.2 Non-directed vs. Directed</a>
 					</li>
+					<li>
+						<a href="#Note_on_linkset">2.3 Further Note on void:linkPredicate</a>
+					</li>
 				</ul>
 			</li>
 			<li>
@@ -850,7 +853,46 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 <p>So, some provider states that Jamendo and Geonames are linked with <code>foaf:based_near</code> (but not necessarily asserted by either Jamendo or Geonames); the respective RDF graph for the above example is:</p> 
  <div style="text-align:center;">
 	<img src="img/EXAMPLE_3rdparty_directed_with-link-predicate.png" style="width: 600px;" alt="example interlinking for the 3rd-party, directed case with a link predicate" />
-	</div>
+ </div>
+	
+	<h3>
+		<a id="Note_on_linkset" name="Note_on_linkset">2.3 Further Note on void:linkPredicate</a>
+	</h3>
+	
+The property <code>void:linkPredicate</code> can be used to describe the type of links between datasets. But when one dataset is associated with at least one other datasets, through different RDF predicates, one needs to choose between the following patterns to describe this dataset and its linksets:
+<ul>
+<li> create one <code>void:LinkSet</code> to describe all these different types of links, or</li>
+<li> create a separate <code>void:LinkSet</code> for each different type of links.</li>
+</ul>
+
+<p>Also, the user could use both patterns to describe his/her dataset. We would like to recommend the second choice, so that separate descriptions about each linkset can be provided, such as provenance information or statistics information about of each linkset.</p> 
+	
+<p>For example, if between datasets D1 and D2, there are three different types of links, through three different RDF predicates p1, p2, p3, the recommended pattern to model this could be:</p>
+
+<pre>
+<code>
+	:D1    a    void:Dataset .
+	:D2    a    void:Dataset .
+
+	:L1    a    void:Linkset ;
+	       void:linkPredicate    :p1 ;
+               void:target    :D1 ;
+               void:target    :D2 .
+
+	:L2    a    void:Linkset ;
+	       void:linkPredicate    :p2 ;
+	       void:target    :D1 ;
+	       void:target    :D2 .
+
+	:L3    a    void:Linkset ;
+	       void:linkPredicate    :p3 ;
+	       void:target    :D1 ;
+	       void:target    :D2 .
+</code>
+</pre>
+
+
+
 			<h2>
 				<a id="Expressing_dataset_statistic" name="Expressing_dataset_statistic"></a> 3. Expressing dataset statistics
 			</h2>
