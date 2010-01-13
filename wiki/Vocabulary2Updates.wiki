@@ -1,8 +1,9 @@
 * void:inDataset
 
-### technical URIs, to be sub-class of void:TechnicalFeature??
-* void:N3
-* void:NTriples
-* void:RDFXML
-* void:RDFa
-* void:Turtle
+Technical URIs, to be sub-class of void:TechnicalFeature??
+
+  * void:N3
+  * void:NTriples
+  * void:RDFXML
+  * void:RDFa
+  * void:Turtle
