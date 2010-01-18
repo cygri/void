@@ -104,7 +104,7 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 						<a href="#Directed_vs_Non_directed" >2.2 Non-directed vs. Directed</a>
 					</li>
 					<li>
-						<a href="#Note_on_linkset">2.3 Further Note on void:linkPredicate</a>
+						<a href="#Note_on_linkset">2.3 Describing the property used for the interlinking</a>
 					</li>
 				</ul>
 			</li>
@@ -809,34 +809,32 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 			</h3>
 			<p>Depending on the type of interlinking, one may be interested in stating the direction of the interlinking.</p> 
 			<p> 
-			In the <b>non-directed</b> case (i.e., the interlinking predicate is symmetric, such as <code>owl:sameAs</code>) you can simply use <code>void:target</code> (possibly along with <code>void:linkPredicate</code> to further specify the interlinking):</p> 
+			In the <b>non-directed</b> case you can simply use <code>void:target</code>:</p> 
 <pre>
  <code>
     :DBpedia void:subset :DBpedia2Geonames .  
 
     :DBpedia2Geonames a void:Linkset ; 
-                       void:linkPredicate owl:sameAs ;
                        void:target :DBpedia ;
                        void:target :Geonames .</code>
 
 </pre>  
-<p>The voiD snippet above basically states that there are <code>owl:sameAs</code> links between DBpedia and Geonames and that these links are contained in the DBpedia dataset, which can also be seen in the RDF graph below:</p> 
+<p>The voiD snippet above basically states that there are links between DBpedia and Geonames and that these links are contained in the DBpedia dataset, which can also be seen in the RDF graph below:</p> 
 			 
  <div style="text-align:center;">
 	<img src="img/EXAMPLE_classic_non-directed_with-link-predicate.png" style="width: 600px;" alt="example interlinking for the classic LOD, non-directed case with a link predicate" />
 	</div>
-			<p>In the <b>directed</b> case (for example with <code>foaf:based_near</code>) you would use <code>void:subjectsTarget</code> and <code>void:objectsTarget</code> along with <code>void:linkPredicate</code> to state the direction of the interlinking:</p> 
+			<p>In the <b>directed</b> case (for example with <code>foaf:based_near</code>) you would use <code>void:subjectsTarget</code> and <code>void:objectsTarget</code> to state the direction of the interlinking:</p> 
 <pre>
  <code>
     :Jamendo void:subset :Jamendo2Geonames .  
 
     :Jamendo2Geonames a void:Linkset ;  
-                      void:linkPredicate foaf:based_near ;  
                       void:subjectsTarget :Jamendo ;  
                       void:objectsTarget :Geonames .</code>
 
 </pre>  
-<p>The above snippet basically states that there are <code>foaf:based_near</code> links <strong>from</strong> Jamendo <strong>to</strong> Geonames and that these links are contained in the Jamendo dataset (see also the RDF graph in the following).</p> 
+<p>The above snippet basically states that there are links <strong>from</strong> Jamendo <strong>to</strong> Geonames and that these links are contained in the Jamendo dataset (see also the RDF graph in the following).</p> 
  <div style="text-align:center;">
 	<img src="img/EXAMPLE_classic_directed_with-link-predicate.png" style="width: 600px;" alt="example interlinking for the classic LOD, directed case with a link predicate" />
 	</div>
@@ -845,29 +843,40 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 			<pre>
 				<code>
     :Jamendo2Geonames a void:Linkset ;  
-                      void:linkPredicate foaf:based_near;  
                       void:subjectsTarget :Jamendo ;  
                       void:objectsTarget :Geonames .</code>
 
 </pre>  
-<p>So, some provider states that Jamendo and Geonames are linked with <code>foaf:based_near</code> (but not necessarily asserted by either Jamendo or Geonames); the respective RDF graph for the above example is:</p> 
+<p>So, some provider states that Jamendo and Geonames are linked, but not necessarily asserted by either Jamendo or Geonames; the respective RDF graph for the above example is:</p> 
  <div style="text-align:center;">
 	<img src="img/EXAMPLE_3rdparty_directed_with-link-predicate.png" style="width: 600px;" alt="example interlinking for the 3rd-party, directed case with a link predicate" />
  </div>
 	
 	<h3>
-		<a id="Note_on_linkset" name="Note_on_linkset">2.3 Further Note on void:linkPredicate</a>
+		<a id="Note_on_linkset" name="Note_on_linkset">2.3 Describing the property used for the interlinking</a>
 	</h3>
 	
-The property <code>void:linkPredicate</code> can be used to describe the type of links between datasets. But when one dataset is associated with at least one other datasets, through different RDF predicates, one needs to choose between the following patterns to describe this dataset and its linksets:
-<ul>
-<li> create one <code>void:LinkSet</code> to describe all these different types of links, or</li>
-<li> create a separate <code>void:LinkSet</code> for each different type of links.</li>
-</ul>
+To further specify how two datasets are interlinked the property <code>void:linkPredicate</code> can be used. For example, to state that the previously mentioned datasets DBpedia and Geonames are linked by the property of <code>owl:sameAs</code>, the following example achieves this by using <code>void:linkPredicate</code>:
 
-<p>Also, the user could use both patterns to describe his/her dataset. We would like to recommend the second choice, so that separate descriptions about each linkset can be provided, such as provenance information or statistics information about of each linkset.</p> 
-	
-<p>For example, if between datasets D1 and D2, there are three different types of links, through three different RDF predicates p1, p2, p3, the recommended pattern to model this could be:</p>
+<pre>
+ <code>
+    :DBpedia void:subset :DBpedia2Geonames .
+    
+    :DBpedia2DBLP rdf:type void:Linkset ;  
+                  void:linkPredicate owl:sameAs ;
+                  void:target :DBpedia ;  
+                  void:target :DBLP .</code>
+
+</pre>
+
+This is illustated by the RDF graph below:
+<div style="text-align:center;">
+<img src="img/EXAMPLE_classic_non-directed_with-link-predicate.png" style="width: 600px;" alt="example interlinking for the classic LOD, non-directed case with a link predicate" />
+</div>
+
+<p>Sometimes, one dataset could be associated with more than one datasets through different RDF predicates. In this case users should create a separate <code>void:LinkSet</code> for each different type of links, so that separate descriptions about each linkset can be provided, such as provenance information or statistics information about of each linkset. It is not allowed to create one <code>void:LinkSet</code> to describe all these different types of links.</p> 
+
+<p>For example, if between datasets D1 and D2, there are three different types of links, through three different RDF predicates p1, p2, p3 (which are published by third-parties), this should be described using voiD as the following:</p>
 
 <pre>
 <code>
