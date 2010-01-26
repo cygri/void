@@ -65,8 +65,9 @@ if(isset($_POST['inspect'])){ // inspect voiD in Turtle
 if(isset($_POST['announce'])){ // announce a voiD URI
 	$result = "<p>Result of announce process:</p>";
 	$result .= pingback("Sindice", "http://sindice.com/xmlrpc/api", "voiD file", $_POST['announce']);
-	$result .= ping("Talis voiD store", "http://kwijibo.talis.com/voiD/submit", $_POST['announce']);
-	$result .= ping("PingtheSemanticWeb.com", "http://pingthesemanticweb.com/rest/", $_POST['announce']);
+	$result .= ping("RKB voiD store", "http://void.rkbexplorer.com/submit/?action=uri", "uri", $_POST['announce']);
+	$result .= ping("Talis voiD store", "http://kwijibo.talis.com/voiD/submit", "url", $_POST['announce']);
+	$result .= ping("PingtheSemanticWeb.com", "http://pingthesemanticweb.com/rest/", "url", $_POST['announce']);
 	echo $result;
 }
 
@@ -240,7 +241,12 @@ function createVoiDTTL($dsParams){
 			else 	$retVal .= " . \n\n";
 			$retVal .= $SELF_DS ."-DS$i rdf:type void:Linkset ;\n";
 			$retVal .= " void:linkPredicate <$tdsLinkType> ;\n";
-			$retVal .= " void:target $SELF_DS ;\n";
+			if($dsURI){
+				$retVal .= " void:target <$dsURI> ;\n";
+			}
+			else {
+				$retVal .= " void:target $SELF_DS ;\n";
+			}
 			$retVal .= " void:target :DS$i .\n";
 			$i++;
 		}
@@ -458,9 +464,9 @@ function pingback($servicetitle, $endpoint, $title, $URI) {
 }
 
 // ping a service with RESTful API
-function ping($servicetitle, $endpoint, $URI){
+function ping($servicetitle, $endpoint, $queryParam, $URI){
 	$fields = array(
-	        'url'=>urlencode($URI)
+	        $queryParam =>urlencode($URI)
 	);
 	foreach($fields as $key=>$value) {
 		$fields_string .= $key.'='.$value.'&';

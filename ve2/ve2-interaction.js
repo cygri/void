@@ -87,7 +87,6 @@ $(function(){
 	
 	$("#doCloseAnnounce").click(function () {
 		$("#vdAnnounce").slideUp("normal");
-		$("#vdAnnounceResult").html("");	
 		$("#vdAnnounceResult").hide("normal");
 	});
 
