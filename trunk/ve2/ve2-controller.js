@@ -61,7 +61,8 @@ function announceVoiDURI(){
 	}
 	
 	setStatus("Announcing voiD file");
-	$("#busy").show("normal");
+	$("#vdAnnounceResultOut").html("");
+	$("#busy").show("normal");	
 	$("#vdAnnounceResult").show("normal");
 	$.ajax({
 		type: "POST",
@@ -69,7 +70,7 @@ function announceVoiDURI(){
 		data: "announce="+ escape(voiDURI),
 		success: function(data){
 			$("#busy").hide("fast");
-			$("#vdAnnounceResult").append(data);
+			$("#vdAnnounceResultOut").html(data);
 			setStatus("Ready");
 		},
 		error:  function(msg){
