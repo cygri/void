@@ -571,10 +571,10 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 			<p>If users need to describe, for example, other media types besides those of Table 2, or supported HTTP features such as content negotiation or etag headers, they should create the URIs under their own namespace or reuse existing URIs and define them as an instance of <code>void:TechnicalFeature</code>. For example, the following code shows how one could define a feature <code>:HTTPCachingETags</code> as an instance of <code>void:TechnicalFeature</code>.</p>
 			<pre>
 				<code>
-					HTTPCachingETags a void:TechnicalFeature ;
-					rdfs:label "HTTP ETag support" ;
-					rdfs:comment "the dataset supports HTTP caching using ETags" ;
-					rdfs:seeAlso <http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#> .
+					:HTTPCachingETags a void:TechnicalFeature ;
+						rdfs:label "HTTP ETag support" ;
+						rdfs:comment "the dataset supports HTTP caching using ETags" ;
+						rdfs:seeAlso &lt;http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#&gt; .
 				</code>
 			</pre>	
 
