@@ -535,7 +535,7 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 				<a id="Technical_description_features" name="Technical_description_features"></a> 1.5 Technical Description (Features) 
 			</h3>
 		<p>
-			The property of <code>void:feature</code> can be used to describe the RDF serialization format of a dataset. The domain of the property is <code>void:Dataset</code> and its range is <code>void:TechnicalFeature</code>. After surveying the current linked data on the Web, we propose a list of technical feature URIs under the voiD namespace. These URIs are shown in <a href="#tab-technical-feature">[Table 2]</a> .
+			The property of <code>void:feature</code> can be used for expressing certain technical features of a dataset, such as its RDF serialization format. The domain of the property is <code>void:Dataset</code> and its range is <code>void:TechnicalFeature</code>. After surveying the current linked data on the Web, we propose a list of technical feature URIs under the voiD namespace. These URIs are shown in <a href="#tab-technical-feature">[Table 2]</a> .
 			
 			<a name="tab-technical-feature" id="tab-technical-feature"></a>
 			<div style="text-align:center;">
@@ -567,8 +567,15 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
            <code>
     		:DBpedia void:feature void:RDFXML .</code>
 		</pre>
+			
+			<p>If users need to create their own technical feature URIs to describe, for example, the MIME types or profiles of a dataset, they should create the URIs under their own namespace and define them as subclasses of <code>void:TechnicalFeature</code>. For example, the following code shows how one could define a feature <code>ex:myFeature</code> as a subclass of <code>void:TechnicalFeature</code>, which is needed to descirbe their dataset.</p>
+			<pre>
+				<code>
+					ex:myFeature rdfs:subClass void:TechnicalFeature .
+					ex:myDataset void:feature ex:myFeature .</code>
+			</pre>	
 
-<p><em>Note: in voiD guide 2.0, we name <code>void:feature</code> for expressing certain technical features of a dataset. In voiD guide 3.0, we give a much more specific semantics to this property, as defined above. Describing the MIME types or profiles of a dataset might be considered in the next release of voiD guide if community demands emerge.</em></p>
+<!--p><em>Note: in voiD guide 2.0, we name <code>void:feature</code> for expressing certain technical features of a dataset. In voiD guide 3.0, we will give a much more specific semantics to this property. Describing the MIME types or profiles of a dataset might be considered in the next release of voiD guide if community demands emerge.</em></p-->
 <!--p><em>Note: voiD does not include a collection of pre-defined <code>void:TechnicalFeature</code> instances for particular technologies. Therefore, to describe technical features, it is necessary to define your own <code>void:TechnicalFeature</code>  instances as in the examples above. This is perhaps most useful for larger collections of voiD descriptions, where feature instances can be re-used across multiple voiD descriptions.</em-->
 			</p>
 			<h3>
