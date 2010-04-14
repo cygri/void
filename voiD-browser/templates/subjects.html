@@ -1,0 +1,22 @@
+<h1>
+	Subjects of Datasets
+</h1>
+	<table>
+		<tr>
+			<th>
+				Subject
+			</th>
+			<th>
+				Number
+			</th>
+		</tr>
+	<?php foreach ($array as $row): ?>
+		<tr>
+			<td typeof="skos:Concept">
+			<a href="datasetsBySubject?uri=<?php echo urlencode($row['subject']['value']) ?>" property="rdfs:label"><?php echo $row['label']['value'] ?></a>
+    			
+			</td>
+			<td property="ex:noOfDatasets"><?php echo $row['count']['value'] ?></td>
+		</tr>
+	<?php endforeach ?>
+	</table>

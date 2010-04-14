@@ -1,0 +1,16 @@
+<h1>
+	Top  <?php echo datasetsBy ?> of Datasets
+</h1>
+	<table>
+		<tr>
+			<th><?php echo datasetsBy ?></th><th>Count</th>
+		</tr>
+	<?php foreach ($array as $row): ?>
+		<tr>
+			<td>
+				<a href="datasetsBy-<?php echo datasetsBy ?>?uri=<?php echo urlencode($row['datasetsBy']['value']) ?>"><?php echo $row['label']['value'] ?></a>
+			</td>
+    			<td><?php echo $row['count']['value'] ?></td>
+		</tr>
+	<?php endforeach ?>
+	</table>

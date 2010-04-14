@@ -1,0 +1,18 @@
+<h1>
+	Datasets Using <strong><?php echo $graph->get_label($licenseURI) ?></strong>
+	<a href="<?php echo $licenseURI ?>"><?php echo $licenseURI ?></a>
+</h1>
+<?php
+$subjectURIs = array();
+
+?>
+<ul>
+<?php foreach ($graph->get_subjects_of_type($VOID.'Dataset') as $subject): ?>
+	<li>
+		<a href="dataset?uri=<?php echo urlencode($subject) ?>"><?php echo $graph->get_label($subject) ?></a>
+		<p>
+		<?php echo $graph->get_description($subject); ?>
+		</p>		
+	</li>
+<?php endforeach ?>
+</ul>

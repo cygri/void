@@ -1,0 +1,35 @@
+<h1>
+	Datasets Using <strong><?php echo $graph->get_label($subjectURI) ?></strong>
+	<a href="<?php echo $subjectURI ?>"><?php echo $subjectURI ?></a>
+</h1>
+<?php
+$subjectURIs = array();
+
+?>
+<ul>
+<?php foreach ($graph->get_subjects_of_type($VOID.'Dataset') as $subject): ?>
+	<li>
+		<a href="dataset?uri=<?php echo urlencode($subject) ?>"><?php echo $graph->get_label($subject) ?></a>
+		<p>
+		<?php echo $graph->get_description($subject); ?>
+		</p>
+		
+		<?php
+		$subjectURIs = array_merge($subjectURIs, $graph->get_resource_triple_values($subject, 'http://purl.org/dc/terms/subject'));	
+		?>
+	</li>
+<?php endforeach ?>
+</ul>
+
+<div class="related">
+	<h2>Subjects Used Together with <strong><?php echo $graph->get_label($subjectURI) ?></strong></h2>
+	<ul>
+	<?php foreach (array_unique($subjectURIs) as $sURI):
+	 		if($sURI!=$subjectURI):?>
+		<li>
+			<a href="datasetsBySubject?uri=<?php echo urlencode($sURI) ?>"><?php echo $graph->get_label($sURI) ?></a>
+		</li>
+		<?php endif ?>
+	<?php endforeach ?>
+	</ul>
+</div>
