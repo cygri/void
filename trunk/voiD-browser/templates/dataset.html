@@ -1,0 +1,18 @@
+<strong>View Dataset:</strong>
+<div class="resources">
+<div  class="-rdf-Resource">
+	<h1><?php echo $graph->get_label($DatasetUri) ?></h1>
+	<dl>
+	<?php 
+	$index = $graph->get_index();
+	foreach ($index[$DatasetUri] as $property => $objects): ?>
+	<dt>
+		<?php echo $graph->get_label($property) ?>
+	</dt>
+		<?php foreach ($objects as $o): ?>
+				<dd><?php renderObject($o, $property, $graph) ?></dd>
+		<?php endforeach ?>
+	<?php endforeach ?>
+	</dl>
+</div>
+</div>

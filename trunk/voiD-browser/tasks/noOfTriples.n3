@@ -1,0 +1,80 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix scovo: <http://purl.org/NET/scovo#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+
+<http://api.talis.com/stores/kwijibo-dev3/items/datasets/iand-dev1> void:statItem _:arcbdfcb1 ,
+                                                                                  _:arc8e50b1 .
+
+_:arcbdfcb1 rdfs:label "void:numberOfTriples: 57244"@en ;
+            rdf:type scovo:Item ;
+            scovo:dimension <http://rdfs.org/ns/void#numberOfTriples> ;
+            rdf:value "57244" ;
+            dct:created "2009-11-18T16:51:07+00:00" .
+
+_:arc8e50b1 rdfs:label "void:numberOfDistinctSubjects: 7087"@en ;
+            rdf:type scovo:Item ;
+            scovo:dimension <http://rdfs.org/ns/void#numberOfDistinctSubjects> ;
+            rdf:value "7087" ;
+            dct:created "2009-11-18T16:51:11+00:00" .
+
+<http://api.talis.com/stores/kwijibo-dev3/items/datasets/iand-dev2> void:statItem _:arcdf74b1 ,
+                                                                                  _:arca866b1 .
+
+_:arcdf74b1 rdfs:label "void:numberOfTriples: 240106"@en ;
+            rdf:type scovo:Item ;
+            scovo:dimension <http://rdfs.org/ns/void#numberOfTriples> ;
+            rdf:value "240106" ;
+            dct:created "2009-11-18T16:51:28+00:00" .
+
+_:arca866b1 rdfs:label "void:numberOfDistinctSubjects: 40022"@en ;
+            rdf:type scovo:Item ;
+            scovo:dimension <http://rdfs.org/ns/void#numberOfDistinctSubjects> ;
+            rdf:value "40022" ;
+            dct:created "2009-11-18T16:51:40+00:00" .
+
+<http://api.talis.com/stores/kwijibo-dev3/items/datasets/iand-dev3> void:statItem _:arc9fa7b1 ,
+                                                                                  _:arcfabab1 .
+
+_:arc9fa7b1 rdfs:label "void:numberOfTriples: 16"@en ;
+            rdf:type scovo:Item ;
+            scovo:dimension <http://rdfs.org/ns/void#numberOfTriples> ;
+            rdf:value "16" ;
+            dct:created "2009-11-18T16:51:42+00:00" .
+
+_:arcfabab1 rdfs:label "void:numberOfDistinctSubjects: 6"@en ;
+            rdf:type scovo:Item ;
+            scovo:dimension <http://rdfs.org/ns/void#numberOfDistinctSubjects> ;
+            rdf:value "6" ;
+            dct:created "2009-11-18T16:51:44+00:00" .
+
+<http://api.talis.com/stores/kwijibo-dev3/items/datasets/iand-dev4> void:statItem _:arc7019b1 ,
+                                                                                  _:arc7e7db1 .
+
+_:arc7019b1 rdfs:label "void:numberOfTriples: 166919"@en ;
+            rdf:type scovo:Item ;
+            scovo:dimension <http://rdfs.org/ns/void#numberOfTriples> ;
+            rdf:value "166919" ;
+            dct:created "2009-11-18T16:51:50+00:00" .
+
+_:arc7e7db1 rdfs:label "void:numberOfDistinctSubjects: 27904"@en ;
+            rdf:type scovo:Item ;
+            scovo:dimension <http://rdfs.org/ns/void#numberOfDistinctSubjects> ;
+            rdf:value "27904" ;
+            dct:created "2009-11-18T16:51:58+00:00" .
+
+<http://api.talis.com/stores/kwijibo-dev3/items/datasets/iand> void:statItem _:arcbbedb1 ,
+                                                                             _:arce431b1 .
+
+_:arcbbedb1 rdfs:label "void:numberOfTriples: 383"@en ;
+            rdf:type scovo:Item ;
+            scovo:dimension <http://rdfs.org/ns/void#numberOfTriples> ;
+            rdf:value "383" ;
+            dct:created "2009-11-18T16:51:59+00:00" .
+
+_:arce431b1 rdfs:label "void:numberOfDistinctSubjects: 69"@en ;
+            rdf:type scovo:Item ;
+            scovo:dimension <http://rdfs.org/ns/void#numberOfDistinctSubjects> ;
+            rdf:value "69" ;
+            dct:created "2009-11-18T16:52:01+00:00" .

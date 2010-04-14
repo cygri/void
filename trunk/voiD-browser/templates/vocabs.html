@@ -1,0 +1,20 @@
+<h1>
+	Vocabularies used by Datasets
+</h1>
+	<table>
+		<tr>
+			<th>
+				Vocabulary
+				
+			</th>
+			<th>
+				Number
+			</th>
+		</tr>
+	<?php foreach ($array as $row): ?>
+		<tr typeof="ov:Vocabulary">
+			<td><a href="datasetsByVocab?uri=<?php echo urlencode($row['vocab']['value']) ?>" property="rdfs:label"><?php echo $row['label']['value'] ?></a></td>
+    			<td property="ex:noOfDatasets"><?php echo $row['count']['value'] ?></td>
+		</tr>
+	<?php endforeach ?>
+	</table>
