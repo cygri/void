@@ -1,0 +1,35 @@
+ul#navigation li {
+	display: block;
+	float: right;
+	margin: 1em;
+}
+ul#navigation li a {
+	text-decoration: none;
+}
+
+
+#header {
+	font-size: 150%;
+	margin-bottom: 2em;
+}
+
+
+p.message {
+	font-size: larger;
+	font-weight: bold;
+}
+
+li {
+	font-size: larger;
+}
+
+h1 { margin: 2em; clear: right; }
+
+.site_name { font-size: 180%; }
+
+table {
+	width: 70%;
+	margin: auto;
+}
+
+input.uri { width: 40em; }
