@@ -464,7 +464,7 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 			<p>
 			 We also encourage data publishers to use <a href="http://www.w3.org/2004/02/skos/intro" title="SKOS Concepts">SKOS Concepts</a> whenever possible to capture the topics of their datasets.</p>  
 			<h3>
-				<a id="Announcing_the_license_of" name="Announcing_the_license_of"></a> 1.3 Announcing the license of a dataset
+				<a id="Announcing_the_license_of" name="Announcing_the_license_of"></a> 1.3 Announcing the license/waiver of a dataset
 			</h3>
 			<p>The <code>dcterms:license</code> property SHOULD be used to to point to the license under which a dataset has been published. This is crucial because without a license, potential users of the dataset do not know under which terms they can use it.</p> 
 			<p> 
@@ -491,6 +491,34 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
              dcterms:license &lt;http://www.gnu.org/licenses/fdl.html&gt; .</code>
 								</pre>
 					<p><em>Note: Licensing of datasets is a complex issue. Datasets are collections of facts rather than creative works, and different laws apply. Most licenses such as Creative Commons or the GPL are based on copyright and are designed to protect creative works, but not databases, and applying them to datasets might not have the desired legal result. Meanwhile, efforts such as <a href="http://www.opendatacommons.org/" title="Open Data Commons">Open Data Commons</a>, <a href="http://sciencecommons.org/" title="Science Commons">Science Commons</a> and <a href="http://sciencecommons.org/projects/healthcommons/" title="Health Commons">Health Commons</a> are developing dedicated licenses for data, and the <a href="http://www.opendoar.org/tools/en/policies.php" title="OpenDOAR">OpenDOAR</a> project provides tools allowing open-access digital repositories to create customised policies.</em></p>
+	
+	<h4>Waivers</h4>
+	<p>
+	   An alternative to licensing data is to <em>waive</em> rights over it. For many dataset publishers, this may be an appealing option. Given the complexity surrounding the licensing of datasets, and the lack of consensus around the practical implementation of license conditions (such as <em>attribution</em>) in a Linked Data setting, a <strong>waiver</strong> provides consumers of a dataset with the assurance that they can reuse that data without restriction.
+	</p>
+	
+	<p>
+	   The <a href="http://vocab.org/waiver/terms/">waiver vocabulary</a> defines a handful of terms for waiving rights over a dataset.
+	</p>				
+	<p>
+	   Two possible waivers that can be used are:
+	</p>
+	<ul>
+	    <li>
+	        <a href="http://www.opendatacommons.org/odc-public-domain-dedication-and-licence/">PDDL from Open Data Commons</a>
+	    </li>
+        <li>
+            <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC0 from Creative Commons</a>
+        </li>
+    </ul>
+	<p>
+	   This example shows a dataset declaring a waiver of rights using CC0.
+	</p>
+	<pre>
+		<code>
+:ExampleDataset a void:Dataset ; 
+      &lt;http://vocab.org/waiver/terms/&gt; &lt;http://creativecommons.org/publicdomain/zero/1.0/&gt; .</code>
+	</pre>
 						
 <h3><a id="Partitioning_Datasets" name="Partitioning_Datasets"></a>1.4 Describing partitioned datasets</h3>
 
@@ -866,7 +894,7 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 		<a id="Note_on_linkset" name="Note_on_linkset">2.3 Stating the link type of a LinkSet</a>
 	</h3>
 	
-To further specify how two datasets are interlinked the property <code>void:linkPredicate</code> can be used. For example, to state that the previously mentioned datasets DBpedia and Geonames are linked by the property of <code>owl:sameAs</code>, the following example achieves this by using <code>void:linkPredicate</code>:
+The property <code>void:linkPredicate</code> can be used to further specify how two datasets are interlinked. The following example uses <code>void:linkPredicate</code> to state that the <strong>DBpedia</strong> and <strong>Geonames</strong> datasets are linked by the  <code>owl:sameAs</code> property:
 
 <pre>
  <code>
@@ -875,8 +903,8 @@ To further specify how two datasets are interlinked the property <code>void:link
     :DBpedia2DBLP rdf:type void:Linkset ;  
                   void:linkPredicate owl:sameAs ;
                   void:target :DBpedia ;  
-                  void:target :DBLP .</code>
-
+                  void:target :DBLP .
+ </code>
 </pre>
 
 This is illustated by the RDF graph below:
@@ -884,7 +912,7 @@ This is illustated by the RDF graph below:
 <img src="img/EXAMPLE_classic_non-directed_with-link-predicate.png" style="width: 600px;" alt="example interlinking for the classic LOD, non-directed case with a link predicate" />
 </div>
 
-<p>Sometimes, one dataset could be associated with more than one datasets through different RDF predicates. In this case users should create a separate <code>void:LinkSet</code> for each different type of links, so that separate descriptions about each linkset can be provided, such as provenance information or statistics information about of each linkset. It is not allowed to create one <code>void:LinkSet</code> to describe all these different types of links.</p> 
+<p>One dataset can link to many other datasets, using multiple RDF predicates. Users should create a separate <code>void:LinkSet</code> for each different type of link so that separate descriptions about each linkset can be provided, such as provenance information or statistics information about of each linkset. Users should not use one <code>void:LinkSet</code> to describe more than one type of link.</p> 
 
 <p>For example, if between datasets D1 and D2, there are three different types of links, through three different RDF predicates p1, p2, p3 (which are published by third-parties), this should be described using voiD as the following:</p>
 
