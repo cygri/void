@@ -1,4 +1,6 @@
-* void:inDataset
+
+  * void:inDataset ( rdfs:range void:Dataset and
+rdfs:domain foaf:Document) see http://code.google.com/p/void-impl/issues/detail?id=32
 
 Technical URIs, to be sub-class of void:TechnicalFeature??
 
@@ -7,3 +9,4 @@ Technical URIs, to be sub-class of void:TechnicalFeature??
   * void:RDFXML
   * void:RDFa
   * void:Turtle
+
