@@ -1135,9 +1135,9 @@ This is illustated by the RDF graph below:
 			 If the dataset consists of resources identified by dereferenceable URIs, dereferencing a URI will redirect to a document containing a description of that resource, and the <code>void:inDataset</code> triple linking back from the document to the dataset.  This is especially handy in case when <a href="http://inkdroid.org/journal/2008/01/04/following-your-nose-to-the-web-of-data/">applying the follow-your-nose principle</a> where one often has a single URI as a starting point. The question is then how to find the way from this URI to the entire dataset, that is, in the first place to identify the according voiD description; see also section <a href="#Discovery_via_links_in_docs" >5.1 Discovery via links in the dataset's documents</a> for the discovery process.</p> 
 			
 			<p>If a document links to a dataset using void:inDataset, it asserts that the data (expressed as triples) serialised in the document <strong>is part of the dataset</strong>; as such, provenance and licensing/waiving of the dataset should be understood as applying to the data in the document.</p>
+			<p>One SHOULD NOT specify multiple <code>void:inDataset</code> for the same document. Rather, we encourage to create a new void:Dataset that contains both as a subset, and link to that. Then, you can explicitly add metadata, like licenses, to the joint dataset.</p>
 			
-<p>
-	(The first version of this guide used to recommend dcterms:isPartOf for the same purpose; it was decided that a voiD specific property for this purpose would be better.)
+<p><em>Note: The first version of this guide suggested to use <code>dcterms:isPartOf</code> for the same purpose. After taking community feedback into account, we decided that a voiD-specific property for this purpose would be better suited.</em>
 </p>			
 			
 			<h3>
@@ -1441,6 +1441,13 @@ See also <a href="examples/ex6.sparql" title="example query 6">example query 6</
 				</td>
 				<td>Defines which technical features a dataset supports.</td>
 				<td style="vertical-align: top;">see section <a href="#Technical_description_features">1.5 Technical Description (Features)</a></td>
+			</tr>
+			<tr>
+				<td style="text-align:center">
+					<code><a href="http://rdfs.org/ns/void/html#inDataset">void:inDataset</a></code>
+				</td>
+				<td>Allows to create a back-link from a resource to the dataset it is part of.</td>
+				<td style="vertical-align: top;">see section <a href="#Back-links">4.2 Back-links</a></td>
 			</tr>
 			<tr>
 				<td style="text-align:center">
