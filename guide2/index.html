@@ -91,6 +91,9 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 					<li>
 						<a href="#Example_resources" >1.8 Example resources</a>
 					</li>
+					<li>
+						<a href="#PatternURI" >1.9 Patterns for resource URIs</a>
+					</li>
 				</ul>
 			</li>
 			<li>
@@ -284,7 +287,7 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
              void:exampleResource &lt;http://dbpedia.org/resource/Physics&gt; ;
              void:exampleResource &lt;http://dbpedia.org/resource/Ludwig_van_Beethoven&gt; .</code>
 				</pre>
-			<p><em>Note: As <code><a href="http://xmlns.com/foaf/spec/#term_homepage" title="foaf:homepage">foaf:homepage</a></code> is an Inverse Functional Property (<a href="http://esw.w3.org/topic/InverseFunctionalProperty" title="Inverse Functional Property">IFP</a>), providing the homepage URI  allows one to connect different descriptions of DBpedia that are provided in different places on the Web. Further note that the domain of <code>foaf:homepage</code> is <code>foaf:Document</code>; it is expected that the homepage linked to in fact talks about the dataset described. We discourage using, for example, the project homepage or organisation homepage as the value for <code>foaf:homepage</code>.</em></p>
+			
 					<p>Additional metadata can be provided. <a href="#tab-general-metadata">[Table 1]</a> below lists some RDF properties that are especially useful and recommended, many from the <a href="http://dublincore.org/documents/dcmi-terms/" title="Dublin Core Metadata Terms">Dublin Core Metadata Terms</a>. Other properties can also be used, if not listed here.</p>
 			
 			<a name="tab-general-metadata" id="tab-general-metadata"></a>
@@ -297,18 +300,10 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 									<code>foaf:homepage</code>
 								</td>
 								<td>
-									The homepage of the dataset. Note, this must be different from the homepage of the creator or publisher to avoid incorrect 'smushing'. If the dataset has no homepage dedicated to it, then <code>foaf:page</code> can be used instead.
+									The homepage of the dataset. As <code><a href="http://xmlns.com/foaf/spec/#term_homepage" title="foaf:homepage">foaf:homepage</a></code> is an Inverse Functional Property (<a href="http://esw.w3.org/topic/InverseFunctionalProperty" title="Inverse Functional Property">IFP</a>), providing the homepage URI  allows one to connect different descriptions of a dataset provided in different places on the Web. It is expected that the homepage linked to in fact talks about the dataset described. We discourage using, for example, the project homepage or organisation homepage as the value for <code>foaf:homepage</code>. If the dataset has no homepage dedicated to it, then <code>foaf:page</code> can be used instead.
 								</td>
 							</tr>
 							<tr>
-							</tr>
-							<tr>
-								<td>
-									<code>void:uriRegexPattern</code>
-								</td>
-								<td>
-									A regular expression pattern that matches one or more URI in the dataset. The pattern should use the same regular expression syntax as SPARQL, which uses the syntax definition of <a href="http://www.w3.org/TR/xmlschema-2/#regexs" title="The Regular Expression syntax defined by XML Schema Part 2">XML Schema 2: Regular Expressions</a>.
-								</td>
 							</tr>
 							<tr>
 								<td>
@@ -697,10 +692,19 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 <p>as a representative link, then we should use the resource from the DBpedia side as the <code>void:exampleResource</code> for the linkset, because users can look up the example in DBpedia, but not necessarily in Geonames.</p>
 
 	<h3>
-		<a id="Built-ins" name="Built-ins"></a> 1.9 Built-ins
+		<a id="PatternURI" name="PatternURI"></a> 1.9 Patterns for resource URIs
 	</h3>
+	<p>In order to learn more about the resource URIs in a dataset, the <code>void:uriRegexPattern</code> property can be used to express a regular expression pattern that matches one or more URIs in the dataset. The pattern should use the same regular expression syntax as SPARQL, which uses the syntax definition of <a href="http://www.w3.org/TR/xmlschema-2/#regexs" title="The Regular Expression syntax defined by XML Schema Part 2">XML Schema 2: Regular Expressions</a>.
+	</p>
+	<p>The regular expression must match anywhere in the URI. It is a good practice to anchor the regular expression with a <code>^</code> in the beginning, and to escape dots with a backslash.</p>
+	<p>An example of using <code>void:uriRegexPattern</code> looks like the following (<a href="http://acm.rkbexplorer.com/id/void">view live</a>):</p>
+<pre>&lt;http://acm.rkbexplorer.com/id/void&gt; a void:Dataset;
+	                             void:uriRegexPattern "^http://acm\\.rkbexplorer\\.com/id/.+" .
+</pre>
+<pre></pre>
 
-  <p style="background:#f99">TODO: List and discuss built-ins such as features (http://code.google.com/p/void-impl/issues/detail?id=39) etc - are the built-ins only technical features or do we list all built-ins here?</p>
+
+
 
 			<h2>
 				<a id="Describing_Dataset_Interlink" name="Describing_Dataset_Interlink"></a> 2. Describing Dataset Interlinking
@@ -1137,7 +1141,7 @@ This is illustated by the RDF graph below:
 			<p>If a document links to a dataset using void:inDataset, it asserts that the data (expressed as triples) serialised in the document <strong>is part of the dataset</strong>; as such, provenance and licensing/waiving of the dataset should be understood as applying to the data in the document.</p>
 			<p>One SHOULD NOT specify multiple <code>void:inDataset</code> for the same document. Rather, we encourage to create a new void:Dataset that contains both as a subset, and link to that. Then, you can explicitly add metadata, like licenses, to the joint dataset.</p>
 			
-<p><em>Note: The first version of this guide suggested to use <code>dcterms:isPartOf</code> for the same purpose. After taking community feedback into account, we decided that a voiD-specific property for this purpose would be better suited.</em>
+<p><em>Note: The first version of this guide suggested to use <code>dcterms:isPartOf</code> for the same purpose. As <code>dcterms:isPartOf</code> is used for other purposes as well, we introduced a dedicated property in the voiD namespace.</em>
 </p>			
 			
 			<h3>
