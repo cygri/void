@@ -713,7 +713,7 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 			In voiD, the interlinking is modelled using a class, <code>void:Linkset</code>. This means, the interlinking in voiD is a first-class citizen. This modelling enables a flexible and powerful way to talk in great detail about the interlinking between two datasets, such as how many links there exist, which kind of links (e.g. <code>owl:sameAs</code> or <code>foaf:knows</code>) are present, or stating who claims these statements.
 			</p>
 			<p>
-			A <strong>linkset</strong> in voiD (<code>void:Linkset</code>) is a subset of a voiD dataset (<code>void:Dataset</code>), used for storing triples to express the interlinking relationship between datasets. In each interlinking triple, the subject is a resource hosted in one dataset and the object is a resource hosted in another dataset; the following figure (stating that there are 3000 links of type <code>owl:sameAs</code> between two datasets <code>DS1</code> and <code>DS2</code>) exemplifies this:</p>
+			A <strong>linkset</strong> in voiD (<code>void:Linkset</code>) is a subset of a voiD dataset (<code>void:Dataset</code>), used for storing triples to express the interlinking relationship between datasets. For each triple in the linkset, the subject is a resource hosted in one dataset, and the object is a resource hosted in another dataset. The following figure exemplifies this. It states that the dataset <code>DS1</code> contains 3000 links of type <code>owl:sameAs</code> that connect resources in dataset <code>DS1</code> to resources in another dataset <code>DS2</code>:</p>
 			
 			 <div style="text-align:center;">
 				<img src="img/void-linkset-conceptual.png" style="width: 600px;" alt="concept of a voiD linkset" />
@@ -752,6 +752,15 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 			   <table summary="Interlinking description capabilities of voiD" border="1" cellpadding="5px" cellspacing="2px">
 			   <caption><strong>Table 3.:</strong> Interlinking description capabilities of voiD.</caption>
 			   <tbody>
+						<tr align="center">
+							<td align="center"></td>
+							<td style="text-align: center;">
+								<b>non-directed</b> 
+							</td>
+							<td style="text-align: center;">
+								<b>directed</b> 
+							</td>
+						</tr>
 						<tr>
 							<td align="center">
 								<b>3rd-party</b> 
@@ -794,15 +803,6 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
      void:objectsTarget :DSY .
 								</code>
 								</pre>
-							</td>
-						</tr>
-						<tr align="center">
-							<td align="center"></td>
-							<td style="text-align: center;">
-								<b>non-directed</b> 
-							</td>
-							<td style="text-align: center;">
-								<b>directed</b> 
 							</td>
 						</tr>
 					</tbody>
@@ -894,10 +894,10 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
  </div>
 	
 	<h3>
-		<a id="Note_on_linkset" name="Note_on_linkset">2.3 Stating the link type of a LinkSet</a>
+		<a id="Note_on_linkset" name="Note_on_linkset">2.3 Stating the link type of a linkset</a>
 	</h3>
 	
-The property <code>void:linkPredicate</code> can be used to further specify how two datasets are interlinked. The following example uses <code>void:linkPredicate</code> to state that the <strong>DBpedia</strong> and <strong>Geonames</strong> datasets are linked by the  <code>owl:sameAs</code> property:
+<p>The property <code>void:linkPredicate</code> can be used to specify the type of links that connect two datasets. The following example uses <code>void:linkPredicate</code> to state that the <strong>DBpedia</strong> and <strong>Geonames</strong> datasets are linked by triples that have the <code>owl:sameAs</code> predicate:</p>
 
 <pre>
  <code>
