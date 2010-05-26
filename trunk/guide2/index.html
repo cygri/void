@@ -719,6 +719,8 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 				<img src="img/void-linkset-conceptual.png" style="width: 600px;" alt="concept of a voiD linkset" />
 			</div>			
 			
+      <p>Note that <tt>rdf:type</tt> statements are not considered “links” for the purposes of voiD, even though subject and object typically reside on different domains. To express the classes used in a dataset, use the <a href="#Vocabularies_used"><tt>void:vocabulary</tt> property</a> instead.</p>
+
 			<p>In voiD we differentiate between the following orthogonal dimensions when talking about the interlinking:</p> 
 			 <ul>
 				<li>classic LOD vs. 3rd-party, which differs in terms of where the interlinking statements are kept. In the first case the interlinking triples, i.e. a linkset, are hosted in one of the two involved datasets, while in the latter case there is a third dataset involved that contains the interlinking triples, i.e. the linkset;
