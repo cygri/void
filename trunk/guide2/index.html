@@ -604,7 +604,7 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 <!--p><em>Note: voiD does not include a collection of pre-defined <code>void:TechnicalFeature</code> instances for particular technologies. Therefore, to describe technical features, it is necessary to define your own <code>void:TechnicalFeature</code>  instances as in the examples above. This is perhaps most useful for larger collections of voiD descriptions, where feature instances can be re-used across multiple voiD descriptions.</em-->
 			</p>
 			<h3>
-				<a id="SPARQL_endpoint_and_Examp" name="SPARQL_endpoint_and_Examp"></a>  1.6 SPARQL endpoints, URI lookup, and RDF data dumps 
+				<a id="SPARQL_endpoint_and_Examp" name="SPARQL_endpoint_and_Examp"></a>  1.6 SPARQL endpoints, URI lookup, OpenSearch, and RDF data dumps 
 			</h3>
 			<p>
 				 There are many different ways in which clients can access the actual data that is contained in a dataset. If the entities described in the dataset are identified by HTTP URIs, then it is a reasonable assumption that resolving such a URI will return an RDF description of the resource. 
@@ -642,6 +642,15 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
     :Sindice void:uriLookupEndpoint &lt;http://api.sindice.com/v2/search?qt=term&amp;q=&gt; .</code>
 
 </pre>
+            <p>Some datasets offer a free text search capability. Dataset publishers may create an <a href="http://www.opensearch.org/Specifications/OpenSearch/1.1#OpenSearch_description_document">OpenSearch Description Document</a> that describes their text search service. This can be linked to from the Dataset resource using the <code>void:openSearchDescription</code> property:</p>
+
+            <pre>
+                <code>
+:Sindice void:openSearchDescription &lt;http://www.sindice.com/opensearch.xml&gt;                    
+                </code>
+            </pre>
+
+
 			<p>If an RDF dump of the dataset is available, then its location can be announced using <code>void:dataDump</code>:</p>   
 			<pre>
  <code>
