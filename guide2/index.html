@@ -106,7 +106,7 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 						<a href="#Directed_vs_Non_directed" >2.2 Non-directed vs. Directed</a>
 					</li>
 					<li>
-						<a href="#Note_on_linkset">2.3 Stating the link type of a LinkSet</a>
+						<a href="#Note_on_linkset">2.3 Stating the link type of a Linkset</a>
 					</li>
 				</ul>
 			</li>
@@ -914,10 +914,10 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
  <code>
     :DBpedia void:subset :DBpedia2Geonames .
     
-    :DBpedia2DBLP rdf:type void:Linkset ;  
+    :DBpedia2Geonames rdf:type void:Linkset ;  
                   void:linkPredicate owl:sameAs ;
                   void:target :DBpedia ;  
-                  void:target :DBLP .
+                  void:target :Geonames .
  </code>
 </pre>
 
@@ -926,9 +926,10 @@ This is illustated by the RDF graph below:
 <img src="img/EXAMPLE_classic_non-directed_with-link-predicate.png" style="width: 600px;" alt="example interlinking for the classic LOD, non-directed case with a link predicate" />
 </div>
 
-<p>One dataset can link to many other datasets, using multiple RDF predicates. Users should create a separate <code>void:LinkSet</code> for each different type of link so that separate descriptions about each linkset can be provided, such as provenance information or statistics information about of each linkset. Users should not use one <code>void:LinkSet</code> to describe more than one type of link.</p> 
+	<p>Two datasets can be linked together using multiple different RDF predicates. Users should create a separate <code>void:Linkset</code> for each different type of link so that separate descriptions about each linkset can be provided, such as provenance information or statistics information about of each linkset. A single void:Linkset should 
+		never have more than one value for void:linkPredicate.</p> 
 
-<p>For example, if between datasets D1 and D2, there are three different types of links, through three different RDF predicates p1, p2, p3 (which are published by third-parties), this should be described using voiD as the following:</p>
+<p>For example, if between datasets D1 and D2, there are three different types of links, through three different RDF predicates p1, p2, p3, this should be described using voiD as the following:</p>
 
 <pre>
 <code>
