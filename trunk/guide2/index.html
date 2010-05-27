@@ -639,7 +639,8 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 			</p>
 			<pre>
  <code>
-    :Sindice void:uriLookupEndpoint &lt;http://api.sindice.com/v2/search?qt=term&amp;q=&gt; .</code>
+    :Sindice  a void:Dataset ; 
+        void:uriLookupEndpoint &lt;http://api.sindice.com/v2/search?qt=term&amp;q=&gt; .</code>
 
 </pre>
             <p>Some datasets offer a free text search capability. Dataset publishers may create an <a href="http://www.opensearch.org/Specifications/OpenSearch/1.1#OpenSearch_description_document">OpenSearch Description Document</a> that describes their text search service. This can be linked to from the Dataset resource using the <code>void:openSearchDescription</code> property:</p>
