@@ -111,19 +111,16 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 				</ul>
 			</li>
 			<li>
-				<a href="#Expressing_dataset_statistic" >3. Expressing dataset statistics</a>
+				<a href="#statistics" >3. Providing statistics about datasets</a>
 				<ul style="list-style: disc; list-style: none;">
 					<li>
-						<a href="#Basic_dataset_statistics" >3.1 Basic dataset statistics</a>
+						<a href="#linkset_statistics" >3.1 Statistics about linksets</a>
 					</li>
 					<li>
-						<a href="#Statistics_about_linksets" >3.2 Statistics about linksets</a>
+						<a href="#class_prop_statistics" >3.2 Statistics about specific classes and properties</a>
 					</li>
 					<li>
-						<a href="#Number_of_instances_of_class_or_prop" >3.3 Number of instances of a class or property</a>
-					</li>
-					<li>
-						<a href="#Attributing_statistics_to_source" >3.4 Attributing statistics to a source</a>
+						<a href="#scovo-stats" >3.3 SCOVO-based statistics</a>
 					</li>
 				</ul>
 			</li>
@@ -957,152 +954,141 @@ This is illustated by the RDF graph below:
 
 
 			<h2>
-				<a id="Expressing_dataset_statistic" name="Expressing_dataset_statistic"></a> 3. Expressing dataset statistics
+				<a id="statistics" name="statistics"></a>3. Providing statistics about datasets
 			</h2>
-			<div style="color: #F00; font-size:80%; border: 1px solid yellow; padding: 10px">
-			<p>
-				<em>Note: The mechanism described in this section is considered experimental and may be removed or significantly changed in future versions of this document.</em></p>
-				<p> We have discovered several issues with the mechanism as described here:  
-			</p>
-			<ul>
-					<li>In SCOVO, <code>scovo:Items</code> are grouped into <code>scovo:Datasets</code>, and there seems to be an implicit assumption that all items in such a dataset share the same dimensions. As described here, we attach items directly to a <code>void:Dataset</code>, which leads to mixing of items of different dimensionality. On the other hand, the correct SCOVO modelling would lead to awkwardly complex notation for simple statistics.   
-					</li>
-					<li>We encourage the use of classes and properties in places where SCOVO requires an instance of <code>scovo:Dimension</code>. This breaks the symmetry of the SCOVO model. SCOVO would require us to create a <code>scovo:Dimension</code> for each class or property. This would be quite verbose.   
-					</li>
-					<li>Because of the issues above, SPARQLing for statistics can be awkward. It will often require a verbose check to make sure that an item has only certain dimensions and no others.   
-					</li>
-				</ul>
-			<p>Users of the statistics feature should be aware of these issues, and of the possibility that this mechanism might be changed or replaced in the future. 	</p>
-			</div>
-			 
-			<p>This section describes how to express statistics about a dataset, such as the number of RDF triples contained in the dataset, or the number of resources described in the dataset. We use the <a href="http://sw.joanneum.at/scovo/schema.html" title="Statistical Core Vocabulary">Statistical Core Vocabulary</a> (SCOVO). The main concept in SCOVO is the <code>scovo:Item</code>, which records a single number or statistical value. We use the <code> void:statItem</code> property to connect a <code>scovo:Item</code> to the <code>void:Dataset</code> it describes. 
-		</p>
-		<h3>
-			<a id="Basic_dataset_statistics" name="Basic_dataset_statistics"></a> 3.1 Basic dataset statistics 
-		</h3>
-		<p>
-			 The following example states the number of triples in the DBpedia dataset.  
-			</p>
-				<pre>
-					<code>
-    :DBpedia a void:Dataset ;
-             ...
-             void:statItem [
-                scovo:dimension void:numberOfTriples ;
-                rdf:value 212576239 ;
-             ] ;</code>
 
-			</pre>
-			<p>A statistical data item is always used together with one or more <strong>dimensions</strong>, to indicate what kind of value the item represents. In voiD three dimensions are defined:</p>
-			<a name="tab-defined-stat-dimensions" id="tab-defined-stat-dimensions"></a>
-			    <div style="text-align:center;">
-			   <table summary="Defined statistical dimensions of voiD" border="1" cellpadding="5px" cellspacing="2px">
-			   <caption><strong>Table 4.:</strong> Defined statistical dimensions of voiD.</caption>
+      <p>This section describes how to express statistics about a dataset, such as the number of RDF triples it contains, or the number of resources it describes.</p>
+
+      <p>As a general rule, statistics in voiD can always be provided as approximate numbers. 
+
+			<p>voiD defines the following properties for expressing different statistical characteristics of datasets:</p>
+
+			   <table summary="Properties in voiD for expressing dataset statistics" border="1" cellpadding="5px" cellspacing="2px">
+			   <caption><strong>Table 4:</strong> Properties in voiD for expressing dataset statistics.</caption>
 			   <tbody>
 						<tr style="text-align: left;">
 							<td>
-								 <code>void:numberOfTriples</code>  
+								 <code>void:triples</code>  
 							</td>
 							<td>
-								 The <code>scovo:Item</code> represents the number of RDF triples.  
-							</td>
-						</tr>
-						<tr style="text-align: left;">
-							<td>
-								 <code>void:numberOfResources</code>   
-							</td>
-							<td>
-								 The  <code>scovo:Item</code> represents the number of RDF resources, usually with distinct URIs.  
+								 The total number of triples contained in the dataset.
 							</td>
 						</tr>
 						<tr style="text-align: left;">
 							<td>
-								 <code>void:numberOfDocuments</code>   
+								 <code>void:entities</code>   
 							</td>
 							<td>
-								 The  <code>scovo:Item</code> represents the number of documents that contain RDF data, such as RDF/XML documents or RDFa-annotated web pages. Non-RDF documents, such as web pages in HTML or images, are usually not included in this count. This dimension is intended for Linked Data deployments where the total number of triples or resources is harder to determine than the number of documents; but <code>void:numberOfTriples</code> or <code>void:numberOfResources</code> should be preferred where practical. 
-							</td>
-						</tr>
-						<tr style="text-align: left;">
-							<td>
-								 <code>void:numberOfDistinctSubjects</code>   
-							</td>
-							<td>
-								 The  <code>scovo:Item</code> represents the number of distinct subjects, that is, the count of resources in an RDF statement <code>S P O</code> in the <code>S</code> position, with duplicates removed. 
+								 The total number of entities that are described in the dataset.
 							</td>
 						</tr>
 						<tr style="text-align: left;">
 							<td>
-								 <code>void:numberOfDistinctObjects</code>   
+								 <code>void:classes</code>  
 							</td>
 							<td>
-								 The  <code>scovo:Item</code> represents the number of distinct objects, that is, the count of resources in an RDF statement <code>S P O</code> in the <code>O</code> position, with duplicates removed. 
+								 The total number of distinct classes in the dataset. In other words, the number of distinct resources occuring as objects of <tt>rdf:type</tt> triples in the dataset.
+							</td>
+						</tr>
+						<tr style="text-align: left;">
+							<td>
+								 <code>void:properties</code>  
+							</td>
+							<td>
+								 The total number of distinct properties in the dataset. In other words, the number of distinct resources that occur in the predicate position of triples in the dataset.
+							</td>
+						</tr>
+						<tr style="text-align: left;">
+							<td>
+								 <code>void:distinctSubjects</code>   
+							</td>
+							<td>
+								 The total number of distinct subjects in the dataset. In other words, the number of distinct resources that occur in the subject position of triples in the dataset.
+							</td>
+						</tr>
+						<tr style="text-align: left;">
+							<td>
+								 <code>void:distinctObjects</code>   
+							</td>
+							<td>
+								 The total number of distinct objects in the dataset. In other words, the number of distinct resources that occur in the object position of triples in the dataset. Literals are included in this count.
+							</td>
+						</tr>
+						<tr style="text-align: left;">
+							<td>
+								 <code>void:documents</code>   
+							</td>
+							<td>
+								 If the dataset is published as a set of individual documents, such as RDF/XML documents or RDFa-annotated web pages, then this property indicates the total number of such documents. Non-RDF documents, such as web pages in HTML or images, are usually not included in this count. This property is intended for datasets where the total number of triples or entities is hard to determine. <code>void:triples</code> or <code>void:entities</code> should be preferred where practical. 
 							</td>
 						</tr>
 					</tbody>
 				</table>
-</div>
-			<p>
-				 SCOVO is extensible, and arbitrary other dimensions may be defined and used to provide statistical information about a dataset or linkset. 
-			</p>
+
+      <p>The following example states the approximate number of triples and entities in the DBpedia dataset:</p>
+
+      <pre>
+:DBpedia a void:Dataset;
+    void:triples 1000000000; 
+    void:entities 3400000;
+    .
+      </pre>
+
 			<h3>
-				 <a id="Statistics_about_linksets" name="Statistics_about_linksets"></a> 3.2 Statistics about linksets  
+				 <a id="linkset_statistics" name="linkset_statistics"></a>3.1 Statistics about linksets  
 			</h3>
-			<p> The same as with datasets, statistics about linksets can be provided. Most importantly, the <code>void:numberOfTriples</code> dimension can be used to record the number of links in a linkset. Example:</p>
+			<p>Linksets can be described in the same way. Most importantly, the number of links in a linkset can be recorded with <code>void:triples</code>. Example:</p>
+
 <pre>
-<code>
- :DBpedia2DBLP a void:Linkset;
-               void:target :DBpedia;
-               void:target :DBLP;
-               void:linkPredicate owl:sameAs;
-               void:statItem [ 
-                  rdf:value 10000;
-                  scovo:dimension void:numberOfTriples;
-               ] .</code>
-
+:DBpedia2DBLP a void:Linkset;
+    void:target :DBpedia;
+    void:target :DBLP;
+    void:linkPredicate owl:sameAs;
+    void:triples 10000;
+    .
 </pre>
+
+      <p>This states that the DBpedia-to-DBLP linkset contains approximately 10,000 <tt>owl:sameAs</tt> links.</p>
+
 			<h3>
-				<a id="Number_of_instances_of_class_or_prop" name="Number_of_instances_of_class_or_prop"></a> 3.3 Number of instances of a class or property 
+				<a id="class_prop_statistics" name="class_prop_statistics"></a>3.2 Statistics about specific classes and properties
 			</h3>
-			<p>
-				How can I say how many instances of a particular class, such as <code>foaf:Person</code>, are described in a dataset? By using the class as a second <code>scovo:dimension</code> property in addition to <code>void:numberOfResources</code>:</p> 
-				<pre>
-<code>
-    void:statItem [ 
-       rdf:value 20000;
-       scovo:dimension void:numberOfResources ;
-       scovo:dimension foaf:Person ;
-    ] .</code>
+			<p>voiD includes a mechanism for providing statistics about classes and properties: the number of instances of a given class; and the number of triples that have a certain predicate. This mechanism is based on <em>partitions</em> of datasets. There are two kinds of partitions:</p>
 
-</pre>
-				<p> 
-				The number of triples with a particular predicate can be expressed with the same approach, by using the property as a dimension together with <code>void:numberOfTriples</code> .
-			</p>
-			<h3>
-				<a id="Attributing_statistics_to_source" name="Attributing_statistics_to_source"></a> 3.4 Attributing statistics to a source  
-			</h3>
-			<p>
-				Sometimes it can be useful to record where a statistical data point came from. Does this number come from the dataset's homepage, or from a blog post by the dataset publisher, or from a manual count? We use <code>dcterms:source</code> on the <code>scovo:Item</code> to record additional information about the number's provenance. 
-			</p>
-				<pre>
-<code>
-    void:statItem [ 
-       rdf:value 22000;
-       scovo:dimension void:numberOfTriples ;
-       dcterms:source &lt;http://lists.example.org/Archives/2008Sep/0327.html&gt;  ;
-    ] .</code>
+      <ul>
+        <li>A <em>class-based partition</em> contains only that subset of a dataset which describes instances of a particular class.</li>
+        <li>A <em>property-based partition</em> contains only those triples of a dataset that use a particular predicate.</li>
+      </ul>
 
+      <p>Partitions can be described with voiD's usual statistical features, such as <tt>void:entities</tt> and <tt>void:triples</tt>. The following example shows how this approach is used to state that the DBpedia dataset contains 312,000 entities of class <tt>foaf:Person</tt>, and 312,000 triples that have the <tt>foaf:name</tt> predicate:</p>
+
+      <pre>
+:DBpedia a void:Dataset;
+    void:classPartition [
+        void:class foaf:Person;
+        void:entities 312000;
+    ];
+    void:propertyPartition [ 
+        void:property foaf:name;
+        void:triples 312000;
+    ];
+    .
 </pre>
-				<p>
-					Of course, additional information about the source can be recorded:
-				</p>
-				<pre>
-				<code>
- &lt;http://lists.example.org/Archives/2008Sep/0327.html&gt; 
-    dcterms:title "Mail from Joe Bloggs announcing the new dataset" ;
-    dcterms:date "2008-09-23"^^xsd:date .</code>
-				</pre>
-			
+
+      <p>A class-based partition for the <tt>foaf:Person</tt> class is defined, and it is stated to contain 312,000 entities. Because a class-based partition contains only the subset that describes entities of a single class (<tt>foaf:Person</tt> in this case), we can conclude that the DBpedia dataset describes 312,000 people. Statistics about further classes could be given in the same way.</p>
+
+      <p>Note that <tt>void:classPartition</tt> and <tt>void:propertyPartition</tt> are subproperties of <tt>void:subset</tt>. This means that the partition is itself a dataset.</p>
+
+      <p>A dataset that is the <tt>void:classPartition</tt> of another dataset must have exactly one <tt>void:class</tt> property. The partition contains all triples that describe entities that have this class as their <tt>rdf:type</tt>.</p>
+
+      <p>A dataset that is the <tt>void:propertyPartition</tt> of another dataset must have exactly one <tt>void:property</tt> property. The partition contains all triples that have this property as their predicate.</p>
+
+      <h3>
+        <a id="scovo-stats" name="scovo-stats"></a>3.3 SCOVO-based statistics
+      </h3>
+
+      <p>A previous version of voiD defined a different approach to statistics, based on the <a href="http://sw.joanneum.at/scovo/schema.html" title="Statistical Core Vocabulary">Statistical Core Vocabulary</a> (SCOVO). This approach was found to have several disadvantages. Statistics would be verbose, and querying them with SPARQL was difficult. Therefore it has been removed from this document, and replaced with the approach described above. <a href="http://vocab.deri.ie/void/guide/2009-01-29#sec_3_Expressing_dataset_statistic">A description of the SCOVO-based approach</a> can be found in archived older versions of the voiD Guide.</p>
+			 
 			<h2>
 				<a id="Publishing_voiD" name="Publishing_voiD"></a> 4. Publishing voiD descriptions of datasets
 			</h2>
