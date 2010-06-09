@@ -1,4 +1,3 @@
-
   * void:inDataset ( rdfs:range void:Dataset and
 rdfs:domain foaf:Document) see http://code.google.com/p/void-impl/issues/detail?id=32
 
@@ -10,3 +9,78 @@ Technical URIs, to be sub-class of void:TechnicalFeature??
   * void:RDFa
   * void:Turtle
 
+=== Changes for new stats module ===
+{{{
+void:triples a rdf:Property;
+    rdfs:label "Triples"@en;
+    rdfs:comment "The total number of triples contained in the dataset."@en;
+    rdfs:domain void:Dataset;
+    rdfs:range xsd:integer;
+    .
+void:entities a rdf:Property;
+    rdfs:label "Entities"@en;
+    rdfs:comment "The total number of entities that are described in the dataset."@en;
+    rdfs:domain void:Dataset;
+    rdfs:range xsd:integer;
+    .
+void:classes a rdf:Property;
+    rdfs:label "Classes"@en;
+    rdfs:comment "The total number of distinct classes in the dataset. In other words, the number of distinct resources occuring as objects of rdf:type triples in the dataset."@en;
+    rdfs:domain void:Dataset;
+    rdfs:range xsd:integer;
+    .
+void:properties a rdf:Property;
+    rdfs:label "Properties"@en;
+    rdfs:comment "The total number of distinct properties in the dataset. In other words, the number of distinct resources that occur in the predicate position of triples in the dataset."@en;
+    rdfs:domain void:Dataset;
+    rdfs:range xsd:integer;
+    .
+void:distinctSubjects a rdf:Property;
+    rdfs:label "Distinct Subjects"@en;
+    rdfs:comment "The total number of distinct subjects in the dataset. In other words, the number of distinct resources that occur in the subject position of triples in the dataset."@en;
+    rdfs:domain void:Dataset;
+    rdfs:range xsd:integer;
+    .
+void:distinctObjects a rdf:Property;
+    rdfs:label "Distinct Objects"@en;
+    rdfs:comment "The total number of distinct objects in the dataset. In other words, the number of distinct resources that occur in the object position of triples in the dataset. Literals are included in this count."@en;
+    rdfs:domain void:Dataset;
+    rdfs:range xsd:integer;
+    .
+
+void:class a rdf:Property, owl:FunctionalProperty;
+    rdfs:label "Class"@en;
+    rdfs:comment "States that the dataset describes only entities of the single class given."@en;
+    rdfs:domain void:Dataset;
+    rdfs:range rdfs:Class;
+    .
+void:property a rdf:Property, owl:FunctionalProperty;
+    rdfs:label "Property"@en;
+    rdfs:comment "States that the dataset contains only triples that have the single given predicate."@en;
+    rdfs:domain void:Dataset;
+    rdfs:range rdf:Property;
+    .
+void:classPartition a rdf:Property;
+    rdfs:label "Class Partition"@en;
+    rdfs:comment "Links a dataset to a class-based partition of the dataset. The class-based partition is a subset that describes only entities of a single class."@en;
+    rdfs:subPropertyOf void:Dataset;
+    rdfs:domain void:Dataset;
+    rdfs:range void:Dataset;
+    .
+void:propertyPartition a rdf:Property;
+    rdfs:label "Property Partition"@en;
+    rdfs:comment "Links a dataset to a property-based partition of the dataset. The property-based partition is a subset that contains only triples having a single property."@en;
+    rdfs:subPropertyOf void:Dataset;
+    rdfs:domain void:Dataset;
+    rdfs:range void:Dataset;
+    .
+
+void:statItem a owl:DeprecatedProperty .
+
+# Remove the following instances:
+# void:numberOfTriples 
+# void:numberOfResources
+# void:numberOfDocuments
+# void:numberOfDistinctSubjects
+# void:numberOfDistinctObjects
+}}}
