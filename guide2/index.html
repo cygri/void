@@ -119,9 +119,6 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 					<li>
 						<a href="#class_prop_statistics" >3.2 Statistics about specific classes and properties</a>
 					</li>
-					<li>
-						<a href="#scovo-stats" >3.3 SCOVO-based statistics</a>
-					</li>
 				</ul>
 			</li>
 			<li>
@@ -959,6 +956,8 @@ This is illustated by the RDF graph below:
 
       <p>This section describes how to express statistics about a dataset, such as the number of RDF triples it contains, or the number of resources it describes.</p>
 
+      <p><em>Note: A previous version of voiD defined a different approach to statistics, based on the <a href="http://sw.joanneum.at/scovo/schema.html" title="Statistical Core Vocabulary">Statistical Core Vocabulary</a> (SCOVO). This approach was found to have several disadvantages. Statistics would be verbose, and querying them with SPARQL was difficult. Therefore it has been removed with the approach described here. <a href="http://vocab.deri.ie/void/guide/2009-01-29#sec_3_Expressing_dataset_statistic">A description of the SCOVO-based approach</a> can be found in archived older versions of the voiD Guide.</em></p>
+			 
       <p>As a general rule, statistics in voiD can always be provided as approximate numbers. 
 
 			<p>voiD defines the following properties for expressing different statistical characteristics of datasets:</p>
@@ -1083,12 +1082,6 @@ This is illustated by the RDF graph below:
 
       <p>A dataset that is the <tt>void:propertyPartition</tt> of another dataset must have exactly one <tt>void:property</tt> property. The partition contains all triples that have this property as their predicate.</p>
 
-      <h3>
-        <a id="scovo-stats" name="scovo-stats"></a>3.3 SCOVO-based statistics
-      </h3>
-
-      <p>A previous version of voiD defined a different approach to statistics, based on the <a href="http://sw.joanneum.at/scovo/schema.html" title="Statistical Core Vocabulary">Statistical Core Vocabulary</a> (SCOVO). This approach was found to have several disadvantages. Statistics would be verbose, and querying them with SPARQL was difficult. Therefore it has been removed from this document, and replaced with the approach described above. <a href="http://vocab.deri.ie/void/guide/2009-01-29#sec_3_Expressing_dataset_statistic">A description of the SCOVO-based approach</a> can be found in archived older versions of the voiD Guide.</p>
-			 
 			<h2>
 				<a id="Publishing_voiD" name="Publishing_voiD"></a> 4. Publishing voiD descriptions of datasets
 			</h2>
