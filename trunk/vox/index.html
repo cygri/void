@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:xsd ="http://www.w3.org/2001/XMLSchema#"
+  xmlns:dcterms="http://purl.org/dc/terms/"
+  xmlns:foaf="http://xmlns.com/foaf/0.1/"  
+  xmlns:vcard="http://www.w3.org/2006/vcard/ns#"
+  xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:doap="http://usefulinc.com/ns/doap#" 
+  xmlns:am="http://vocab.deri.ie/am#"
+  xmlns:ov="http://open.vocab.org/terms/"
+  xmlns:void="http://rdfs.org/ns/void#">
+<head>
+	<title>voX, the Dataset Explorer</title>
+	<link type="text/css" href="jquery-ui/css/redmond/jquery-ui-1.8.custom.css" rel="stylesheet" />
+	<link type="text/css" href="jquery-ui/css/autoSuggest.css" rel="stylesheet" />	
+	<link rel="stylesheet" type="text/css" href="vox.css" />
+	<script type="text/javascript" src="jquery-ui/js/jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" src="jquery-ui/js/jquery-ui-1.8.custom.min.js"></script>
+	<script type="text/javascript" src="jquery-ui/jquery.autoSuggest.js"></script>	
+	<script type="text/javascript" src="jquery.json-2.2.js"></script>
+	<script type="text/javascript" src="vox-controller.js"></script>
+	<script type="text/javascript" src="vox-interaction.js"></script>
+</head>
+<body about="" typeof="am:WebApplication">
+	
+<div id="head">
+	<a href="" property="dcterms:title" title="voX, the Dataset Explorer" content="voX, the Dataset Explorer"><img src="img/vox-logo-small.png" height="100px" alt="voX" /></a>
+</div>
+
+<div id="in">
+	<div class="flabel">Dataset</div>
+	<input type="text" size="35" id="voidURI" value="http://dblp.rkbexplorer.com/data/void" /> 
+	<span id="explore" class="ui-state-default ui-corner-all btn">Explore!</span>
+	<p class="fyi">Enter the URI of a voiD file.</p> 
+</div>
+
+<div id="out"></div>
+
+<div id="status"><!--<img src="img/ajax-loader.gif" id="busy" width="32px" alt="busy" />--></div>
+
+</body>
+</html>
+
+

@@ -1,0 +1,132 @@
+body {
+	font-family: Verdana,Arial,sans-serif;
+	font-size: 12px;
+	margin-top: 200px;
+	margin-left: 100px;
+	margin-right: 100px;
+	background: #eef;
+	
+}
+
+a:link, a:visited, a:active, a:hover  {
+	text-decoration: none; 
+	color: #0B93D5;
+}
+
+img {
+	border: 0px;
+}
+
+legend {
+	font-weight: bold;
+	color: white;
+}
+
+fieldset {
+	margin: 5px;
+	padding: 10px;
+}
+
+input {
+	margin-bottom: 2px;
+}
+
+li {
+	margin-bottom: 5px;
+}
+
+pre {
+	font-size: 120%;
+	border: 1px dotted #202020;
+	margin: 10px;
+	padding: 20px;
+}
+
+
+#head {
+	float: left;
+	background: #fff;
+	margin-right: 20px;
+	padding-top: 3px;
+	border: 2px solid #069;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	width: 43px;
+}
+
+#in {
+	margin-left: 48px;
+	background: #fff;
+	border: 2px solid #069;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	padding-bottom: 35px;
+}
+
+#out {
+	clear: left;
+	padding-left: 0px;
+}
+
+
+#status {
+	color: #0B93D5;
+	text-align: center;
+	font-size: 80%;
+}
+
+.dsmain {
+	background: #fff;
+	background-image:url('img/avox.png');
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	border: 1px solid #6f6f6f;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	padding: 0px;
+	padding-top: 10px;
+	padding-left: 50px;
+	padding-right: 20px;
+	padding-bottom: 20px;	
+	margin-bottom: 10px;
+}
+
+.dsmain div {
+	padding-left: 10px;	
+}
+
+.dsmain div div {
+	margin-bottom: 10px;	
+}
+
+.dsmain div div em {
+	color: #9f9f9f;
+	font-style: normal;
+}
+
+
+.btn {
+	cursor: pointer;
+	padding: 0px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+
+
+.flabel {
+	font-weight: bold;
+	margin-top: 10px;
+	margin-bottom: 5px;
+	padding: 0px;
+}
+
+
+.fyi {
+	margin: 0px;
+	padding-top: 0px;
+	color: #8f8f8f;
+	font-size: 11px;
+	text-align: justify;	
+}
