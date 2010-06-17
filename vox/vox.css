@@ -1,7 +1,7 @@
 body {
 	font-family: Verdana,Arial,sans-serif;
 	font-size: 12px;
-	margin-top: 200px;
+	margin-top: 100px;
 	margin-left: 100px;
 	margin-right: 100px;
 	background: #eef;
@@ -13,8 +13,32 @@ a:link, a:visited, a:active, a:hover  {
 	color: #0B93D5;
 }
 
+h1 {
+	background-image:url('img/avox.png');
+	background-repeat: no-repeat;
+	background-position: right center;
+	border: 1px solid #069;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	padding: 15px 5px 15px 5px;
+	margin: 20px 10px 10px 10px;
+	font-size: 16px;
+}
+
+
+h2 {
+	margin-left: 30px;
+	margin-bottom: 5px;
+	font-size: 14px;
+}
+
 img {
 	border: 0px;
+}
+
+textarea {
+	float: left;
+	margin-right: 5px;
 }
 
 legend {
@@ -64,8 +88,23 @@ pre {
 }
 
 #out {
+	display: none;	
 	clear: left;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	margin-top: 5px;
 	padding-left: 0px;
+	padding-bottom: 20px;	
+	background: #fff;
+	border: 1px solid #6f6f6f;	
+}
+
+#out p {
+	padding-left: 0px;
+}
+
+#out p.topic {
+	padding-left: 30px;
 }
 
 
@@ -75,44 +114,73 @@ pre {
 	font-size: 80%;
 }
 
+.dsdescription {
+
+}
+
 .dsmain {
 	background: #fff;
-	background-image:url('img/avox.png');
-	background-repeat: no-repeat;
-	background-position: 0px 0px;
-	border: 1px solid #6f6f6f;
-	-moz-border-radius: 4px;
-	-webkit-border-radius: 4px;
-	padding: 0px;
-	padding-top: 10px;
-	padding-left: 50px;
-	padding-right: 20px;
-	padding-bottom: 20px;	
-	margin-bottom: 10px;
+	padding: 2px 20px 0px 30px;
 }
 
 .dsmain div {
 	padding-left: 10px;	
 }
 
+.dsmain p {
+	padding-top: 0px;	
+	padding-left: 0px;	
+	margin-left: 0px;
+}
+
+
 .dsmain div div {
 	margin-bottom: 10px;	
 }
 
 .dsmain div div em {
-	color: #9f9f9f;
+	color: #6f6f6f;
 	font-style: normal;
 }
 
+.sparqlep {
+		padding: 10px 20px 10px 20px;
+}
+
+.sparqlepcmd {
+	text-align: left; 
+	padding-left: 0px; 
+	padding-top: 5px;
+}
+
+.topic {
+	padding-top: 10px;
+	padding-left: 0px;	
+}
+
+.dstopic {
+	padding: 10px 5px 2px 5px;
+	margin: 15px 400px 10px 50px;
+	border-top: 1px dotted #ACF;
+}
+
+.topicdetails {
+	display: none;	
+	padding: 10px 20px 10px 20px;
+}
 
 .btn {
 	cursor: pointer;
-	padding: 0px;
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-top: 3px;
-	padding-bottom: 3px;
+	padding: 3px 10px 3px 10px;
 }
+
+.smallbtn {
+	cursor: pointer;
+	font-size: 80%;
+	padding: 1px 4px 1px 4px;	
+}
+
+
 
 
 .flabel {
@@ -129,4 +197,11 @@ pre {
 	color: #8f8f8f;
 	font-size: 11px;
 	text-align: justify;	
+}
+
+.sectseparator {
+	clear: left;
+	padding: 10px 0px 10px 5px;
+	margin: 1px 10px 1px 30px;
+	border-bottom: 1px dotted #E0E0E0 ;
 }

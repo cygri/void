@@ -14,7 +14,7 @@ $BASE_DBPEDIA_LOOKUP_URI = "http://lookup.dbpedia.org/api/search.asmx/KeywordSea
 $BASE_TALIS_LOOKUP_URI ="http://api.talis.com/stores/kwijibo-dev3/services/sparql?output=json&query=";
 $BASE_RKB_LOOKUP_URI = "http://void.rkbexplorer.com/sparql/?format=json&query=";
 
-$defaultprefixes = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX dcterms: <http://purl.org/dc/terms/> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX void: <http://rdfs.org/ns/void#> ";
+$defaultprefixes = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX dcterms: <http://purl.org/dc/terms/> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX void: <http://rdfs.org/ns/void#> PREFIX dbpedia-owl: <http://dbpedia.org/ontology/> ";
 
 /* ARC2 RDF store config - START */
 $config = array(
@@ -47,6 +47,9 @@ if(isset($_GET['uri'])){
 	echo renderVoiD($_GET['uri']);
 }
 
+if(isset($_GET['topic'])){
+	echo getTopicDescription($_GET['topic']);
+}
 
 /* voX METHODS */
 
@@ -61,7 +64,7 @@ function renderVoiD($voidURI){
 	$entityConceptList = array();
 
 	if(!isDataLocal($voidURI)) { // we haven't tried to dereference the voiD URI yet
-		loadData($voidURI); 
+		loadData($voidURI); //... hence we dereference it and load it into the store
 	}
 	
 	$cmd = $defaultprefixes;
@@ -82,7 +85,7 @@ function renderVoiD($voidURI){
 	
 	$results = $store->query($cmd);
 	
-	$retVal = "<p>The following dataset descriptions are available from <a href='$voidURI' title='voiD file'>$voidURI</a>:</p>";
+	$retVal = "<p style='padding-left: 10px'>The voiD file <a href='$voidURI' title='voiD file'>$voidURI</a> contains the following dataset descriptions:</p><div class='dsdescription'>";
 	$dsList = array();
 	$dsURI = "";
 	$dsTitle = "???";
@@ -90,13 +93,13 @@ function renderVoiD($voidURI){
 	$dsDate = "???";
 	$dsHomePage = "";
 	$dsSPARQLEndpoint = "";
+	$dsDataset2Topics = array();
 
-	
 	if($results['result']['rows']) {
 		foreach ($results['result']['rows'] as $row) {
 			$dsURI = $row['ds'];
 			
-			if (!in_array($dsURI, $dsList)) { // remember dataset, pull info and fill template
+			if(!in_array($dsURI, $dsList)) { // remember dataset, pull global info and pre-fill template
 				array_push($dsList, $dsURI);
 				
 				if($row['title']) $dsTitle = $row['title'];
@@ -104,19 +107,75 @@ function renderVoiD($voidURI){
 				if($row['date']) $dsDate = $row['date'];
 				if($row['homepage']) $dsHomePage = $row['homepage'];
 				if($row['sparqlEndpoint']) $dsSPARQLEndpoint = $row['sparqlEndpoint'];
-								
+				
 				$descTemplate = file_get_contents($TEMPLATE_BASIC);
 				$search  = array('%DATASET_URI%', '%DATASET_TITLE%', '%DATASET_DESCRIPTION%', '%DATASET_DATE%', '%DATASET_HOMEPAGE%', '%DATASET_SPARQLEP%');
 				$replace = array($dsURI, $dsTitle, $dsDesc, $dsDate, $dsHomePage, $dsSPARQLEndpoint);
-				$retVal .= str_replace($search, $replace, $descTemplate);		
+				$retVal .= "<h1>$dsURI</h1>";
+				$retVal .= str_replace($search, $replace, $descTemplate);
+			}
+			if(isset($dsDataset2Topics[$dsURI])){
+				if(!in_array($row['topic'], $dsDataset2Topics[$dsURI])){ // remember topics of a dataset
+					array_push($dsDataset2Topics[$dsURI], $row['topic']); 
+					$retVal .= getTopicDescription($row['topic']);  
+				}	
+			}
+			else {
+				$dsDataset2Topics[$dsURI] = array();
+				array_push($dsDataset2Topics[$dsURI], $row['topic']);
+				if($row['topic']) {
+					$retVal .= "<h2>Topics</h2>";
+					$retVal .= "<p class='topic'>The dataset is about:</p>";
+					$retVal .=  getTopicDescription($row['topic']);  
+				}
+				else {
+					$retVal .= "<p class='topic'>The dataset topic is unknown.</p>";
+				}
 			}
 		}
 	}
 	else $retVal = "<p>Sorry, didn't find any dataset descriptions.</p>";
-	
-	return $retVal;
+		
+	return $retVal . "<div class='sectseparator'></div></div>";
 }
 
+// dereferences topic resource and retrieves dcterms:title and/or rdfs:label of the topic resource
+function getTopicDescription($topicURI){
+	global $DEBUG;
+	global $store;
+	global $defaultprefixes;
+	
+	if(!isDataLocal($topicURI)) { // we haven't tried to dereference the topic URI yet
+		loadData($topicURI); // ... hence we dereference it and load it into the store
+	}
+	
+	$cmd = $defaultprefixes;
+	$cmd .= "SELECT DISTINCT * FROM <" . $topicURI . "> WHERE "; 
+	$cmd .= "{  
+		<" . $topicURI . "> rdfs:label ?title .
+		OPTIONAL {	<" . $topicURI . "> dbpedia-owl:abstract ?abstract ; }
+		FILTER langMatches( lang(?title), 'EN' )
+		FILTER langMatches( lang(?abstract), 'EN' )
+	}";
+	
+	if($DEBUG) echo htmlentities($cmd) . "<br />";
+	
+	$results = $store->query($cmd);
+	
+	if($results['result']['rows']) {
+		foreach ($results['result']['rows'] as $row) {
+			if($row['title']) {
+				if($row['abstract']) $abstract = $row['abstract'];
+				else $abstract = "???";  
+				return "<div resource='$topicURI' class='dstopic'><a href='$topicURI' target='_new'>". $row['title'] . "</a> <span class='ui-state-default ui-corner-all smallbtn' title='details'>+</span><div class='topicdetails'>$abstract</div></div>";
+				
+			}
+			else return "Didn't find the topic title, sorry ..."; 
+		}
+	}
+	else return "<div resource='$topicURI' class='dstopic'><a href='$topicURI' target='_new'>$topicURI</a> ...</div>";
+
+}
 
 // low-level ARC2 store methods
 function isDataLocal($graphURI){

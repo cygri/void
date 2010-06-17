@@ -1,9 +1,20 @@
-<div class="dsmain" about="%DATASET_URI%">	
-<p>Details about the dataset '<span property="dcterms:title">%DATASET_TITLE%</span>' with a homepage at <a rel="foaf:homepage" href="%DATASET_HOMEPAGE%" target="_new" title="the dataset's homepage">%DATASET_HOMEPAGE%</a>:</p>
+<div class="sectseparator"></div>
+<h2>General Information</h2>
+<div class="dsmain" about="%DATASET_URI%">
+<p>Some general metadata about the dataset:</p>
 	<div>
+		<div><em>Title</em>: <span property="dcterms:title">%DATASET_TITLE%</span></div>
+		<div><em>Homepage</em>: <a rel="foaf:homepage" href="%DATASET_HOMEPAGE%" target="_new" title="the dataset's homepage">%DATASET_HOMEPAGE%</a></div>
 		<div><em>Last Update</em>: <span property="dcterms:date">%DATASET_DATE%</span></div>
 		<div><em>Description</em>: <span property="dcterms:description">%DATASET_DESCRIPTION%</span></div>
-		<div><em>SPARQL endpoint</em>: <a rel="void:sparqlEndpoint" href="%DATASET_SPARQLEP%" title="a SPARQL enpoint for the dataset">%DATASET_SPARQLEP%</a></div>
+		<div><em>SPARQL endpoint</em>: <a rel="void:sparqlEndpoint" href="%DATASET_SPARQLEP%" title="a SPARQL enpoint for the dataset">%DATASET_SPARQLEP%</a>
+			<div class='sparqlep'>
+				<textarea cols="60" rows="4">SELECT * WHERE { 
+  ?s ?p ?o .
+}</textarea>
+				<span class='ui-state-default ui-corner-all smallbtn' title='Execute Query!'>Execute Query!</span>
+			</div>	
+		</div>
 	</div>
-</div>		
-
+</div>
+<div class="sectseparator"></div>
