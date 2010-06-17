@@ -14,6 +14,7 @@ function renderVoiD(){
 		success: function(data){
 			if(data) {
 				$("#out").html(data);
+				$("#out").show("slow");
 			}
 			notBusy();
 		},
