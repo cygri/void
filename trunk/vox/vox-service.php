@@ -51,6 +51,10 @@ if(isset($_GET['topic'])){
 	echo getTopicDescription($_GET['topic']);
 }
 
+if(isset($_GET['example'])){
+	echo getExampleDescription($_GET['example']);
+}
+
 /* voX METHODS */
 
 
@@ -87,6 +91,7 @@ function renderVoiD($voidURI){
 	
 	$retVal = "<p style='padding-left: 10px'>The voiD file <a href='$voidURI' title='voiD file'>$voidURI</a> contains the following dataset descriptions:</p><div class='dsdescription'>";
 	$dsList = array();
+	$dsListGlobal = array();
 	$dsURI = "";
 	$dsTitle = "???";
 	$dsDesc = "???";
@@ -94,49 +99,93 @@ function renderVoiD($voidURI){
 	$dsHomePage = "";
 	$dsSPARQLEndpoint = "";
 	$dsDataset2Topics = array();
-
+	$dsDataset2Examples = array();
+	
+	// gather dataset metadata and render general information
 	if($results['result']['rows']) {
 		foreach ($results['result']['rows'] as $row) {
 			$dsURI = $row['ds'];
 			
+			// global dataset information
 			if(!in_array($dsURI, $dsList)) { // remember dataset, pull global info and pre-fill template
+				$dsDatasetGlobal = array();
+				$dsDatasetGlobal['URI'] = $dsURI;
+				if($row['title']) $dsDatasetGlobal['title'] = $row['title'];
+				if($row['description']) $dsDatasetGlobal['description'] = $row['description'];
+				if($row['date']) $dsDatasetGlobal['date'] = $row['date'];
+				if($row['homepage']) $dsDatasetGlobal['homepage'] = $row['homepage'];
+				if($row['sparqlEndpoint']) $dsDatasetGlobal['sparqlEndpoint'] = $row['sparqlEndpoint'];
+				array_push($dsListGlobal, $dsDatasetGlobal);
 				array_push($dsList, $dsURI);
-				
-				if($row['title']) $dsTitle = $row['title'];
-				if($row['description']) $dsDesc = $row['description'];
-				if($row['date']) $dsDate = $row['date'];
-				if($row['homepage']) $dsHomePage = $row['homepage'];
-				if($row['sparqlEndpoint']) $dsSPARQLEndpoint = $row['sparqlEndpoint'];
-				
-				$descTemplate = file_get_contents($TEMPLATE_BASIC);
-				$search  = array('%DATASET_URI%', '%DATASET_TITLE%', '%DATASET_DESCRIPTION%', '%DATASET_DATE%', '%DATASET_HOMEPAGE%', '%DATASET_SPARQLEP%');
-				$replace = array($dsURI, $dsTitle, $dsDesc, $dsDate, $dsHomePage, $dsSPARQLEndpoint);
-				$retVal .= "<h1>$dsURI</h1>";
-				$retVal .= str_replace($search, $replace, $descTemplate);
 			}
-			if(isset($dsDataset2Topics[$dsURI])){
-				if(!in_array($row['topic'], $dsDataset2Topics[$dsURI])){ // remember topics of a dataset
+			
+			// remember dataset topics
+			if($row['topic']){
+				if(!isset($dsDataset2Topics[$dsURI])){
+					$dsDataset2Topics[$dsURI] = array();
+				}
+				if(!in_array($row['topic'], $dsDataset2Topics[$dsURI])){
 					array_push($dsDataset2Topics[$dsURI], $row['topic']); 
-					$retVal .= getTopicDescription($row['topic']);  
 				}	
 			}
-			else {
-				$dsDataset2Topics[$dsURI] = array();
-				array_push($dsDataset2Topics[$dsURI], $row['topic']);
-				if($row['topic']) {
-					$retVal .= "<h2>Topics</h2>";
-					$retVal .= "<p class='topic'>The dataset is about:</p>";
-					$retVal .=  getTopicDescription($row['topic']);  
+			// remember dataset examples resources
+			if($row['exampleRes']){
+				if(!isset($dsDataset2Examples[$dsURI])){
+					$dsDataset2Examples[$dsURI] = array();
 				}
-				else {
-					$retVal .= "<p class='topic'>The dataset topic is unknown.</p>";
-				}
+				if(!in_array($row['exampleRes'], $dsDataset2Examples[$dsURI])){
+					array_push($dsDataset2Examples[$dsURI], $row['exampleRes']); 
+				}	
 			}
 		}
 	}
+	
+	if(!empty($dsListGlobal)){
+			foreach ($dsListGlobal as $dsglobalinfo){
+				$descTemplate = file_get_contents($TEMPLATE_BASIC);
+				$search  = array('%DATASET_URI%', '%DATASET_TITLE%', '%DATASET_DESCRIPTION%', '%DATASET_DATE%', '%DATASET_HOMEPAGE%', '%DATASET_SPARQLEP%');
+				$replace = array($dsglobalinfo['URI'], $dsglobalinfo['title'], $dsglobalinfo['description'], $dsglobalinfo['date'], $dsglobalinfo['homepage'], $dsglobalinfo['sparqlEndpoint']);
+				$retVal .= "<h1>". $dsglobalinfo['URI'] ."</h1>";
+				$retVal .= str_replace($search, $replace, $descTemplate);
+				
+				if(!empty($dsDataset2Topics)){ // we have topics to render
+					foreach ($dsDataset2Topics as $topicsKey => $topicsValue){
+						if($topicsKey === $dsglobalinfo['URI']) {
+							$retVal .= "<h2>Topics</h2>";
+							$retVal .= "<p class='topic'>The dataset is about:</p>";
+							foreach ($topicsValue as $topicsURI){
+								$retVal .=  getTopicDescription($topicsURI);
+							}
+						}
+					}
+					$retVal .= "<div class='sectseparator'></div>";
+				}
+				else {
+					$retVal .= "<h2>Topics</h2>";
+					$retVal .= "<p class='topic'>Dataset topics are unknown.</p><div class='sectseparator'></div>";
+				}
+
+				if(!empty($dsDataset2Examples)){ // we have examples to render
+					foreach ($dsDataset2Examples as $examplesKey => $examplesValue){
+						if($examplesKey === $dsglobalinfo['URI']) {
+							$retVal .= "<h2>Examples</h2>";
+							$retVal .= "<p class='exampleres'>Some example resources of the dataset:</p>";
+							foreach ($examplesValue as $examplesURI){
+								$retVal .=  getExampleDescription($examplesURI);
+							}
+						}
+					}
+					$retVal .= "<div class='sectseparator'></div>";
+				}
+				else {
+					$retVal .= "<h2>Examples</h2>";
+					$retVal .= "<p class='exampleres'>Example resources of the dataset are unknown.</p><div class='sectseparator'></div>";
+				}
+			}
+	}
 	else $retVal = "<p>Sorry, didn't find any dataset descriptions.</p>";
-		
-	return $retVal . "<div class='sectseparator'></div></div>";
+	
+	return $retVal . "</div>";
 }
 
 // dereferences topic resource and retrieves dcterms:title and/or rdfs:label of the topic resource
@@ -167,13 +216,20 @@ function getTopicDescription($topicURI){
 			if($row['title']) {
 				if($row['abstract']) $abstract = $row['abstract'];
 				else $abstract = "???";  
-				return "<div resource='$topicURI' class='dstopic'><a href='$topicURI' target='_new'>". $row['title'] . "</a> <span class='ui-state-default ui-corner-all smallbtn' title='details'>+</span><div class='topicdetails'>$abstract</div></div>";
+				return "<div resource='$topicURI' class='dstopic'><a href='$topicURI' target='_new'>". $row['title'] . "</a> <span class='ui-state-default ui-corner-all smallbtn' title='Expand to view description'>+</span><div class='topicdetails'>$abstract</div></div>";
 				
 			}
 			else return "Didn't find the topic title, sorry ..."; 
 		}
 	}
 	else return "<div resource='$topicURI' class='dstopic'><a href='$topicURI' target='_new'>$topicURI</a> ...</div>";
+
+}
+
+// dereferences topic resource and retrieves dcterms:title and/or rdfs:label of the topic resource
+function getExampleDescription($exampleURI){
+
+ return "<div resource='$exampleURI' class='dsexample'><a href='$exampleURI' target='_new'>$exampleURI</a> <span class='ui-state-default ui-corner-all smallbtn' title='View details about resource in Sig.ma'><a href='http://sig.ma/search?singlesource=$exampleURI&raw=1' target='_new'>View details ...</a></span></div>";	
 
 }
 
