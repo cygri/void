@@ -39,7 +39,10 @@ $(function(){
 		$("div[resource='"+topicURI+"'] .smallbtn").html("-"); // show selected details
 		$("div[resource='"+topicURI+"'] .topicdetails").slideDown("slow"); // show selected details
 	});
-	
+
+	$('.sparqlep .smallbtn').live('click', function(){
+		alert("Not yet implemented ...");
+	});	
 	
 
 });

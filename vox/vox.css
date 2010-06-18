@@ -99,14 +99,6 @@ pre {
 	border: 1px solid #6f6f6f;	
 }
 
-#out p {
-	padding-left: 0px;
-}
-
-#out p.topic {
-	padding-left: 30px;
-}
-
 
 #status {
 	color: #0B93D5;
@@ -153,12 +145,12 @@ pre {
 	padding-top: 5px;
 }
 
-.topic {
+.topic, .exampleres {
 	padding-top: 10px;
-	padding-left: 0px;	
+	padding-left: 30px;	
 }
 
-.dstopic {
+.dstopic, .dsexample {
 	padding: 10px 5px 2px 5px;
 	margin: 15px 400px 10px 50px;
 	border-top: 1px dotted #ACF;
