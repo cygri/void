@@ -24,54 +24,38 @@ function renderVoiD(){
 	});
 }
 
-function executeQuery(endpointURI, queryStr) {
+function executeQuery(outcanvas, endpointURI, queryStr) {
 
 	var data =  {
 		endpointURI : escape(endpointURI),
 		queryStr : queryStr
 	}
 	
-	if( queryStr.toLowerCase().indexOf("construct") > 0 ) { // a CONSTRUCT query
-		$.ajax({
-			type: "POST",
-			url: omniqServiceURI,
-			data: "eParams="+ $.toJSON(data),
-			success: function(data){
-				if(data) {
-					$("#cQueryResult").text(data).html();
-				}
-			},	
-			error:  function(msg){
-				alert(data);
-			} 
-		});
-	}
-	else { // SELECT or ASK query
-		$.ajax({
-			type: "POST",
-			url: omniqServiceURI,
-			data: "eParams="+ $.toJSON(data),
-			dataType : "json",
-			success: function(data){
-				if(data) {
-					renderSPARQLResult(data);
-				}
-			},	
-			error:  function(msg){
-				alert(data);
-			} 
-		});
-	}
+	outcanvas.html("<img src='img/ajax-loader.gif' id='busy' width='16px' alt='busy />");
+
+	$.ajax({
+		type: "POST",
+		url: voxServiceURI,
+		data: "qParams="+ $.toJSON(data),
+		dataType : "json",
+		success: function(result){
+				outcanvas.html(renderSPARQLResult(result));
+				outcanvas.slideDown();
+		},	
+		error:  function(msg){
+			alert(msg);
+		} 
+	});
+	
 }
 
 function renderSPARQLResult(data){
 		var vars =  Array();
-		var buffer = "";
-		$("#cQueryResult").html("");
-		
-		// SELECT query result		
+		var buffer = "<p>Query results:</p>";
+				
+		// SELECT query result
 		if(data.head.vars) {
-			buffer = "<table><tr>";
+			buffer += "<table><tr>";
 			for(rvar in data.head.vars) { // table head with vars
 				buffer += "<th>" + data.head.vars[rvar] + "</th>";
 			}
@@ -90,10 +74,10 @@ function renderSPARQLResult(data){
 		}
 		// ASK query result
 		if(data.boolean) {
-			buffer = "<p style='font-size:140%'>The query yields <strong>" + data.boolean + "</strong>.</p>";
+			buffer += "<p style='font-size:140%'>The query yields <strong>" + data.boolean + "</strong>.</p>";
 		}
 		
-		$("#cQueryResult").append(buffer);
+		return buffer;
 }
 
 function isBusy(){

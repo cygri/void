@@ -8,11 +8,13 @@
 		<div><em>Last Update</em>: <span property="dcterms:date">%DATASET_DATE%</span></div>
 		<div><em>Description</em>: <span property="dcterms:description">%DATASET_DESCRIPTION%</span></div>
 		<div><em>SPARQL endpoint</em>: <a rel="void:sparqlEndpoint" href="%DATASET_SPARQLEP%" title="a SPARQL enpoint for the dataset">%DATASET_SPARQLEP%</a>
-			<div class='sparqlep'>
+			<div class='sparqlep' resource="%DATASET_SPARQLEP%">
 				<textarea cols="60" rows="4">SELECT * WHERE { 
   ?s ?p ?o .
-}</textarea>
+}
+LIMIT 3</textarea>
 				<span class='ui-state-default ui-corner-all smallbtn' title='Execute Query!'>Execute Query!</span>
+			<div class='sparqlresult'></div>
 			</div>	
 		</div>
 	</div>

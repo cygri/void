@@ -55,9 +55,17 @@ if(isset($_GET['example'])){
 	echo getExampleDescription($_GET['example']);
 }
 
+///// POST interface
+if(isset($_POST['qParams'])){ // 
+	$qParams = json_decode($_POST['qParams'], true);
+	
+	echo executeQuery($qParams);
+}
+
+
+
+
 /* voX METHODS */
-
-
 
 function renderVoiD($voidURI){
 	global $DEBUG;
@@ -145,7 +153,7 @@ function renderVoiD($voidURI){
 				$descTemplate = file_get_contents($TEMPLATE_BASIC);
 				$search  = array('%DATASET_URI%', '%DATASET_TITLE%', '%DATASET_DESCRIPTION%', '%DATASET_DATE%', '%DATASET_HOMEPAGE%', '%DATASET_SPARQLEP%');
 				$replace = array($dsglobalinfo['URI'], $dsglobalinfo['title'], $dsglobalinfo['description'], $dsglobalinfo['date'], $dsglobalinfo['homepage'], $dsglobalinfo['sparqlEndpoint']);
-				$retVal .= "<h1>". $dsglobalinfo['URI'] ."</h1>";
+				$retVal .= "<h1><a href='". $dsglobalinfo['URI'] ."' target='_new' title='" . $dsglobalinfo['title'] ."'>". $dsglobalinfo['URI'] ."</a></h1>";
 				$retVal .= str_replace($search, $replace, $descTemplate);
 				
 				if(!empty($dsDataset2Topics)){ // we have topics to render
@@ -328,16 +336,16 @@ function listSPARQLEndpoints($lookupURI){
 	return json_encode($ret);
 }
 
-function executeQuery($eParams){
+function executeQuery($queryParams){
 	global $DEBUG;
 
-	$endpointURI = $eParams["endpointURI"];
-	$queryStr = $eParams["queryStr"];
+	$endpointURI = $queryParams["endpointURI"];
+	$queryStr = $queryParams["queryStr"];
 
 	$c = curl_init();
 	curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
 	curl_setopt($c, CURLOPT_HEADER, 0);
-	curl_setopt($c, CURLOPT_URL, $endpointURI . urlencode($queryStr));
+	curl_setopt($c, CURLOPT_URL, $endpointURI . "?query=" . urlencode($queryStr) . "&format=json");
 	curl_setopt($c, CURLOPT_TIMEOUT, 30);
 	$result = curl_exec($c);
 	curl_close($c);
