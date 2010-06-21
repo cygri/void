@@ -97,9 +97,11 @@ function renderSPARQLResult(data){
 }
 
 function isBusy(){
+	$("#status").show();
 	$("#status").html("<img src='img/ajax-loader.gif' id='busy' width='32px' alt='busy />");	
 }
 
 function notBusy(){
+	$("#status").hide();
 	$("#status").html("");	
 }

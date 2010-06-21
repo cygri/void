@@ -7,19 +7,7 @@ var  voxServiceURI = "vox-service.php"; // the vox service
 
 // jQuery main interaction code
 $(function(){
-	
-	// setup UI
-	$('#infodialog').dialog({
-		autoOpen: false,
-		width: 600,
-//		heigth: 800,		
-		buttons: {
-			"Cancel": function() { 
-						$(this).dialog("close"); 
-					} 
-			}
-	});
-					
+
 	//  render voiD either via button click or hit return on input
 	$("#explore").click(function () {
 		renderVoiD();
@@ -30,7 +18,19 @@ $(function(){
 			renderVoiD();
 		}
 	});
-	
+
+
+	$('#showexamples').click(function(e){
+		if($(this).text() == "show ...") $(this).text("hide ...")
+		else $(this).text("show ...");
+		$('#exvoidfiles').slideToggle("normal");
+	});
+
+	// example voiD files
+	$('#ex0, #ex1, #ex2, #ex3, #ex4').click(function(e){
+		$('#voidURI').val($(this).attr('resource'));
+	});
+		
 	// show more details about a certain dataset topic
 	$('.dstopic').live('click', function(){
 		var topicURI = $(this).attr('resource');
@@ -46,8 +46,3 @@ $(function(){
 	
 
 });
-
-function showInfo(info){
-	$('#infodialog').html(info);
-	$('#infodialog').dialog('open');	
-}
