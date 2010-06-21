@@ -34,6 +34,9 @@ h2 {
 
 img {
 	border: 0px;
+	padding-bottom: 0px;
+	margin-bottom: 0px;
+
 }
 
 textarea {
@@ -69,22 +72,34 @@ pre {
 
 #head {
 	float: left;
-	background: #fff;
+	color: #606060;
+	font-size: 80%;
+	font-weight: bold;
 	margin-right: 20px;
-	padding-top: 3px;
-	border: 2px solid #069;
-	-moz-border-radius: 8px;
-	-webkit-border-radius: 8px;
-	width: 43px;
+	padding: 4px 0px 4px 10px;
 }
 
+
 #in {
-	margin-left: 48px;
 	background: #fff;
 	border: 2px solid #069;
 	-moz-border-radius: 8px;
 	-webkit-border-radius: 8px;
-	padding-bottom: 35px;
+	padding-bottom: 0px;
+}
+
+#infield {
+	float: left;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	margin-bottom: 0px;
+}
+
+#exvoidfiles {
+	display: none;
+	margin: 5px 0px 5px 0px;
+	float: left;
+	text-align: right;
 }
 
 #out {
@@ -101,9 +116,16 @@ pre {
 
 
 #status {
-	color: #0B93D5;
-	text-align: center;
+	color: #909090;
+	text-align: left;
 	font-size: 80%;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	margin-top: 5px;
+	padding-left: 5px;
+	padding-top: 2px;	
+	background: #fff;
+	border: 1px solid #909090;
 }
 
 .dsdescription {
@@ -172,8 +194,10 @@ pre {
 	padding: 1px 4px 1px 4px;	
 }
 
-
-
+.inlinebtn {
+	cursor: pointer;
+	font-weight: bold;
+}
 
 .flabel {
 	font-weight: bold;
@@ -185,7 +209,7 @@ pre {
 
 .fyi {
 	margin: 0px;
-	padding-top: 0px;
+	padding-top: 5px;
 	color: #8f8f8f;
 	font-size: 11px;
 	text-align: justify;	
@@ -196,4 +220,13 @@ pre {
 	padding: 10px 0px 10px 5px;
 	margin: 1px 10px 1px 30px;
 	border-bottom: 1px dotted #E0E0E0 ;
+}
+
+.examplelink {
+	font-weight: normal;
+	width: 200px;
+	cursor: pointer;
+	font-size: 90%;
+	padding: 1px 4px 1px 4px;
+	margin-bottom: 5px;
 }

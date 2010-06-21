@@ -26,20 +26,31 @@
 </head>
 <body about="" typeof="am:WebApplication">
 	
-<div id="head">
-	<a href="" property="dcterms:title" title="voX, the Dataset Explorer" content="voX, the Dataset Explorer"><img src="img/vox-logo-small.png" height="100px" alt="voX" /></a>
-</div>
+
 
 <div id="in">
-	<div class="flabel">Dataset</div>
-	<input type="text" size="35" id="voidURI" value="http://dblp.rkbexplorer.com/data/void" /> 
-	<span id="explore" class="ui-state-default ui-corner-all btn">Explore!</span>
-	<p class="fyi">Enter the URI of a voiD file.</p> 
+	<div id="head">
+		<a href="" property="dcterms:title" content="voX, the Dataset Explorer"><img src="img/vox-logo-small.png"  alt="voX" /></a><div style="text-align:center">Dataset<br />Explorer</div>
+	</div>
+	<div id="infield">
+		<div class="flabel">Dataset</div>
+		<input type="text" size="35" id="voidURI" value="http://dblp.rkbexplorer.com/data/void" /> 
+		<span id="explore" class="ui-state-default ui-corner-all btn">Explore!</span>
+		<p class="fyi">Enter the URI of a voiD file or use one of the examples <span id="showexamples" class="inlinebtn">show ...</span></p>
+		<div id="exvoidfiles">
+			<div class="ui-state-default ui-corner-all examplelink" id="ex0" resource="http://dblp.rkbexplorer.com/data/void">DBLP</div>
+			<div class="ui-state-default ui-corner-all examplelink" id="ex1" resource="http://ontologi.es/rail/void.xhtml">Linked Railway Data</div>
+			<div class="ui-state-default ui-corner-all examplelink" id="ex2" resource="http://rdf.geospecies.org/ont/void.rdf">GeoSpecies</div>
+			<div class="ui-state-default ui-corner-all examplelink" id="ex3" resource="http://www.cs.vu.nl/STITCH/rameau/void.ttl">RAMEAU</div>
+			<div class="ui-state-default ui-corner-all examplelink" id="ex4" resource="http://www.openpsi.org/openpsi-void.ttl">OpenPSI</div>
+			<div class="ui-state-default ui-corner-all examplelink" id="ex5" resource="http://api.talis.com/stores/kwijibo-dev3/items/datasets/engagetenant2">EngageTenant</div>
+		</div>
+	</div>
+	<div style="clear: left; padding: 0px; margin: 0px;"></div>
 </div>
-
+<div id="status">I'm idle ...</div>
 <div id="out"></div>
 
-<div id="status"><!--<img src="img/ajax-loader.gif" id="busy" width="32px" alt="busy" />--></div>
 
 </body>
 </html>
