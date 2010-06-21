@@ -27,7 +27,7 @@ $(function(){
 	});
 
 	// example voiD files
-	$('#ex0, #ex1, #ex2, #ex3, #ex4').click(function(e){
+	$('#ex0, #ex1, #ex2, #ex3, #ex4, #ex5').click(function(e){
 		$('#voidURI').val($(this).attr('resource'));
 	});
 		
@@ -41,7 +41,9 @@ $(function(){
 	});
 
 	$('.sparqlep .smallbtn').live('click', function(){
-		alert("Not yet implemented ...");
+		var endpointURI = $(this).parent().attr('resource');
+		var queryStr = $(".sparqlep[resource='"+ endpointURI +"'] textarea").val();
+		executeQuery($(".sparqlep[resource='"+ endpointURI +"'] .sparqlresult"), endpointURI, queryStr);
 	});	
 	
 

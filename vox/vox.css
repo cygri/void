@@ -20,15 +20,14 @@ h1 {
 	border: 1px solid #069;
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
-	padding: 15px 5px 15px 5px;
+	padding: 15px 5px 15px 25px;
 	margin: 20px 10px 10px 10px;
 	font-size: 16px;
 }
 
 
 h2 {
-	margin-left: 30px;
-	margin-bottom: 5px;
+	margin: 2px 0px 0px 30px;
 	font-size: 14px;
 }
 
@@ -36,12 +35,12 @@ img {
 	border: 0px;
 	padding-bottom: 0px;
 	margin-bottom: 0px;
-
 }
 
 textarea {
 	float: left;
 	margin-right: 5px;
+	font-size: 90%;	
 }
 
 legend {
@@ -67,6 +66,21 @@ pre {
 	border: 1px dotted #202020;
 	margin: 10px;
 	padding: 20px;
+}
+
+table {
+	border: 1px solid #cfcfcf;
+	width: 100%;
+}
+
+th {
+	border-bottom: 1px solid #9f9f9f;
+	background: #6a6a6a;
+	color: #f0f0f0;
+}
+
+tr.invrow {
+	background-color: #efefff;
 }
 
 
@@ -153,7 +167,7 @@ pre {
 }
 
 .dsmain div div em {
-	color: #6f6f6f;
+	color: #336;
 	font-style: normal;
 }
 
@@ -165,6 +179,14 @@ pre {
 	text-align: left; 
 	padding-left: 0px; 
 	padding-top: 5px;
+}
+
+.sparqlresult {
+	display: none;
+	clear: left;
+	font-size: 80%;
+	border: 1px dotted #a0a0a0;
+	margin: 5px 0px 5px 0px;
 }
 
 .topic, .exampleres {
@@ -217,8 +239,8 @@ pre {
 
 .sectseparator {
 	clear: left;
-	padding: 10px 0px 10px 5px;
-	margin: 1px 10px 1px 30px;
+	padding: 30px 0px 0px 5px;
+	margin: 10px 10px 0px 30px;
 	border-bottom: 1px dotted #E0E0E0 ;
 }
 
