@@ -6,6 +6,7 @@ $DEBUG = false;
 // web app params
 $VOX_BASE = "vox/";
 $TEMPLATE_BASIC = "void-desc-basic.html";
+$TEMPLATE_SPARQLEP = "void-desc-with-sparqlep.html";
 
 // DBPedia lookup interface
 $BASE_DBPEDIA_LOOKUP_URI = "http://lookup.dbpedia.org/api/search.asmx/KeywordSearch?QueryClass=string&MaxHits=5&QueryString=";
@@ -69,7 +70,8 @@ if(isset($_POST['qParams'])){ //
 
 function renderVoiD($voidURI){
 	global $DEBUG;
-	global $TEMPLATE_BASIC;	
+	global $TEMPLATE_BASIC;
+	global $TEMPLATE_SPARQLEP;
 	global $store;
 	global $defaultprefixes;
 
@@ -101,11 +103,6 @@ function renderVoiD($voidURI){
 	$dsList = array();
 	$dsListGlobal = array();
 	$dsURI = "";
-	$dsTitle = "???";
-	$dsDesc = "???";
-	$dsDate = "???";
-	$dsHomePage = "";
-	$dsSPARQLEndpoint = "";
 	$dsDataset2Topics = array();
 	$dsDataset2Examples = array();
 	
@@ -119,10 +116,15 @@ function renderVoiD($voidURI){
 				$dsDatasetGlobal = array();
 				$dsDatasetGlobal['URI'] = $dsURI;
 				if($row['title']) $dsDatasetGlobal['title'] = $row['title'];
+				else $dsDatasetGlobal['title'] = "unknown";
 				if($row['description']) $dsDatasetGlobal['description'] = $row['description'];
+				else $dsDatasetGlobal['description'] = "unknown";
 				if($row['date']) $dsDatasetGlobal['date'] = $row['date'];
+				else $dsDatasetGlobal['date'] = "unknown";
 				if($row['homepage']) $dsDatasetGlobal['homepage'] = $row['homepage'];
+				else $dsDatasetGlobal['homepage'] = "#";
 				if($row['sparqlEndpoint']) $dsDatasetGlobal['sparqlEndpoint'] = $row['sparqlEndpoint'];
+				else $dsDatasetGlobal['sparqlEndpoint'] = "unknown";
 				array_push($dsListGlobal, $dsDatasetGlobal);
 				array_push($dsList, $dsURI);
 			}
@@ -148,48 +150,79 @@ function renderVoiD($voidURI){
 		}
 	}
 	
+	// render TOC
+	if(!empty($dsListGlobal) && count($dsListGlobal) > 1){
+		$retVal .= "<div class='toc'>";
+		$retVal .= "<h2 class='ui-widget-header ui-corner-all'>Summary</h2>";
+		$dsCounter = 1;
+		foreach ($dsListGlobal as $dsglobalinfo){
+			$retVal .= "<div class='tocentry'><a class='ui-state-default ui-corner-all smallbtn' href='#ds" . $dsCounter++ ."' title='Explore details of the dataset'>Explore details</a><span style='margin-left: 5px'><a href='" . $dsglobalinfo['URI'] ."' title='" . $dsglobalinfo['title']."'>" . $dsglobalinfo['URI'] . "</a></span></div>";
+		}
+		$retVal .= "</div>";
+	}
+	
+	// render dataset details
 	if(!empty($dsListGlobal)){
-			foreach ($dsListGlobal as $dsglobalinfo){
+		$dsCounter = 1;
+		$retVal .= "<h2 class='ui-widget-header ui-corner-all'>Details</h2>";
+		foreach ($dsListGlobal as $dsglobalinfo){
+			if($dsglobalinfo['sparqlEndpoint'] == "unknown") { // no SPARQL endpoint detected, use basic template
 				$descTemplate = file_get_contents($TEMPLATE_BASIC);
+				$search  = array('%DATASET_URI%', '%DATASET_TITLE%', '%DATASET_DESCRIPTION%', '%DATASET_DATE%', '%DATASET_HOMEPAGE%');
+				$replace = array($dsglobalinfo['URI'], $dsglobalinfo['title'], $dsglobalinfo['description'], $dsglobalinfo['date'], $dsglobalinfo['homepage']);
+			}
+			else {
+				$descTemplate = file_get_contents($TEMPLATE_SPARQLEP);
 				$search  = array('%DATASET_URI%', '%DATASET_TITLE%', '%DATASET_DESCRIPTION%', '%DATASET_DATE%', '%DATASET_HOMEPAGE%', '%DATASET_SPARQLEP%');
 				$replace = array($dsglobalinfo['URI'], $dsglobalinfo['title'], $dsglobalinfo['description'], $dsglobalinfo['date'], $dsglobalinfo['homepage'], $dsglobalinfo['sparqlEndpoint']);
+			}
+			$retVal .= "<a id='ds" . $dsCounter++ . "'></a>";
+			if(substr($dsglobalinfo['URI'], 0, 2) === "_:") {
+				$retVal .= "<h1>". $dsglobalinfo['URI'] ."</h1>";				
+			}
+			else {
 				$retVal .= "<h1><a href='". $dsglobalinfo['URI'] ."' target='_new' title='" . $dsglobalinfo['title'] ."'>". $dsglobalinfo['URI'] ."</a></h1>";
-				$retVal .= str_replace($search, $replace, $descTemplate);
-				
-				if(!empty($dsDataset2Topics)){ // we have topics to render
-					foreach ($dsDataset2Topics as $topicsKey => $topicsValue){
-						if($topicsKey === $dsglobalinfo['URI']) {
-							$retVal .= "<h2>Topics</h2>";
-							$retVal .= "<p class='topic'>The dataset is about:</p>";
-							foreach ($topicsValue as $topicsURI){
-								$retVal .=  getTopicDescription($topicsURI);
-							}
+			}
+			$retVal .= str_replace($search, $replace, $descTemplate);
+			
+			if(!empty($dsDataset2Topics) && count($dsDataset2Topics) > 0 ){ // we have topics to render
+				foreach ($dsDataset2Topics as $topicsKey => $topicsValue){
+					if($topicsKey === $dsglobalinfo['URI']) {
+						$retVal .= "<h2>Topics</h2>";
+						$retVal .= "<p class='topic'>The dataset is about:</p>";
+						foreach ($topicsValue as $topicsURI){
+							$retVal .=  getTopicDescription($topicsURI);
 						}
+						$retVal .= "<div class='sectseparator'></div>";
 					}
-					$retVal .= "<div class='sectseparator'></div>";
-				}
-				else {
-					$retVal .= "<h2>Topics</h2>";
-					$retVal .= "<p class='topic'>Dataset topics are unknown.</p><div class='sectseparator'></div>";
 				}
 
-				if(!empty($dsDataset2Examples)){ // we have examples to render
-					foreach ($dsDataset2Examples as $examplesKey => $examplesValue){
-						if($examplesKey === $dsglobalinfo['URI']) {
-							$retVal .= "<h2>Examples</h2>";
-							$retVal .= "<p class='exampleres'>Some example resources of the dataset:</p>";
-							foreach ($examplesValue as $examplesURI){
-								$retVal .=  getExampleDescription($examplesURI);
-							}
+			}
+			/*
+			else {
+				$retVal .= "<h2>Topics</h2>";
+				$retVal .= "<p class='topic'>Dataset topics are unknown.</p><div class='sectseparator'></div>";
+			}
+			*/
+			if(!empty($dsDataset2Examples) && count($dsDataset2Examples) > 0){ // we have examples to render
+				foreach ($dsDataset2Examples as $examplesKey => $examplesValue){
+					if($examplesKey === $dsglobalinfo['URI']) {
+						$retVal .= "<h2>Examples</h2>";
+						$retVal .= "<p class='exampleres'>Some example resources of the dataset:</p>";
+						foreach ($examplesValue as $examplesURI){
+							$retVal .=  getExampleDescription($examplesURI);
 						}
+						$retVal .= "<div class='sectseparator'></div>";
 					}
-					$retVal .= "<div class='sectseparator'></div>";
-				}
-				else {
-					$retVal .= "<h2>Examples</h2>";
-					$retVal .= "<p class='exampleres'>Example resources of the dataset are unknown.</p><div class='sectseparator'></div>";
 				}
 			}
+			/*
+			else {
+				$retVal .= "<h2>Examples</h2>";
+				$retVal .= "<p class='exampleres'>Example resources of the dataset are unknown.</p><div class='sectseparator'></div>";
+			}
+			*/
+		}
 	}
 	else $retVal = "<p>Sorry, didn't find any dataset descriptions.</p>";
 	
