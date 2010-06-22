@@ -32,6 +32,7 @@ function executeQuery(outcanvas, endpointURI, queryStr) {
 	}
 	
 	outcanvas.html("<img src='img/ajax-loader.gif' id='busyquery' width='16px' alt='busy />");
+	outcanvas.slideDown("slow");
 
 	$.ajax({
 		type: "POST",
@@ -40,7 +41,6 @@ function executeQuery(outcanvas, endpointURI, queryStr) {
 		dataType : "json",
 		success: function(result){
 				outcanvas.html(renderSPARQLResult(result));
-				outcanvas.slideDown();
 		},	
 		error:  function(msg){
 			alert(msg);
