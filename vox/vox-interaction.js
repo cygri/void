@@ -29,6 +29,8 @@ $(function(){
 	// example voiD files
 	$('#ex0, #ex1, #ex2, #ex3, #ex4, #ex5').click(function(e){
 		$('#voidURI').val($(this).attr('resource'));
+		$('#showexamples').text("show ...")
+		$('#exvoidfiles').slideUp("normal");
 	});
 		
 	// show more details about a certain dataset topic
@@ -43,8 +45,16 @@ $(function(){
 	$('.sparqlep .smallbtn').live('click', function(){
 		var endpointURI = $(this).parent().attr('resource');
 		var queryStr = $(".sparqlep[resource='"+ endpointURI +"'] textarea").val();
+		//alert("query for" + queryStr + " at " + endpointURI);
 		executeQuery($(".sparqlep[resource='"+ endpointURI +"'] .sparqlresult"), endpointURI, queryStr);
 	});	
+	
+	$('.lookupep .smallbtn').live('click', function(){
+		var endpointURI = $(this).parent().attr('resource');
+		var queryStr = $(".lookupep[resource='"+ endpointURI +"'] input").val();
+		//alert("query for" + queryStr + " at " + endpointURI);
+		executeLookup($(".lookupep[resource='"+ endpointURI +"'] .lookupresult"), endpointURI, queryStr);
+	});
 	
 
 });

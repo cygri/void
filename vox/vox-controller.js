@@ -31,7 +31,7 @@ function executeQuery(outcanvas, endpointURI, queryStr) {
 		queryStr : queryStr
 	}
 	
-	outcanvas.html("<img src='img/ajax-loader.gif' id='busyquery' width='16px' alt='busy />");
+	outcanvas.html("<img src='img/ajax-loader.gif' width='16px' alt='busy />");
 	outcanvas.slideDown("slow");
 
 	$.ajax({
@@ -40,13 +40,12 @@ function executeQuery(outcanvas, endpointURI, queryStr) {
 		data: "qParams="+ $.toJSON(data),
 		dataType : "json",
 		success: function(result){
-				outcanvas.html(renderSPARQLResult(result));
-		},	
+			outcanvas.html(renderSPARQLResult(result));
+		},
 		error:  function(msg){
 			alert(msg);
 		} 
-	});
-	
+	});	
 }
 
 function renderSPARQLResult(data){
@@ -79,6 +78,36 @@ function renderSPARQLResult(data){
 		
 		return buffer;
 }
+
+
+function executeLookup(outcanvas, endpointURI, queryStr) {
+
+	var data =  {
+		endpointURI : escape(endpointURI),
+		queryStr : queryStr
+	}
+	
+	//outcanvas.html("<img src='img/ajax-loader.gif' width='16px' alt='busy />");
+	//outcanvas.slideDown("slow");
+
+	$.ajax({
+		type: "POST",
+		url: voxServiceURI,
+		data: "lParams="+ $.toJSON(data),
+		success: function(result){
+				window.open(
+					result,
+					'lookupResultWindow',
+					'left=100,top=100,width=800,height=600,toolbar=0,resizable=1'
+				);
+		},
+		error:  function(msg){
+			alert(msg);
+		} 
+	});	
+}
+
+
 
 function isBusy(){
 	$("#status").show();
