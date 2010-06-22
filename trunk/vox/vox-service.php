@@ -7,6 +7,7 @@ $DEBUG = false;
 $VOX_BASE = "vox/";
 $TEMPLATE_BASIC = "void-desc-basic.html";
 $TEMPLATE_SPARQLEP = "void-desc-with-sparqlep.html";
+$TEMPLATE_LOOKUPEP = "void-desc-with-lookupep.html";
 
 // DBPedia lookup interface
 $BASE_DBPEDIA_LOOKUP_URI = "http://lookup.dbpedia.org/api/search.asmx/KeywordSearch?QueryClass=string&MaxHits=5&QueryString=";
@@ -70,6 +71,11 @@ if(isset($_POST['qParams'])){ //
 	echo $result;
 }
 
+if(isset($_POST['lParams'])){ // 
+	$lParams = json_decode($_POST['lParams'], true);
+	echo executeLookup($lParams);
+}
+
 
 
 
@@ -79,6 +85,7 @@ function renderVoiD($voidURI){
 	global $DEBUG;
 	global $TEMPLATE_BASIC;
 	global $TEMPLATE_SPARQLEP;
+	global $TEMPLATE_LOOKUPEP;
 	global $store;
 	global $defaultprefixes;
 
@@ -93,12 +100,14 @@ function renderVoiD($voidURI){
 	$cmd .= "{ ?ds a void:Dataset ;  
 		OPTIONAL { ?ds dcterms:title ?title ; }
 		OPTIONAL { ?ds dcterms:description ?description ; }
+		OPTIONAL { ?ds dcterms:publisher ?publisher ; }
 		OPTIONAL { ?ds dcterms:date ?date ; }
 		OPTIONAL { ?ds foaf:homepage ?homepage ;}
 		OPTIONAL { ?ds dcterms:subject ?topic ;}
-		OPTIONAL { ?ds void:vocabulary ?vocabulary ;}
+		OPTIONAL { ?ds void:vocabulary ?vocab ;}
 		OPTIONAL { ?ds void:exampleResource ?exampleRes ;}
 		OPTIONAL { ?ds void:sparqlEndpoint ?sparqlEndpoint ;}
+		OPTIONAL { ?ds void:uriLookUpEndpoint ?lookupEndpoint ;}
 		OPTIONAL { ?ds void:uriRegexPattern ?uriRegEx ;}
 	}";
 	
@@ -112,7 +121,8 @@ function renderVoiD($voidURI){
 	$dsURI = "";
 	$dsDataset2Topics = array();
 	$dsDataset2Examples = array();
-	
+	$dsDataset2Vocs = array();
+		
 	// gather dataset metadata and render general information
 	if($results['result']['rows']) {
 		foreach ($results['result']['rows'] as $row) {
@@ -126,12 +136,16 @@ function renderVoiD($voidURI){
 				else $dsDatasetGlobal['title'] = "unknown";
 				if($row['description']) $dsDatasetGlobal['description'] = $row['description'];
 				else $dsDatasetGlobal['description'] = "unknown";
+				if($row['publisher']) $dsDatasetGlobal['publisher'] = $row['publisher'];
+				else $dsDatasetGlobal['publisher'] = "";
 				if($row['date']) $dsDatasetGlobal['date'] = $row['date'];
 				else $dsDatasetGlobal['date'] = "unknown";
 				if($row['homepage']) $dsDatasetGlobal['homepage'] = $row['homepage'];
-				else $dsDatasetGlobal['homepage'] = "#";
+				else $dsDatasetGlobal['homepage'] = "";
 				if($row['sparqlEndpoint']) $dsDatasetGlobal['sparqlEndpoint'] = $row['sparqlEndpoint'];
 				else $dsDatasetGlobal['sparqlEndpoint'] = "unknown";
+				if($row['lookupEndpoint']) $dsDatasetGlobal['lookupEndpoint'] = $row['lookupEndpoint'];
+				else $dsDatasetGlobal['lookupEndpoint'] = "unknown";
 				array_push($dsListGlobal, $dsDatasetGlobal);
 				array_push($dsList, $dsURI);
 			}
@@ -145,6 +159,7 @@ function renderVoiD($voidURI){
 					array_push($dsDataset2Topics[$dsURI], $row['topic']); 
 				}	
 			}
+			
 			// remember dataset examples resources
 			if($row['exampleRes']){
 				if(!isset($dsDataset2Examples[$dsURI])){
@@ -152,6 +167,16 @@ function renderVoiD($voidURI){
 				}
 				if(!in_array($row['exampleRes'], $dsDataset2Examples[$dsURI])){
 					array_push($dsDataset2Examples[$dsURI], $row['exampleRes']); 
+				}	
+			}
+			
+			// remember dataset vocs
+			if($row['vocab']){
+				if(!isset($dsDataset2Vocs[$dsURI])){
+					$dsDataset2Vocs[$dsURI] = array();
+				}
+				if(!in_array($row['vocab'], $dsDataset2Vocs[$dsURI])){
+					array_push($dsDataset2Vocs[$dsURI], $row['vocab']); 
 				}	
 			}
 		}
@@ -173,16 +198,28 @@ function renderVoiD($voidURI){
 		$dsCounter = 1;
 		$retVal .= "<h2 class='ui-widget-header ui-corner-all'>Details</h2>";
 		foreach ($dsListGlobal as $dsglobalinfo){
-			if($dsglobalinfo['sparqlEndpoint'] == "unknown") { // no SPARQL endpoint detected, use basic template
-				$descTemplate = file_get_contents($TEMPLATE_BASIC);
-				$search  = array('%DATASET_URI%', '%DATASET_TITLE%', '%DATASET_DESCRIPTION%', '%DATASET_DATE%', '%DATASET_HOMEPAGE%');
-				$replace = array($dsglobalinfo['URI'], $dsglobalinfo['title'], $dsglobalinfo['description'], $dsglobalinfo['date'], $dsglobalinfo['homepage']);
-			}
-			else {
+			// global dataset metadata
+			$descTemplate = file_get_contents($TEMPLATE_BASIC);
+			$search  = array('%DATASET_URI%', '%DATASET_TITLE%', '%DATASET_DESCRIPTION%', '%DATASET_PUBLISHER%' ,'%DATASET_DATE%', '%DATASET_HOMEPAGE%' );
+			$replace = array($dsglobalinfo['URI'], $dsglobalinfo['title'], $dsglobalinfo['description'], $dsglobalinfo['publisher'], $dsglobalinfo['date'], $dsglobalinfo['homepage']);
+			$globalInfo = str_replace($search, $replace, $descTemplate);
+			
+			if($dsglobalinfo['sparqlEndpoint'] !== "unknown") { // we have a SPARQL endpoint
 				$descTemplate = file_get_contents($TEMPLATE_SPARQLEP);
-				$search  = array('%DATASET_URI%', '%DATASET_TITLE%', '%DATASET_DESCRIPTION%', '%DATASET_DATE%', '%DATASET_HOMEPAGE%', '%DATASET_SPARQLEP%');
-				$replace = array($dsglobalinfo['URI'], $dsglobalinfo['title'], $dsglobalinfo['description'], $dsglobalinfo['date'], $dsglobalinfo['homepage'], $dsglobalinfo['sparqlEndpoint']);
+				$search  = array('%DATASET_SPARQLEP%');
+				$replace = array($dsglobalinfo['sparqlEndpoint']);
+				$sparqlEndpointInfo = str_replace($search, $replace, $descTemplate);
 			}
+			else $sparqlEndpointInfo = "";
+			
+			if($dsglobalinfo['lookupEndpoint'] !== "unknown") { // we have a URI lookup endpoint
+				$descTemplate = file_get_contents($TEMPLATE_LOOKUPEP);
+				$search  = array('%DATASET_LOOKUPEP%');
+				$replace = array($dsglobalinfo['lookupEndpoint']);
+				$lookupEndpointInfo = str_replace($search, $replace, $descTemplate);
+			}
+			else $lookupEndpointInfo = "";
+		
 			$retVal .= "<a id='ds" . $dsCounter++ . "'></a>";
 			if(substr($dsglobalinfo['URI'], 0, 2) === "_:") {
 				$retVal .= "<h1>". $dsglobalinfo['URI'] ."</h1>";				
@@ -190,7 +227,10 @@ function renderVoiD($voidURI){
 			else {
 				$retVal .= "<h1><a href='". $dsglobalinfo['URI'] ."' target='_new' title='" . $dsglobalinfo['title'] ."'>". $dsglobalinfo['URI'] ."</a></h1>";
 			}
-			$retVal .= str_replace($search, $replace, $descTemplate);
+			$retVal .= $globalInfo;
+			$retVal .= $sparqlEndpointInfo;
+			$retVal .= $lookupEndpointInfo;	
+			$retVal .= "</div></div><div class='sectseparator'></div>";
 			
 			if(!empty($dsDataset2Topics) && count($dsDataset2Topics) > 0 ){ // we have topics to render
 				foreach ($dsDataset2Topics as $topicsKey => $topicsValue){
@@ -229,9 +269,27 @@ function renderVoiD($voidURI){
 				$retVal .= "<p class='exampleres'>Example resources of the dataset are unknown.</p><div class='sectseparator'></div>";
 			}
 			*/
+			if(!empty($dsDataset2Vocs) && count($dsDataset2Vocs) > 0){ // we have vocabs to render
+				foreach ($dsDataset2Vocs as $vocabKey => $vocabValue){
+					if($vocabKey === $dsglobalinfo['URI']) {
+						$retVal .= "<h2>Vocabularies</h2>";
+						$retVal .= "<p class='vocabs'>Some vocabularies used in the dataset:</p>";
+						foreach ($vocabValue as $vocabURI){
+							$retVal .=  getVocabDescription($vocabURI);
+						}
+						$retVal .= "<div class='sectseparator'></div>";
+					}
+				}
+			}
+			/*
+			else {
+				$retVal .= "<h2>Vocabularies</h2>";
+				$retVal .= "<p class='exampleres'>Vocabs used in the dataset are unknown.</p><div class='sectseparator'></div>";
+			}
+			*/
 		}
 	}
-	else $retVal = "<p>Sorry, didn't find any dataset descriptions.</p>";
+	else $retVal = "<p style='padding-left: 20px'>Sorry, didn't find any dataset descriptions.</p>";
 	
 	return $retVal . "</div>";
 }
@@ -264,7 +322,7 @@ function getTopicDescription($topicURI){
 			if($row['title']) {
 				if($row['abstract']) $abstract = $row['abstract'];
 				else $abstract = "???";  
-				return "<div resource='$topicURI' class='dstopic'><a href='$topicURI' target='_new'>". $row['title'] . "</a> <span class='ui-state-default ui-corner-all smallbtn' title='Expand to view description'>+</span><div class='topicdetails'>$abstract</div></div>";
+				return "<div resource='$topicURI' class='dstopic'><span class='ui-state-default ui-corner-all smallbtn' title='Expand to view description'>+</span> <a href='$topicURI' target='_new'>". $row['title'] . "</a><div class='topicdetails'>$abstract</div></div>";
 				
 			}
 			else return "Didn't find the topic title, sorry ..."; 
@@ -274,10 +332,15 @@ function getTopicDescription($topicURI){
 
 }
 
-// dereferences topic resource and retrieves dcterms:title and/or rdfs:label of the topic resource
+// renders example resource
 function getExampleDescription($exampleURI){
+ return "<div resource='$exampleURI' class='dsexample'><span class='ui-state-default ui-corner-all smallbtn' title='View details about resource in Sig.ma'><a href='http://sig.ma/search?singlesource=$exampleURI&raw=1' target='_new'>View details ...</a></span> <a href='$exampleURI' target='_new'>$exampleURI</a></div>";	
 
- return "<div resource='$exampleURI' class='dsexample'><a href='$exampleURI' target='_new'>$exampleURI</a> <span class='ui-state-default ui-corner-all smallbtn' title='View details about resource in Sig.ma'><a href='http://sig.ma/search?singlesource=$exampleURI&raw=1' target='_new'>View details ...</a></span></div>";	
+}
+
+// renders vocab
+function getVocabDescription($vocabURI){
+ return "<div resource='$vocabURI' class='dsvocab'><span class='ui-state-default ui-corner-all smallbtn' title='View details about vocabulary in Sig.ma'><a href='http://sig.ma/search?singlesource=$vocabURI&raw=1' target='_new'>View details ...</a></span> <a href='$vocabURI' target='_new'>$vocabURI</a></div>";	
 
 }
 
@@ -353,7 +416,6 @@ function lookupSubjectInDBPedia($keyword){
 }
 
 
-
 function listSPARQLEndpoints($lookupURI){
 	global $DEBUG;
 	$ret = array();
@@ -404,6 +466,18 @@ function executeQuery($queryParams, $guessformatparam){
 	return $result;
 }
 
+
+function executeLookup($lookupParams){
+	global $DEBUG;
+
+	$endpointURI = $lookupParams["endpointURI"];
+	$queryStr = $lookupParams["queryStr"];
+
+ 	return $endpointURI . urlencode($queryStr);
+
+ 	//return "<div style='margin:0px; padding: 0px; clear:left'><a class='ui-state-default ui-corner-all smallbtn' href='$execURI' target='_new' title='Result of lookup'>View results in new window ...</a></div>";
+	
+}
 
 
 
