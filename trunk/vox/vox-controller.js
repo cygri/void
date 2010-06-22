@@ -31,7 +31,7 @@ function executeQuery(outcanvas, endpointURI, queryStr) {
 		queryStr : queryStr
 	}
 	
-	outcanvas.html("<img src='img/ajax-loader.gif' id='busy' width='16px' alt='busy />");
+	outcanvas.html("<img src='img/ajax-loader.gif' id='busyquery' width='16px' alt='busy />");
 
 	$.ajax({
 		type: "POST",

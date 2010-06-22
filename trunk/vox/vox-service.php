@@ -60,7 +60,14 @@ if(isset($_GET['example'])){
 if(isset($_POST['qParams'])){ // 
 	$qParams = json_decode($_POST['qParams'], true);
 	
-	echo executeQuery($qParams);
+	$result = executeQuery($qParams);
+	if(!$result) { // conneg for application/sparql-results+json failed
+		$result = executeQuery($qParams, "format"); // try again with param &format=json
+		if(!$result) { // param &format=json failed
+			$result = executeQuery($qParams, "output"); // try again with param &ouput=json		
+		}
+	}
+	echo $result;
 }
 
 
@@ -369,7 +376,7 @@ function listSPARQLEndpoints($lookupURI){
 	return json_encode($ret);
 }
 
-function executeQuery($queryParams){
+function executeQuery($queryParams, $guessformatparam){
 	global $DEBUG;
 
 	$endpointURI = $queryParams["endpointURI"];
@@ -378,12 +385,26 @@ function executeQuery($queryParams){
 	$c = curl_init();
 	curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
 	curl_setopt($c, CURLOPT_HEADER, 0);
-	curl_setopt($c, CURLOPT_URL, $endpointURI . "?query=" . urlencode($queryStr) . "&format=json");
+	if(isset($guessformatparam)) { // forced to guess result format via param
+		curl_setopt($c, CURLOPT_URL, $endpointURI . "?query=" . urlencode($queryStr) . "&$guessformatparam=json");
+	}
+	else { // use conneg
+		curl_setopt($c, CURLOPT_HTTPHEADER, array ("Accept: application/sparql-results+json"));
+		curl_setopt($c, CURLOPT_URL, $endpointURI . "?query=" . urlencode($queryStr));// . "&output=json"); . "&format=json");
+	}
 	curl_setopt($c, CURLOPT_TIMEOUT, 30);
 	$result = curl_exec($c);
+	
+	if(!curl_errno($c)) {
+		$info = curl_getinfo($c);
+		if($info['http_code'] != "200") $result = false;
+	}
+	
 	curl_close($c);
 	return $result;
 }
+
+
 
 
 
