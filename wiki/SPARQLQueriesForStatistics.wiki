@@ -38,7 +38,7 @@ SELECT (COUNT(*) AS ?no) { ?s ?p ?o  }
 SELECT COUNT(distinct ?s) AS ?no { ?s a []  }
 }}}
 
-== total number of distinct resource URIs ==
+== total number of distinct resource URIs (deprecated??) ==
 {{{
 SELECT (COUNT(DISTINCT ?s ) AS ?no) { { ?s ?p ?o  } UNION { ?o ?p ?s } FILTER(!isBlank(?s) && !isLiteral(?s)) } 	
 }}}
@@ -50,7 +50,7 @@ SELECT COUNT(distinct ?o) AS ?no { ?s rdf:type ?o }
 
 === total number of distinct predicates ===
 {{{
-SELECT COUNT(distinct ?o) AS ?no { ?s rdf:type ?o }
+SELECT count(distinct ?p) { ?s ?p ?o }
 }}}
 
 == total number of distinct subject nodes ==
