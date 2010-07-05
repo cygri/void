@@ -43,12 +43,12 @@ SELECT COUNT(distinct ?s) AS ?no { ?s a []  }
 SELECT (COUNT(DISTINCT ?s ) AS ?no) { { ?s ?p ?o  } UNION { ?o ?p ?s } FILTER(!isBlank(?s) && !isLiteral(?s)) } 	
 }}}
 
-=== total number of distinct classes ===
+== total number of distinct classes ==
 {{{
 SELECT COUNT(distinct ?o) AS ?no { ?s rdf:type ?o }
 }}}
 
-=== total number of distinct predicates ===
+== total number of distinct predicates ==
 {{{
 SELECT count(distinct ?p) { ?s ?p ?o }
 }}}
