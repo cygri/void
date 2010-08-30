@@ -4,13 +4,17 @@
 
 function renderVoiD(){
 	var voidURI = $("#voidURI").val();
+	var params = "uri=" + escape(voidURI);
 	
+	if ($("#forceOverwriteContent").is(':checked')) {
+		params += "&overwrite";
+	}
 	isBusy();
 	
 	$.ajax({
 		type: "GET",
 		url: voxServiceURI,
-		data: "uri=" + escape(voidURI),
+		data: params,
 		success: function(data){
 			if(data) {
 				$("#out").html(data);
