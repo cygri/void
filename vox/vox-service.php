@@ -46,8 +46,16 @@ if(isset($_GET['reset'])) {
 }
 
 if(isset($_GET['uri'])){
-	echo renderVoiD($_GET['uri']);
+	$overwrite = false;
+	if(isset($_GET['overwrite'])) $overwrite = true;
+	echo renderVoiD($_GET['uri'], $overwrite);
 }
+
+if(isset($_GET['all'])){
+	echo listAllDatasets();
+}
+
+
 
 if(isset($_GET['topic'])){
 	echo getTopicDescription($_GET['topic']);
@@ -81,7 +89,7 @@ if(isset($_POST['lParams'])){ //
 
 /* voX METHODS */
 
-function renderVoiD($voidURI){
+function renderVoiD($voidURI, $overwrite){
 	global $DEBUG;
 	global $TEMPLATE_BASIC;
 	global $TEMPLATE_SPARQLEP;
@@ -94,6 +102,12 @@ function renderVoiD($voidURI){
 	if(!isDataLocal($voidURI)) { // we haven't tried to dereference the voiD URI yet
 		loadData($voidURI); //... hence we dereference it and load it into the store
 	}
+	else { // data is already in store, check if we need to overwrite the content
+		if($overwrite) {
+			removeData($voidURI);
+			loadData($voidURI);
+		}
+	}
 	
 	$cmd = $defaultprefixes;
 	$cmd .= "SELECT DISTINCT *  FROM <" . $voidURI . "> WHERE "; 
@@ -101,7 +115,8 @@ function renderVoiD($voidURI){
 		OPTIONAL { ?ds dcterms:title ?title ; }
 		OPTIONAL { ?ds dcterms:description ?description ; }
 		OPTIONAL { ?ds dcterms:publisher ?publisher ; }
-		OPTIONAL { ?ds dcterms:date ?date ; }
+		OPTIONAL { ?ds dcterms:date ?date1 ; }
+		OPTIONAL { ?ds dcterms:modified ?date2 ; }
 		OPTIONAL { ?ds foaf:homepage ?homepage ;}
 		OPTIONAL { ?ds dcterms:subject ?topic ;}
 		OPTIONAL { ?ds void:vocabulary ?vocab ;}
@@ -138,8 +153,11 @@ function renderVoiD($voidURI){
 				else $dsDatasetGlobal['description'] = "unknown";
 				if($row['publisher']) $dsDatasetGlobal['publisher'] = $row['publisher'];
 				else $dsDatasetGlobal['publisher'] = "";
-				if($row['date']) $dsDatasetGlobal['date'] = $row['date'];
-				else $dsDatasetGlobal['date'] = "unknown";
+				if($row['date1']) $dsDatasetGlobal['date'] = $row['date1'];
+				else { // prefered is dct:date, but if this is not available use dct:modified
+					if($row['date2']) $dsDatasetGlobal['date'] = $row['date2'];
+					else $dsDatasetGlobal['date'] = "unknown";
+				}				
 				if($row['homepage']) $dsDatasetGlobal['homepage'] = $row['homepage'];
 				else $dsDatasetGlobal['homepage'] = "";
 				if($row['sparqlEndpoint']) $dsDatasetGlobal['sparqlEndpoint'] = $row['sparqlEndpoint'];
@@ -344,6 +362,29 @@ function getVocabDescription($vocabURI){
 
 }
 
+function listAllDatasets(){
+	global $DEBUG;
+	global $store;
+	global $defaultprefixes;
+	$retVal = "<div>All voiD files I have:</div>";
+	
+	$cmd = $defaultprefixes;
+	$cmd .= "SELECT DISTINCT ?g  WHERE {"; 
+	$cmd .= " GRAPH ?g { ?ds a void:Dataset . } }";  
+	
+	if($DEBUG) echo htmlentities($cmd) . "<br />";
+	
+	$results = $store->query($cmd);
+	if($results['result']['rows']) {
+		foreach ($results['result']['rows'] as $row) {
+			$voidURI = $row['g'];
+			$retVal .= "<div>" . $voidURI . "</div>";
+		}
+	}
+	return $retVal;
+}
+
+
 // low-level ARC2 store methods
 function isDataLocal($graphURI){
 	global $store;
@@ -369,6 +410,21 @@ function loadData($dataURI) {
 	
 	return $errs;
 }
+
+function removeData($dataURI) {
+	global $store;
+	global $DEBUG;
+	
+	$cmd .= "DELETE FROM <$dataURI>"; 
+	
+	if($DEBUG) echo htmlentities($cmd) . "<br />";
+
+	$store->query($cmd);
+	$errs = $store->getErrors();
+	
+	return $errs;
+}
+
 
 
 // various utility methods
