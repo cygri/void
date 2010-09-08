@@ -83,7 +83,7 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 						<a href="#Technical_description_features" >1.5 Technical Description (Features)</a>
 					</li>
 					<li>
-						<a href="#LookupNDumps" >1.6 1.6 URI lookup, OpenSearch, and RDF data dumps</a>
+						<a href="#LookupNDumps" >1.6 URI lookup, OpenSearch, and RDF data dumps</a>
 					</li>
 					<li>
 						<a href="#Vocabularies_used" >1.7 Vocabularies used in a dataset</a>
@@ -692,16 +692,37 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 			<h3>
 				<a id="SPARQL_endpoints" name="SPARQL_endpoints"></a>  1.10 SPARQL endpoints
 			</h3>
-			<p>A SPARQL endpoint that provides access to a dataset via the SPARQL protocol can be announced using <code>void:sparqlEndpoint</code>:</p>
+			<p>A SPARQL endpoint that provides access to a dataset via the SPARQL protocol can be announced straightforward in voiD using <code>void:sparqlEndpoint</code>:</p>
 						<pre>
 						      <code>
 		    :DBpedia void:sparqlEndpoint &lt;http://dbpedia.org/sparql&gt; .</code>
 		</pre>
-		<p><em>
-			Note: It is assumed that the default graph of the SPARQL endpoint is the dataset itself.</em>
+		<p>
+			<em>
+			Note: It is assumed that the default graph of the SPARQL endpoint is the dataset itself.
+			</em>
 		</p>	
 	
-		
+		<p>
+			A richer description of the SPARQL endpoint's capabilities and features can be provided using the W3C <a href="http://www.w3.org/TR/2010/WD-sparql11-service-description-20100601/">SPARQL 1.1 Service Description</a> vocabulary (namespace URI is <code>http://www.w3.org/ns/sparql-service-description#</code>, preferred prefix <code>sd:</code>.)
+		</p>
+		<p>
+			A <code>sd:Dataset</code>/<code>sd:Graph</code> is a special case of a <code>void:Dataset</code>. As in most SPARQL endpoints, if no 
+			FROM/FROM NAMED is specified, one accesses the default dataset. There are also implementations that allow to assemble a dataset at 
+			query time by using FROM and FROM NAMED or the corresponding SPARQL protocol parameters.
+		</p>	
+		<p>
+			<em>
+				Note: voiD doesn't deal with realtime-assembled datasets, except the obvious thing that one can attach voiD metadata to <code>sd:Graph</code> nodes.
+			</em>
+		</p>
+		<p style="background:#f99">TODO: a recipe for providing metadata that applies to all the data in the default dataset in the SPARQL endpoint (by adding it onto the sd:Dataset node)</p>
+		<p style="background:#f99">TODO: a recipe for providing metadata about individual graphs (default or named) in the default dataset of SPARQL 
+			endpoint (by adding it onto the sd:Graph nodes)</p>
+		<p style="background:#f99">TODO: example - I still don't figure how that should work out looking at <a href="http://www.w3.org/TR/2010/WD-sparql11-service-description-20100601/#id248028">example</a> from Greg's document</p>	
+	
+			
+			
 		
 			<h2>
 				<a id="Describing_Dataset_Interlink" name="Describing_Dataset_Interlink"></a> 2. Describing Dataset Interlinking
