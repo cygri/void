@@ -675,18 +675,15 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 	<h3>
 		<a id="PatternURI" name="PatternURI"></a> 1.9 Patterns for resource URIs
 	</h3>
-	<p>In order to learn more about the resource URIs in a dataset, the <code>void:uriRegexPattern</code> property can be used to express a regular expression pattern that matches one or more URIs in the dataset. The pattern should use the same regular expression syntax as SPARQL, which uses the syntax definition of <a href="http://www.w3.org/TR/xmlschema-2/#regexs" title="The Regular Expression syntax defined by XML Schema Part 2">XML Schema 2: Regular Expressions</a>.
-	</p>
-	<p>The regular expression must match anywhere in the URI. It is a good practice to anchor the regular expression with a <code>^</code> in the beginning, and to escape dots with a backslash.</p>
-	<p>An example of using <code>void:uriRegexPattern</code> looks like the following (<a href="http://acm.rkbexplorer.com/id/void">view live</a>):</p>
+	<p>In order to learn more about the resource URIs in a dataset, the <code>void:uriRegexPattern</code> property can be used to express a regular 
+	expression pattern that matches the URIs of some resources that are described in the dataset. The pattern should use the same regular expression syntax as SPARQL, which uses the syntax definition of <a href="http://www.w3.org/TR/xmlschema-2/#regexs" title="The Regular Expression syntax defined by XML Schema Part 2">XML Schema 2: Regular Expressions</a>.
+  The regular expression must match anywhere in the URI. It is a good practice to anchor the regular expression with a <code>^</code> in the beginning, and to escape dots with a backslash.</p>
+	<p>An example of using <code>void:uriRegexPattern</code> looks like the following:</p>
 <pre>&lt;http://acm.rkbexplorer.com/id/void&gt; a void:Dataset;
-	                             void:uriRegexPattern "^http://acm\\.rkbexplorer\\.com/id/.+" .
+	                             void:uriRegexPattern "^http://acm\\.rkbexplorer\\.com/id/" .
 </pre>
-<pre></pre>
-
-
-
-
+	<p>This states that the dataset contains descriptions of resources whose URIs start with <code>http://acm.rkbexplorer.com/id/</code> (and possibly of other resources).</p>
+	<p><em>Note: In the Turtle syntax, any backslashes in literals have to be escaped with another backslash. This is why the example above contains double backslashes. In RDF/XML, the same literal would be written as: <code>&lt;void:uriRegexPattern&gt;^http://acm\.rkbexplorer\.com/id/&lt;/void:uriRegexPattern&gt;.</p>
 			<h2>
 				<a id="Describing_Dataset_Interlink" name="Describing_Dataset_Interlink"></a> 2. Describing Dataset Interlinking
 			</h2>
