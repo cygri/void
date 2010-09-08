@@ -83,7 +83,7 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 						<a href="#Technical_description_features" >1.5 Technical Description (Features)</a>
 					</li>
 					<li>
-						<a href="#SPARQL_endpoint_and_Examp" >1.6 SPARQL endpoints, URI lookup, and RDF data dumps</a>
+						<a href="#LookupNDumps" >1.6 1.6 URI lookup, OpenSearch, and RDF data dumps</a>
 					</li>
 					<li>
 						<a href="#Vocabularies_used" >1.7 Vocabularies used in a dataset</a>
@@ -94,6 +94,10 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 					<li>
 						<a href="#PatternURI" >1.9 Patterns for resource URIs</a>
 					</li>
+					<li>
+						<a href="#SPARQL_endpoints" >1.10 SPARQL endpoints</a>
+					</li>
+					
 				</ul>
 			</li>
 			<li>
@@ -575,7 +579,7 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 <!--p><em>Note: voiD does not include a collection of pre-defined <code>void:TechnicalFeature</code> instances for particular technologies. Therefore, to describe technical features, it is necessary to define your own <code>void:TechnicalFeature</code>  instances as in the examples above. This is perhaps most useful for larger collections of voiD descriptions, where feature instances can be re-used across multiple voiD descriptions.</em-->
 			</p>
 			<h3>
-				<a id="SPARQL_endpoint_and_Examp" name="SPARQL_endpoint_and_Examp"></a>  1.6 SPARQL endpoints, URI lookup, OpenSearch, and RDF data dumps 
+				<a id="LookupNDumps" name="LookupNDumps"></a>  1.6 URI lookup, OpenSearch, and RDF data dumps 
 			</h3>
 			<p>
 				 There are many different ways in which clients can access the actual data that is contained in a dataset. If the entities described in the dataset are identified by HTTP URIs, then it is a reasonable assumption that resolving such a URI will return an RDF description of the resource. 
@@ -683,7 +687,22 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 	                             void:uriRegexPattern "^http://acm\\.rkbexplorer\\.com/id/" .
 </pre>
 	<p>This states that the dataset contains descriptions of resources whose URIs start with <code>http://acm.rkbexplorer.com/id/</code> (and possibly of other resources).</p>
-	<p><em>Note: In the Turtle syntax, any backslashes in literals have to be escaped with another backslash. This is why the example above contains double backslashes. In RDF/XML, the same literal would be written as: <code>&lt;void:uriRegexPattern&gt;^http://acm\.rkbexplorer\.com/id/&lt;/void:uriRegexPattern&gt;.</p>
+	<p><em>Note: In the Turtle syntax, any backslashes in literals have to be escaped with another backslash. This is why the example above contains double backslashes. In RDF/XML, the same literal would be written as: <code>&lt;void:uriRegexPattern&gt;^http://acm\.rkbexplorer\.com/id/&lt;/void:uriRegexPattern&gt;.</em></p>
+		
+			<h3>
+				<a id="SPARQL_endpoints" name="SPARQL_endpoints"></a>  1.10 SPARQL endpoints
+			</h3>
+			<p>A SPARQL endpoint that provides access to a dataset via the SPARQL protocol can be announced using <code>void:sparqlEndpoint</code>:</p>
+						<pre>
+						      <code>
+		    :DBpedia void:sparqlEndpoint &lt;http://dbpedia.org/sparql&gt; .</code>
+		</pre>
+		<p><em>
+			Note: It is assumed that the default graph of the SPARQL endpoint is the dataset itself.</em>
+		</p>	
+	
+		
+		
 			<h2>
 				<a id="Describing_Dataset_Interlink" name="Describing_Dataset_Interlink"></a> 2. Describing Dataset Interlinking
 			</h2>
