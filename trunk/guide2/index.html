@@ -554,8 +554,32 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 				<a id="Technical_description_features" name="Technical_description_features"></a> 1.5 Technical Description (Features) 
 			</h3>
 		<p>
-			The property of <code>void:feature</code> can be used for expressing certain technical features of a dataset, such as its RDF serialization format. The domain of the property is <code>void:Dataset</code> and its range is <code>void:TechnicalFeature</code>. W3C provides <a href="http://www.w3.org/ns/formats/">a list of unique URIs</a> to describe file formats, such as <code>http://www.w3.org/ns/formats/N3</code> and <code>http://www.w3.org/ns/formats/RDF_XML</code>. Hence we suggest users to use these URIs to describe technical features of their datasets. 
-		</p> 
+			The property of <code>void:feature</code> can be used for expressing certain technical features of a dataset, such as its RDF serialization format. The domain of the property is <code>void:Dataset</code> and its range is <code>void:TechnicalFeature</code>. W3C provides <a href="http://www.w3.org/ns/formats/">a list of unique URIs</a> to describe file formats. Those that are relevant to RDF searialization format are listed in <a href="#tab-technical-feature">[Table 2]</a>. Users should use these URIs to describe technical features of their datasets. 
+		</p>
+        
+<a name="tab-technical-feature" id="tab-technical-feature"></a>
+<div style="text-align:center;">
+    <table summary="URIs to Identify RDF Serialization Formats from W3C" border="1" cellpadding="5px" cellspacing="2px">
+    <caption><strong>Table 2.:</strong>W3C URIs for Identifying RDF Serialization Formats.</caption>
+    <tbody>
+        <tr>
+            <td><code>http://www.w3.org/ns/formats/N3</code></td><td><a href="http://www.w3.org/TeamSubmission/n3/">Notation3 (N3): A readable RDF syntax: W3C Team Submission 14 January 2008</a></td>
+        </tr>
+        <tr>
+            <td><code>http://www.w3.org/ns/formats/N-Triples</code></td><td><a href="http://www.w3.org/2001/sw/RDFCore/ntriples/">NTriples: W3C RDF Core WG Internal Working Draft</a></td>
+        </tr>
+        <tr>
+            <td><code>http://www.w3.org/ns/formats/RDF_XML</code></td><td><a href="http://www.w3.org/TR/REC-rdf-syntax/">RDF/XML Syntax Specification: W3C Recommendation 10 February 2004</a></td>
+        </tr>
+        <tr>    
+            <td><code>http://www.w3.org/ns/formats/RDFa</code></td><td><a href="http://www.w3.org/TR/rdfa-syntax/">RDFa in XHTML: Syntax and Processing: W3C Recommendation 14 October 2008</a></td>
+        </tr>
+        <tr>    
+            <td><code>http://www.w3.org/ns/formats/Turtle</code></td><td><a href="http://www.w3.org/TeamSubmission/turtle/">Turtle - Terse RDF Triple Language: W3C Team Submission 14 January 2008</a></td>
+        </tr>   
+    </tbody>
+</table>
+</div>
 		 	
 		<p>For example, using the W3C URIs together with <code>void:feature</code> we can express that &ldquo;a dataset is available as RDF/XML&rdquo;:</p> 
 		<pre>
