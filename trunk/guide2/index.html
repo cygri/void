@@ -652,38 +652,67 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
                 </code>
             </pre>
 
+			<p>If an RDF dump of the dataset is available, then its location can be announced using <code>void:dataDump</code>. If the dataset is split into multiple dumps, then several values of this property can be provided.</p>
 
-			<p>If an RDF dump of the dataset is available, then its location can be announced using <code>void:dataDump</code>:</p>   
-			<pre>
- <code>
-    :GenenameDS void:dataDump &lt;http://openflydata.org/flyted/dump/&gt; .</code>
+<p>The format of such dumps is not prescribed, but clients should expect dumps to be in one of the usual RDF serializations (RDF/XML, N-Triples, Turtle), and possibly compressed using GZip or another compression algorithm.</p>
 
-</pre>
-			<p>
-			Several values of this property can be provided if the dataset is split into multiple dumps.
-		</p>
-		<p>
-			We do not prescribe the format of such data dumps, but clients should expect dumps to be in any of the <a href="http://sw.deri.org/2007/07/sitemapextension/#formats" title="formats that are supported by the Semantic Sitemaps specification">formats that are supported by the Semantic Sitemaps specification</a>.</p>
+<p>The following example states that the complete <tt>:NYTimes</tt> dataset is available as a set of four RDF files.</p>
+
+<pre>:NYTimes a void:Dataset;
+    void:dataDump &lt;http://data.nytimes.com/people.rdf&gt;;
+    void:dataDump &lt;http://data.nytimes.com/organizations.rdf&gt;;
+    void:dataDump &lt;http://data.nytimes.com/locations.rdf&gt;;
+    void:dataDump &lt;http://data.nytimes.com/descriptors.rdf&gt; .</pre>
+
+<p><em>Note: The <code>void:dataDump</code> property should not be used for linking to a download web page. It should only be used for linking directly to dump files. This is to ensure that the link can be used by automated spiders that cannot find their way through an HTML page. If a publisher desires to provide a link to a download page as well, then they should use the <code>foaf:page</code> property instead.</em></p>
 
 		<h3>
 			<a id="Vocabularies_used" name="Vocabularies_used"></a> 1.7 Vocabularies used in a dataset
 		</h3>
 		<p>
-		Every RDF dataset uses one or more RDFS vocabularies or OWL ontologies. The vocabulary provides the terms (classes and properties) for expressing the data. The <code>void:vocabulary</code> property can be used to list vocabularies used in a dataset: 
+		Every RDF dataset uses one or more RDFS vocabularies or OWL ontologies. The vocabulary provides the terms (classes and properties) for expressing the data. The <code>void:vocabulary</code> property can be used to list vocabularies used in a dataset. 
 			</p>
-<pre>
-<code>
-    :LiveJournal a void:Dataset;
-                 void:vocabulary &lt;http://xmlns.com/foaf/0.1/&gt; .</code>
 
+<p>Every value of void:vocabulary SHOULD be the namespace URI of a vocabulary or ontology that is used in the dataset. This is defined as follows:</p>
+
+<ol>
+  <li>Take the URI of any class or property in the vocabulary.</li>
+  <li>Strip the local name, that is, remove everything after the last “/” or “#”.</li>
+  <li>If the URI now ends in a “#”, then also remove this trailing hash. (If it ends in a slash, the slash is kept.)</li>
+</ol>
+
+<p>The following table illustrates this:</p>
+
+<table rules="all">
+  <tr>
+    <th>Vocabulary</th>
+    <th>Example term URI</th>
+    <th>Vocabulary namespace URI</th>
+  </tr>
+  <tr>
+    <td>DC terms</td>
+    <td>http://purl.org/dc/terms/title</td>
+    <td>http://purl.org/dc/terms/</td>
+  </tr>
+  <tr>
+    <td>SIOC</td>
+    <td>http://rdfs.org/sioc/ns#Post</td>
+    <td>http://rdfs.org/sioc/ns</td>
+  </tr>
+</table>
+
+<p>It is not necessary to list all vocabularies. Typically, only the most important vocabularies will be listed, especially those that can be useful in querying the dataset.</p>
+
+<p>The following example states that the <tt>:LiveJournal</tt> dataset uses the 
+<a href="http://xmlns.com/foaf/spec/" title="FOAF vocabulary">FOAF vocabulary</a>.</p>
+
+<pre>
+:LiveJournal a void:Dataset;
+    void:vocabulary &lt;http://xmlns.com/foaf/0.1/&gt; .
 </pre>
-<p>This dataset uses the <a href="http://xmlns.com/foaf/spec/" title="FOAF vocabulary">FOAF vocabulary</a>. </p>
-			<p>The vocabulary should be identified with the URI that's used with <code>rdfs:isDefinedBy</code> in the RDFS/OWL specification of the vocabulary. 
-			<em>Note: It is not necessary to list all vocabularies. Typically, only the most important vocabularies will be listed, especially those that can be useful in querying the dataset.</em>
-			</p>
-			<p>
-				To express that particular classes and properties occur in the dataset, statistics (see section <a href="#Expressing_dataset_statistic" >3. Expressing dataset statistics</a>) can be used.
-			</p>
+
+<p>The <code>void:vocabulary</code> property can only be used for entire vocabularies. It can <em>not</em> be used to express that individual classes and properties occur in a dataset. For this purpose, <em>class partitions</em> and <em>property partitions</em> can be used (see section <a href="#class_prop_statistics" >3.2 Statistics about specific classes and properties</a>).</p>
+
 		<h3>
 			<a id="Example_resources" name="Example_resources"></a> 1.8 Example resources
 		</h3>
@@ -1067,7 +1096,7 @@ This is illustated by the RDF graph below:
 			<h3>
 				 <a id="linkset_statistics" name="linkset_statistics"></a>3.1 Statistics about linksets  
 			</h3>
-			<p>Linksets can be described in the same way. Most importantly, the number of links in a linkset can be recorded with <code>void:triples</code>. Example:</p>
+			<p>Linksets are a subclass of datasets. Therefore, statistics about the triples in a linkset can be provided in the same way as for datasets. Most importantly, the number of links in a linkset can be recorded with <code>void:triples</code>. Example:</p>
 
 <pre>
 :DBpedia2DBLP a void:Linkset;
@@ -1112,6 +1141,19 @@ This is illustated by the RDF graph below:
       <p>A dataset that is the <tt>void:classPartition</tt> of another dataset must have exactly one <tt>void:class</tt> property. The partition contains all triples that describe entities that have this class as their <tt>rdf:type</tt>.</p>
 
       <p>A dataset that is the <tt>void:propertyPartition</tt> of another dataset must have exactly one <tt>void:property</tt> property. The partition contains all triples that have this property as their predicate.</p>
+
+      <p>A partition without any statistical properties is thought to contain at least one triple. Hence, the following example asserts that the classes <code>foaf:Person</code> and <code>foaf:Organization</code> and the properties <code>foaf:name</code>, <code>foaf:member</code>, <code>foaf:homepage</code> and <code>rdf:type</code> are used in the dataset <code>ex:MyDataset</code>, without any assertion about the number of instances:</p>
+
+<pre>
+ex:MyDataset a void:Dataset;
+    void:classPartition [ void:class foaf:Person; ];
+    void:classPartition [ void:class foaf:Organization; ];
+    void:propertyPartition [ void:property foaf:name; ];
+    void:propertyPartition [ void:property foaf:member; ];
+    void:propertyPartition [ void:property foaf:homepage; ];
+    void:propertyPartition [ void:property rdf:type; ];
+    .
+</pre>
 
 			<h2>
 				<a id="Publishing_voiD" name="Publishing_voiD"></a> 4. Publishing voiD descriptions of datasets
