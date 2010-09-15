@@ -2,6 +2,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>voiD Guide 2 Draft</title>
+<style type="text/css">
+.todo { background: #f99; }
+pre { background: #ddd; padding: 1em; }
+</style>
 </head>
 <body>
 <h1>voiD Guide 2 Draft</h1>
@@ -188,7 +192,7 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 			</li>
 		</ul>
 	</div>
-  <p style="background:#f99">TODO: Renumber</p>
+  <p class="todo">TODO: Renumber</p>
 	<h2>
 		<a id="Scope" name="Scope"></a> Scope 
 	</h2>
@@ -232,7 +236,7 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 	<h2>
 		<a id="Describing_Datasets" name="Describing_Datasets"></a> 1. Describing Datasets
 	</h2>
-  <p style="background:#f99">TODO: This section should perhaps be somewhat consolidated with 4.1.</p>
+  <p class="todo">TODO: This section should perhaps be somewhat consolidated with 4.1.</p>
 
 	<p>
 		The basic functionality that voiD offers is describing a <em>dataset</em> (see <a href="#defintion_dataset">definition</a>). A dataset is described by an instance of the <code>void:Dataset</code> class.
@@ -590,14 +594,12 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 		</pre>
 			
 	<p>These W3C URIs are instances of class <code>http://www.w3.org/ns/formats/vocab-data/Format</code>, which is a sub-class of <code>void:TechnicalFeature</code>. If users need to describe, for example, other media types besides those provided by W3C or HTTP features such as content negotiation or etag headers, they should create the URIs under their own namespace or reuse existing URIs and define them as an instance of <code>void:TechnicalFeature</code>. For example, the following code shows how one could define a feature <code>:HTTPCachingETags</code> as an instance of <code>void:TechnicalFeature</code>.</p>
-			<pre>
-				<code>
-					:HTTPCachingETags a void:TechnicalFeature ;
-						rdfs:label "HTTP ETag support" ;
-						rdfs:comment "the dataset supports HTTP caching using ETags" ;
-						rdfs:seeAlso &lt;http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#&gt; .
-				</code>
-			</pre>	
+<pre>
+:HTTPCachingETags a void:TechnicalFeature ;
+    rdfs:label "HTTP ETag support" ;
+    rdfs:comment "the dataset supports HTTP caching using ETags" ;
+    rdfs:seeAlso &lt;http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#&gt; .
+</pre>	
 
 <!--p><em>Note: in voiD guide 2.0, we name <code>void:feature</code> for expressing certain technical features of a dataset. In voiD guide 3.0, we will give a much more specific semantics to this property. Describing the MIME types or profiles of a dataset might be considered in the next release of voiD guide if community demands emerge.</em></p-->
 <!--p><em>Note: voiD does not include a collection of pre-defined <code>void:TechnicalFeature</code> instances for particular technologies. Therefore, to describe technical features, it is necessary to define your own <code>void:TechnicalFeature</code>  instances as in the examples above. This is perhaps most useful for larger collections of voiD descriptions, where feature instances can be re-used across multiple voiD descriptions.</em-->
@@ -711,7 +713,8 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 	                             void:uriRegexPattern "^http://acm\\.rkbexplorer\\.com/id/" .
 </pre>
 	<p>This states that the dataset contains descriptions of resources whose URIs start with <code>http://acm.rkbexplorer.com/id/</code> (and possibly of other resources).</p>
-	<p><em>Note: In the Turtle syntax, any backslashes in literals have to be escaped with another backslash. This is why the example above contains double backslashes. In RDF/XML, the same literal would be written as: <code>&lt;void:uriRegexPattern&gt;^http://acm\.rkbexplorer\.com/id/&lt;/void:uriRegexPattern&gt;.</code></em></p>
+	<p><em>Note: In the Turtle syntax, any backslashes in literals have to be escaped with another backslash. This is why the example above contains double backslashes. In RDF/XML, the same literal would be written as:</em></p>
+  <pre>&lt;void:uriRegexPattern&gt;^http://acm\.rkbexplorer\.com/id/&lt;/void:uriRegexPattern&gt;.</pre>
 		
 			<h3>
 				<a id="SPARQL_endpoints" name="SPARQL_endpoints"></a>  1.10 SPARQL endpoints
@@ -740,10 +743,10 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 				Note: voiD doesn't deal with realtime-assembled datasets, except the obvious thing that one can attach voiD metadata to <code>sd:Graph</code> nodes.
 			</em>
 		</p>
-		<p style="background:#f99">TODO: a recipe for providing metadata that applies to all the data in the default dataset in the SPARQL endpoint (by adding it onto the sd:Dataset node)</p>
-		<p style="background:#f99">TODO: a recipe for providing metadata about individual graphs (default or named) in the default dataset of SPARQL 
+		<p class="todo">TODO: a recipe for providing metadata that applies to all the data in the default dataset in the SPARQL endpoint (by adding it onto the sd:Dataset node)</p>
+		<p class="todo">TODO: a recipe for providing metadata about individual graphs (default or named) in the default dataset of SPARQL 
 			endpoint (by adding it onto the sd:Graph nodes)</p>
-		<p style="background:#f99">TODO: example - I still don't figure how that should work out looking at <a href="http://www.w3.org/TR/2010/WD-sparql11-service-description-20100601/#id248028">example</a> from Greg's document</p>	
+		<p class="todo">TODO: example - I still don't figure how that should work out looking at <a href="http://www.w3.org/TR/2010/WD-sparql11-service-description-20100601/#id248028">example</a> from Greg's document</p>	
 	
 			
 			
@@ -811,19 +814,13 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 							</td>
 							<td>
 								<pre>
-								<code>
  :LS void:target :DSA ; 
-     void:target :DSB .
-								</code>
-								</pre>
+     void:target :DSB .</pre>
 							</td>
 							<td>
 								<pre>
-								<code>
  :LS void:subjectsTarget :DSA ; 
-     void:objectsTarget :DSB .
-								</code>
-								</pre>
+     void:objectsTarget :DSB .</pre>
 							</td>
 						</tr>
 						<tr>
@@ -832,21 +829,15 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 							</td>
 							<td>
 								<pre>
-								<code>
  :DSX void:subset :LS . 
  :LS void:target :DSX ; 
-     void:target :DSY .
-								</code>
-								</pre>
+     void:target :DSY .</pre>
 							</td>
 							<td>
 								<pre>
-								<code>
  :DSX void:subset :LS .
  :LS void:subjectsTarget :DSX ;
-     void:objectsTarget :DSY .
-								</code>
-								</pre>
+     void:objectsTarget :DSY .</pre>
 							</td>
 						</tr>
 					</tbody>
@@ -1179,6 +1170,8 @@ This is illustated by the RDF graph below:
 			<h3>
 				<a id="Publishing_tools" name="Publishing_tools"></a> 4.3 Tools 
 			</h3>
+<p class="todo">TODO: Remove this section?</p>
+
 			<p>In order to support you to create voiD descriptions, we expect tools and libraries to emerge in the near future. One example currently already available is <a href="http://code.google.com/p/void-impl/source/browse/#svn/trunk/liftSSM" title="liftSSM XSLT">liftSSM</a>, an XSLT that takes a semantic sitemap in XML and creates a stub voiD description in RDF/XML. Take for example the following semantic sitemap as the starting point:</p>
 			<pre>
  <code>
@@ -1188,10 +1181,10 @@ This is illustated by the RDF graph below:
     &lt;sc:dataset&gt;  
       &lt;sc:datasetLabel&gt;Example Corp. Product Catalog&lt;/sc:datasetLabel&gt;  
       &lt;sc:datasetURI&gt;http://example.com/catalog.rdf#catalog&lt;/sc:datasetURI&gt;  
-      &lt;sc:linkedDataPrefix slicing="subject-object"&gt;http://example.com/products/&lt;/sc:linkedDataPrefix&gt;  
+      &lt;sc:linkedDataPrefix&gt;http://example.com/products/&lt;/sc:linkedDataPrefix&gt;  
       &lt;sc:sampleURI&gt;http://example.com/products/widgets/X42&lt;/sc:sampleURI&gt;  
       &lt;sc:sampleURI&gt;http://example.com/products/categories/all&lt;/sc:sampleURI&gt;  
-      &lt;sc:sparqlEndpointLocation slicing="subject-object"&gt;http://example.com/sparql&lt;/sc:sparqlEndpointLocation&gt;  
+      &lt;sc:sparqlEndpointLocation&gt;http://example.com/sparql&lt;/sc:sparqlEndpointLocation&gt;  
       &lt;sc:dataDumpLocation&gt;http://example.com/data/catalogdump.rdf.gz&lt;/sc:dataDumpLocation&gt;  
       &lt;sc:dataDumpLocation&gt;http://example.org/data/catalog_archive.rdf.gz&lt;/sc:dataDumpLocation&gt;  
       &lt;sc:dataDumpLocation&gt;http://example.org/data/product_categories.rdf.gz&lt;/sc:dataDumpLocation&gt;  
@@ -1414,7 +1407,7 @@ See also <a href="examples/ex6.sparql" title="example query 6">example query 6</
 <p>
 	The entities defined in the voiD vocabulary (in alphabetical order, classes first) are:
 </p>
-  <p style="background:#f99">TODO: Table needs updating with Version 2 classes and properties</p>
+  <p class="todo">TODO: Table needs updating with Version 2 classes and properties</p>
 
 <p>
 	<a name="tab-void-cs" id="tab-void-cs"></a>
