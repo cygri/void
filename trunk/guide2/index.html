@@ -197,16 +197,16 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 		<a id="Scope" name="Scope"></a> Scope 
 	</h2>
 	<p>
-		This document, the voiD guide, is one of the two core resources of voiD; the other is the <strong>voiD vocabulary</strong> document  <a href="#ref-voiD-voc">[voiD vocabulary]</a>. The voiD guide is aimed at both <strong>dataset publishers</strong> (those involved in maintaining, administering, and hosting, datasets), and <strong>data users</strong> (those involved in finding, querying, crawling, and indexing, datasets). We assume that readers of this document are familiar with the core concepts about the Web of Data, such as URIs and RDF, and have some basic knowledge about certain widely-used vocabularies such as Dublin Core (DC) and Friend of a Friend (FOAF).
+		This document, the voiD guide, is one of the two core documents of voiD; the other is the <strong>voiD vocabulary</strong> document  <a href="#ref-voiD-voc">[voiD vocabulary]</a>. The voiD guide is aimed at both <strong>dataset publishers</strong> (those involved in maintaining, administering, and hosting, datasets), and <strong>data users</strong> (those involved in finding, querying, crawling, and indexing, datasets). We assume that readers of this document are familiar with the core concepts about the Web of Data, such as URIs and RDF, and have some basic knowledge about certain widely-used vocabularies such as Dublin Core (DC) and Friend of a Friend (FOAF).
 	</p>
 	<h2>
 		<a id="Introduction" name="Introduction"></a> Introduction
 	</h2>
 	<p>
-		The Web of Data (WoD) aims at providing technologies to support tasks that are tedious, time-consuming or otherwise non-human-friendly. Two technologies form the base of the WoD, namely URIs and RDF. URIs enable the worldwide, universal addressing of resources (such as people, documents, etc.); RDF provides a common data model that defines how to express properties and relations between resources. These resources could be published as a collection of data, i.e., a dataset, by anyone, in a distributed manner onto the Web. Such datasets already form a huge pool of real-world data available on the WoD. Still, it is an open issue on how to effectively and efficiently find the right data for the right task <a href="#ref-nodmag4-discovery">[WOD Discovery]</a>.
+		The Web of Data aims at providing technologies to support tasks that are tedious, time-consuming or otherwise non-human-friendly. Two technologies form the base of the Web of Data, namely URIs and RDF. URIs enable the worldwide, universal addressing of entities (such as people, events, places, genes, etc.); RDF provides a common data model that defines how to express properties and relations between these entities. Such RDF descriptions of entities can be published by anyone in a distributed manner onto the Web. Still, finding the right data for the right task is not always easy <a href="#ref-nodmag4-discovery">[WOD Discovery]</a>.
 	</p>
 	<p>
-		The Vocabulary of Interlinked Datasets (voiD) therefore aims to provide a vocabulary to bridge data publishers and data users, so that users can find the right data for their tasks more easily using the voiD description about a linked dataset. With discovery of datasets we mean the identification of datasets given certain attributes, trying to answer the question: <i>given a set of attributes, which available resources match the desired set and what is their location?</i>
+		The Vocabulary of Interlinked Datasets (voiD) therefore aims to provide a vocabulary to bridge data publishers and data users, so that users can find the right data for their tasks more easily using the voiD description about a linked dataset. With discovery of datasets we mean the identification of datasets given certain attributes, trying to answer the question: <i>given a set of attributes, which available datasets match the criteria, and how can I access them?</i>
 	</p>
 	<p>
 	The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <a href="#ref-RFC2119">[RFC2119]</a>. All examples in this document are informative, and are not meant to be interpreted as normative requirements.
@@ -222,7 +222,7 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 <div class="definition" id="definition_dataset"><a name="definition_dataset"></a>
 <p>DEFINITION: A <strong>dataset</strong> is a set of RDF triples that are published, maintained or aggregated by a single provider. Unlike <em>RDF graphs</em>, which are purely mathematical constructs <a href="#ref-rdfconcepts">[RDF Concepts]</a>, the term <em>dataset</em> has a social dimension: We think of a dataset as a <em>meaningful</em> collection of triples, that deal with a certain topic, originate from a certain source or process, are hosted on a certain server, or are aggregated by a certain custodian. Also, typically a dataset is accessible on the Web, for example through resolvable HTTP URIs or through a SPARQL endpoint, and it contains sufficiently many triples that there is benefit in providing a concise summary.</p>
 
-<p>Since most datasets describe a well-defined set of <em>resources</em>, datasets can also be seen as a set of descriptions of certain resources, which often share a common URI prefix (such as <code>http://dbpedia.org/resource/</code>).</p>
+<p>Since most datasets describe a well-defined set of <em>entities</em>, datasets can also be seen as a set of descriptions of certain entities, which often share a common URI prefix (such as <code>http://dbpedia.org/resource/</code>).</p>
 </div>
 
 <p>The purpose of creating a <code>void:Dataset</code> instance is that this single resource represents the entire RDF dataset, and thus allows us to make statements about the entire dataset. The relationship between a <code>void:Dataset</code> instance and the concrete triples contained in the dataset is established through <em>access information</em>, such as the address of a SPARQL endpoint where the triples can be accessed.</p>
@@ -605,17 +605,15 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 <!--p><em>Note: voiD does not include a collection of pre-defined <code>void:TechnicalFeature</code> instances for particular technologies. Therefore, to describe technical features, it is necessary to define your own <code>void:TechnicalFeature</code>  instances as in the examples above. This is perhaps most useful for larger collections of voiD descriptions, where feature instances can be re-used across multiple voiD descriptions.</em-->
 			</p>
 			<h3>
-				<a id="LookupNDumps" name="LookupNDumps"></a>  1.6 URI lookup, OpenSearch, and RDF data dumps 
+				<a id="LookupNDumps" name="LookupNDumps"></a>1.6 URI lookup, OpenSearch, and RDF data dumps 
 			</h3>
 			<p>
-				 There are many different ways in which clients can access the actual data that is contained in a dataset. If the entities described in the dataset are identified by HTTP URIs, then it is a reasonable assumption that resolving such a URI will return an RDF description of the resource. 
+				 There are many different ways in which clients can access the actual data that is contained in a dataset. If the entities described in the dataset are identified by HTTP URIs, then it is a reasonable assumption that resolving such a URI will return an RDF description of the entity. 
 			</p>
 			<p>A SPARQL endpoint that provides access to a dataset via the SPARQL protocol can be announced using <code>void:sparqlEndpoint</code>:</p>
-				<pre>
-				      <code>
-    :DBpedia void:sparqlEndpoint &lt;http://dbpedia.org/sparql&gt; .</code>
 
-</pre>
+<pre>:DBpedia void:sparqlEndpoint &lt;http://dbpedia.org/sparql&gt; .</pre>
+
 <p><em>
 	Note: It is assumed that the default graph of the SPARQL endpoint is the dataset itself.</em>
 </p>	
@@ -623,13 +621,13 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 				Besides the SPARQL protocol, a simple URI lookup protocol for accessing a dataset is supported by voiD:
 			</p>
 				<ol>
-					<li>Take the URI of a resource <strong>R</strong> that is described in the dataset 
+					<li>Take the URI of an entity <strong>E</strong> that is described in the dataset 
 					</li>
 					<li>Urlencode the URI, and append it to the dataset's <strong>URI lookup endpoint</strong> 
 					</li>
 					<li>Perform an HTTP GET request on the resulting concatenated URI 
 					</li>
-					<li>The HTTP response is expected to be an RDF description of <strong>R</strong>. 
+					<li>The HTTP response is expected to be an RDF description of <strong>E</strong>. 
 					</li>
 				</ol>
 			<p><em>
@@ -717,7 +715,7 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 			<a id="Example_resources" name="Example_resources"></a> 1.8 Example resources
 		</h3>
 
-<p>For documentation purposes, it can be helpful to name some representative example resources for a dataset. Looking up these resources allows users to quickly get an impression of the kind of data that is present in a dataset. The <code>void:exampleResource</code> property names one or more such examples:</p>
+<p>For documentation purposes, it can be helpful to name some representative example entites for a dataset. Looking up these entities allows users to quickly get an impression of the kind of data that is present in a dataset. The <code>void:exampleResource</code> property names one or more such examples:</p>
 
 <pre>:DBpedia a void:Dataset;
     void:exampleResource &lt;http://dbpedia.org/resource/Berlin&gt; ; 
@@ -741,7 +739,7 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 <pre>&lt;http://acm.rkbexplorer.com/id/void&gt; a void:Dataset;
 	                             void:uriRegexPattern "^http://acm\\.rkbexplorer\\.com/id/" .
 </pre>
-	<p>This states that the dataset contains descriptions of resources whose URIs start with <code>http://acm.rkbexplorer.com/id/</code> (and possibly of other resources).</p>
+	<p>This states that the dataset contains descriptions of entities whose URIs start with <code>http://acm.rkbexplorer.com/id/</code> (and possibly of other entities).</p>
 	<p><em>Note: In the Turtle syntax, any backslashes in literals have to be escaped with another backslash. This is why the example above contains double backslashes. In RDF/XML, the same literal would be written as:</em></p>
   <pre>&lt;void:uriRegexPattern&gt;^http://acm\.rkbexplorer\.com/id/&lt;/void:uriRegexPattern&gt;.</pre>
 		
@@ -1012,7 +1010,7 @@ This is illustated by the RDF graph below:
 				<a id="statistics" name="statistics"></a>3. Providing statistics about datasets
 			</h2>
 
-      <p>This section describes how to express statistics about a dataset, such as the number of RDF triples it contains, or the number of resources it describes.</p>
+      <p>This section describes how to express statistics about a dataset, such as the number of RDF triples it contains, or the number of entities it describes.</p>
 
       <p><em>Note: A previous version of voiD defined a different approach to statistics, based on the <a href="http://sw.joanneum.at/scovo/schema.html" title="Statistical Core Vocabulary">Statistical Core Vocabulary</a> (SCOVO). This approach was found to have several disadvantages. Statistics would be verbose, and querying them with SPARQL was difficult. Therefore it has been removed with the approach described here. <a href="http://vocab.deri.ie/void/guide/2009-01-29#sec_3_Expressing_dataset_statistic">A description of the SCOVO-based approach</a> can be found in archived older versions of the voiD Guide.</em></p>
 			 
@@ -1044,7 +1042,7 @@ This is illustated by the RDF graph below:
 								 <code>void:classes</code>  
 							</td>
 							<td>
-								 The total number of distinct classes in the dataset. In other words, the number of distinct resources occuring as objects of <tt>rdf:type</tt> triples in the dataset.
+								 The total number of distinct classes in the dataset. In other words, the number of distinct class URIs occuring as objects of <tt>rdf:type</tt> triples in the dataset.
 							</td>
 						</tr>
 						<tr style="text-align: left;">
@@ -1052,7 +1050,7 @@ This is illustated by the RDF graph below:
 								 <code>void:properties</code>  
 							</td>
 							<td>
-								 The total number of distinct properties in the dataset. In other words, the number of distinct resources that occur in the predicate position of triples in the dataset.
+								 The total number of distinct properties in the dataset. In other words, the number of distinct property URIs that occur in the predicate position of triples in the dataset.
 							</td>
 						</tr>
 						<tr style="text-align: left;">
@@ -1060,7 +1058,7 @@ This is illustated by the RDF graph below:
 								 <code>void:distinctSubjects</code>   
 							</td>
 							<td>
-								 The total number of distinct subjects in the dataset. In other words, the number of distinct resources that occur in the subject position of triples in the dataset.
+								 The total number of distinct subjects in the dataset. In other words, the number of distinct URIs or blank nodes that occur in the subject position of triples in the dataset.
 							</td>
 						</tr>
 						<tr style="text-align: left;">
@@ -1068,7 +1066,7 @@ This is illustated by the RDF graph below:
 								 <code>void:distinctObjects</code>   
 							</td>
 							<td>
-								 The total number of distinct objects in the dataset. In other words, the number of distinct resources that occur in the object position of triples in the dataset. Literals are included in this count.
+								 The total number of distinct objects in the dataset. In other words, the number of distinct URIs, blank nodes, or literals that occur in the object position of triples in the dataset.
 							</td>
 						</tr>
 						<tr style="text-align: left;">
@@ -1201,7 +1199,7 @@ ex:MyDataset a void:Dataset;
     &lt;http://dbpedia.org/data/Berlin&gt; <a href="http://rdfs.org/ns/void#inDataset" title="void:inDataset">void:inDataset</a> :DBpedia .</code>
 				</pre>
 				<p>  
-			 If the dataset consists of resources identified by dereferenceable URIs, dereferencing a URI will redirect to a document containing a description of that resource, and the <code>void:inDataset</code> triple linking back from the document to the dataset.  This is especially handy in case when <a href="http://inkdroid.org/journal/2008/01/04/following-your-nose-to-the-web-of-data/">applying the follow-your-nose principle</a> where one often has a single URI as a starting point. The question is then how to find the way from this URI to the entire dataset, that is, in the first place to identify the according voiD description; see also section <a href="#Discovery_via_links_in_docs" >5.1 Discovery via links in the dataset's documents</a> for the discovery process.</p> 
+			 If the dataset consists of entities identified by dereferenceable URIs, dereferencing a URI will redirect to a document containing a description of that entity, and the <code>void:inDataset</code> triple linking back from the document to the dataset.  This is especially handy in case when <a href="http://inkdroid.org/journal/2008/01/04/following-your-nose-to-the-web-of-data/">applying the follow-your-nose principle</a> where one often has a single URI as a starting point. The question is then how to find the way from this URI to the entire dataset, that is, in the first place to identify the according voiD description; see also section <a href="#Discovery_via_links_in_docs" >5.1 Discovery via links in the dataset's documents</a> for the discovery process.</p> 
 			
 			<p>If a document links to a dataset using void:inDataset, it asserts that the data (expressed as triples) serialised in the document <strong>is part of the dataset</strong>; as such, provenance and licensing/waiving of the dataset should be understood as applying to the data in the document.</p>
 			<p>One SHOULD NOT specify multiple <code>void:inDataset</code> for the same document. Rather, we encourage to create a new void:Dataset that contains both as a subset, and link to that. Then, you can explicitly add metadata, like licenses, to the joint dataset.</p>
@@ -1475,14 +1473,14 @@ See also <a href="examples/ex6.sparql" title="example query 6">example query 6</
 				<td style="text-align:center">
 					<code><a href="http://rdfs.org/ns/void/html#Dataset">void:Dataset</a></code>
 				</td>
-				<td>A dataset is a collection of data, published and maintained by a single provider, available as RDF on the Web, where at least some of the resources in the dataset are identified by dereferencable URIs.</td>
+				<td>A dataset is a collection of data, published and maintained by a single provider, available as RDF on the Web, where at least some of the entities in the dataset are identified by dereferencable URIs.</td>
 				<td style="vertical-align: top;">see section <a href="#Describing_Datasets">1. Describing Datasets</a></td>
 			</tr>
 			<tr>
 				<td style="text-align:center">
 					<code><a href="http://rdfs.org/ns/void/html#Linkset">void:Linkset</a></code>
 				</td>
-				<td>A linkset is a subset of a dataset, consisting of triples where the subject is a resource hosted in one dataset, and the object is a resource hosted in another.</td>
+				<td>A linkset is a subset of a dataset, consisting of triples where the subject URI is hosted in one dataset, and the object URI is hosted in another.</td>
 				<td style="vertical-align: top;">see section <a href="#Describing_Dataset_Interlink">2. Describing Dataset Interlinking</a></td>
 			</tr>
 			<tr>
