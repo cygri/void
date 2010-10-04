@@ -616,7 +616,7 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 	Note: It is assumed that the default graph of the SPARQL endpoint is the dataset itself.</em>
 </p>	
 			<p>
-				Besides the SPARQL protocol, a simple URI lookup protocol for accessing a dataset is supported by voiD:
+				Besides the SPARQL protocol, a simple URI lookup protocol for accessing a dataset can also be described using voiD. Such a protocol could take the following steps:
 			</p>
 				<ol>
 					<li>Take the URI of an entity <strong>E</strong> that is described in the dataset 
@@ -640,7 +640,7 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
         void:uriLookupEndpoint &lt;http://api.sindice.com/v2/search?qt=term&amp;q=&gt; .</code>
 
 </pre>
-            <p>Some datasets offer a free text search capability. Dataset publishers may create an <a href="http://www.opensearch.org/Specifications/OpenSearch/1.1#OpenSearch_description_document">OpenSearch Description Document</a> that describes their text search service. This can be linked to from the Dataset resource using the <code>void:openSearchDescription</code> property:</p>
+            <p>Some datasets offer a free text search capability. Dataset publishers may create an <a href="http://www.opensearch.org/Specifications/OpenSearch/1.1#OpenSearch_description_document">OpenSearch Description Document</a> that describes their text search service. This can be linked to a Dataset resource using the <code>void:openSearchDescription</code> property:</p>
 
             <pre>
                 <code>
