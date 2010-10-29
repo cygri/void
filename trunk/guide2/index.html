@@ -685,7 +685,7 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 		Every RDF dataset uses one or more RDFS vocabularies or OWL ontologies. The vocabulary provides the terms (classes and properties) for expressing the data. The <code>void:vocabulary</code> property can be used to list vocabularies used in a dataset. 
 			</p>
 
-<p>Every value of void:vocabulary SHOULD be the namespace URI of a vocabulary or ontology that is used in the dataset. This is defined as follows:</p>
+<p>Every value of void:vocabulary SHOULD be a URI that identifies a vocabulary or ontology that is used in the dataset. These URIs can be found as follows:</p>
 
 <ol>
   <li>Take the URI of any class or property in the vocabulary.</li>
@@ -699,7 +699,7 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
   <tr>
     <th>Vocabulary</th>
     <th>Example term URI</th>
-    <th>Vocabulary namespace URI</th>
+    <th>Vocabulary URI</th>
   </tr>
   <tr>
     <td>DC terms</td>
