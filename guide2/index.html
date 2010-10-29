@@ -87,7 +87,7 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 						<a href="#Technical_description_features" >1.5 Technical Description (Features)</a>
 					</li>
 					<li>
-						<a href="#LookupNDumps" >1.6 URI lookup, OpenSearch, and RDF data dumps</a>
+						<a href="#LookupNDumps" >1.6 SPARQL endpoint, URI lookup, OpenSearch, and RDF data dumps</a>
 					</li>
 					<li>
 						<a href="#Vocabularies_used" >1.7 Vocabularies used in a dataset</a>
@@ -99,9 +99,8 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 						<a href="#PatternURI" >1.9 Patterns for resource URIs</a>
 					</li>
 					<li>
-						<a href="#SPARQL_endpoints" >1.10 SPARQL endpoints</a>
+						<a href="#SPARQL_SD" >1.10 Using voiD wtih the SPARQL Service Description Vocabulary</a>
 					</li>
-					
 				</ul>
 			</li>
 			<li>
@@ -619,18 +618,23 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 <!--p><em>Note: voiD does not include a collection of pre-defined <code>void:TechnicalFeature</code> instances for particular technologies. Therefore, to describe technical features, it is necessary to define your own <code>void:TechnicalFeature</code>  instances as in the examples above. This is perhaps most useful for larger collections of voiD descriptions, where feature instances can be re-used across multiple voiD descriptions.</em-->
 			</p>
 			<h3>
-				<a id="LookupNDumps" name="LookupNDumps"></a>1.6 URI lookup, OpenSearch, and RDF data dumps 
+				<a id="LookupNDumps" name="LookupNDumps"></a>1.6 SPARQL endpoint, URI lookup, OpenSearch, and RDF data dumps 
 			</h3>
 			<p>
 				 There are many different ways in which clients can access the actual data that is contained in a dataset. If the entities described in the dataset are identified by HTTP URIs, then it is a reasonable assumption that resolving such a URI will return an RDF description of the entity. 
 			</p>
-			<p>A SPARQL endpoint that provides access to a dataset via the SPARQL protocol can be announced using <code>void:sparqlEndpoint</code>:</p>
 
-<pre>:DBpedia void:sparqlEndpoint &lt;http://dbpedia.org/sparql&gt; .</pre>
+<p>A SPARQL endpoint that provides access to a dataset via the SPARQL protocol can be announced using <code>void:sparqlEndpoint</code>:</p>
 
-<p><em>
-	Note: It is assumed that the default graph of the SPARQL endpoint is the dataset itself.</em>
-</p>	
+<pre>:DBpedia a void:Dataset;
+    void:sparqlEndpoint &lt;http://dbpedia.org/sparql&gt; .</pre>
+
+<p>This states that the default graph of the SPARQL endpoint contains the triples in the DBpedia dataset.</p>
+
+<p>Further information about the features and capabilites of the SPARQL endpoint can be expressed with the <a href="http://www.w3.org/TR/sparql11-service-description/">SPARQL 1.1 Service Description</a> vocabulary, as descriped in <a href="#SPARQL_SD">Section 1.10</a>.</p>
+
+<p><em>Note: In some SPARQL endpoints, named graphs are used to partition the data. Currently voiD doesn't provide a dedicated way of stating that a dataset is contained in a specific named graph. However, the SPARQL 1.1 Service Description vocabulary, can be used to list the named graphs in a store and attach voiD descriptions to them, as described in <a href="#SPARQL_SD">Section 1.10</a>. We expect to add direct support for named graphs to voiD in a future version.</em></p>
+
 			<p>
 				Besides the SPARQL protocol, a simple URI lookup protocol for accessing a dataset can also be described using voiD. Such a protocol could take the following steps:
 			</p>
@@ -757,41 +761,61 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 	<p><em>Note: In the Turtle syntax, any backslashes in literals have to be escaped with another backslash. This is why the example above contains double backslashes. In RDF/XML, the same literal would be written as:</em></p>
   <pre>&lt;void:uriRegexPattern&gt;^http://acm\.rkbexplorer\.com/id/&lt;/void:uriRegexPattern&gt;.</pre>
 		
-			<h3>
-				<a id="SPARQL_endpoints" name="SPARQL_endpoints"></a>  1.10 SPARQL endpoints
-			</h3>
-			<p>A SPARQL endpoint that provides access to a dataset via the SPARQL protocol can be announced straightforward in voiD using <code>void:sparqlEndpoint</code>:</p>
-						<pre>
-						      <code>
-		    :DBpedia void:sparqlEndpoint &lt;http://dbpedia.org/sparql&gt; .</code>
-		</pre>
-		<p>
-			<em>
-			Note: It is assumed that the default graph of the SPARQL endpoint is the dataset itself.
-			</em>
-		</p>	
-	
-		<p>
-			A richer description of the SPARQL endpoint's capabilities and features can be provided using the W3C <a href="http://www.w3.org/TR/2010/WD-sparql11-service-description-20100601/">SPARQL 1.1 Service Description</a> vocabulary (namespace URI is <code>http://www.w3.org/ns/sparql-service-description#</code>, preferred prefix <code>sd:</code>.)
-		</p>
-		<p>
-			A <code>sd:Dataset</code>/<code>sd:Graph</code> is a special case of a <code>void:Dataset</code>. As in most SPARQL endpoints, if no 
-			FROM/FROM NAMED is specified, one accesses the default dataset. There are also implementations that allow to assemble a dataset at 
-			query time by using FROM and FROM NAMED or the corresponding SPARQL protocol parameters.
-		</p>	
-		<p>
-			<em>
-				Note: voiD doesn't deal with realtime-assembled datasets, except the obvious thing that one can attach voiD metadata to <code>sd:Graph</code> nodes.
-			</em>
-		</p>
-		<p class="todo">TODO: a recipe for providing metadata that applies to all the data in the default dataset in the SPARQL endpoint (by adding it onto the sd:Dataset node)</p>
-		<p class="todo">TODO: a recipe for providing metadata about individual graphs (default or named) in the default dataset of SPARQL 
-			endpoint (by adding it onto the sd:Graph nodes)</p>
-		<p class="todo">TODO: example - I still don't figure how that should work out looking at <a href="http://www.w3.org/TR/2010/WD-sparql11-service-description-20100601/#id248028">example</a> from Greg's document</p>	
-	
-			
-			
-		
+
+<h3>
+  <a id="SPARQL_SD" name="SPARQL_SD"></a>1.10 Using voiD wtih the SPARQL Service Description Vocabulary
+</h3>
+
+<p>The W3C <a href="http://www.w3.org/TR/sparql11-service-description/">SPARQL 1.1 Service Description</a> specification provides a rich vocabulary for describing a SPARQL endpoint's capabilities and features, as well as a discovery mechanism for such SPARQL service descriptions. VoiD can be used in SPARQL service descriptions to provide additional information about the data available in a store.</p>
+
+<p>The SPARQL Service Description vocabulary defines two classes that can be aligned with voiD:</p>
+
+<ol>
+<li><strong><code>sd:Dataset</code></strong> represents a <a href="http://www.w3.org/TR/rdf-sparql-query/#rdfDataset">SPARQL dataset</a>, that is, a set of zero or more named graphs plus an optional default graph. Note that <code>sd:Dataset</code> has a narrower definition than <code>void:Dataset</code>: Any collection of triples can be a <code>void:Dataset</code>, while <code>sd:Dataset</code> also requires that the triples are associated with the default graph or named graphs.</li>
+<li><strong><code>sd:Graph</code></strong> represents an RDF graph within an <code>sd:Dataset</code>, either the default graph or one of the named graphs.</li>
+</ol>
+
+<p><code>void:Dataset</code> is a superclass of <code>sd:Dataset</code> and of <code>sd:Graph</code>. Therefore, any instance of these classes can be described just like any other voiD dataset.</p>
+
+<p>The following fictional example describes a SPARQL endpoint that provides access to a mirror of DBpedia and Geonames in distinct named graphs, as well as to the service description itself in the default graph:</p>
+
+<pre>@prefix sd: &lt;http://www.w3.org/ns/sparql-service-description#&gt; .
+
+&lt;#service&gt; a sd:Service;
+    sd:url &lt;http://example.org/geopedia/sparql&gt;;
+    sd:defaultDatasetDescription [
+        a sd:Dataset;
+        dc:title "GeoPedia";
+        dc:description "A mirror of DBpedia and Geonames";
+        void:triples 1100000100; 
+        sd:defaultGraph [
+            a sd:Graph, void:Dataset;
+            dc:title "GeoPedia SPARQL Endpoint Description";
+            dc:description "Contains a copy of this SD+voiD file!";
+            void:triples 100;
+        ];
+        sd:namedGraph [
+            sd:name &lt;http://dbpedia.org/&gt;;
+            sd:graph [
+                a sd:Graph, void:Dataset;
+                dc:title "DBpedia";
+                foaf:homepage &lt;http://dbpedia.org/&gt;;
+                void:triples 1000000000; 
+            ];
+        ];
+        sd:namedGraph [
+            sd:name &lt;http://geonames.org/&gt;;
+            sd:graph [
+                a sd:Graph, void:Dataset;
+                dc:title "Geonames";
+                foaf:homepage &lt;http://www.geonames.org/ontology/&gt;;
+                void:triples 100000000; 
+            ];
+        ];
+    ];
+    .</pre>
+
+
 			<h2>
 				<a id="Describing_Dataset_Interlink" name="Describing_Dataset_Interlink"></a> 2. Describing Dataset Interlinking
 			</h2>
