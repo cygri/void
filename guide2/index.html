@@ -216,7 +216,7 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
     <a id="Datasets_and_Linksets" name="Datasets_and_Linksets"></a> Datasets and Linksets
   </h2>
 
-<p>There are two fundamental entities in voiD, datasets and linksets, represented by instances of the <code>void:Dataset</code> and <code>void:Linkset</code> classes.</p>
+<p>The two fundamental concepts of voiD are <em>datasets</em> and <em>linksets</em>, represented by instances of the <code>void:Dataset</code> and <code>void:Linkset</code> classes.</p>
 
 <div class="definition" id="definition_dataset"><a name="definition_dataset"></a>
 <p>DEFINITION: A <strong>dataset</strong> is a set of RDF triples that are published, maintained or aggregated by a single provider. Unlike <em>RDF graphs</em>, which are purely mathematical constructs <a href="#ref-rdfconcepts">[RDF Concepts]</a>, the term <em>dataset</em> has a social dimension: We think of a dataset as a <em>meaningful</em> collection of triples, that deal with a certain topic, originate from a certain source or process, are hosted on a certain server, or are aggregated by a certain custodian. Also, typically a dataset is accessible on the Web, for example through resolvable HTTP URIs or through a SPARQL endpoint, and it contains sufficiently many triples that there is benefit in providing a concise summary.</p>
@@ -1072,7 +1072,7 @@ This is illustated by the RDF graph below:
 								 <code>void:entities</code>   
 							</td>
 							<td>
-								 The total number of entities that are described in the dataset.
+								 The total number of entities that are described in the dataset. To be an entity in a dataset, a resource must have a URI, and the URI must matches the dataset's <tt>void:uriRegexPattern</tt>, if any. Authors of voiD files may impose arbitrary additional requirements, for example, they may exclude any <tt>foaf:Document</tt> resources from consideration as entities.
 							</td>
 						</tr>
 						<tr style="text-align: left;">
@@ -1175,6 +1175,8 @@ This is illustated by the RDF graph below:
       <p>Note that <tt>void:classPartition</tt> and <tt>void:propertyPartition</tt> are subproperties of <tt>void:subset</tt>. This means that the partition is itself a dataset.</p>
 
       <p>A dataset that is the <tt>void:classPartition</tt> of another dataset must have exactly one <tt>void:class</tt> property. The partition contains all triples that describe entities that have this class as their <tt>rdf:type</tt>.</p>
+
+      <p>A class-based partition with <tt>rdfs:Resource</tt> as its <tt>void:class</tt> is defined to also contain all resources that have no <tt>rdf:type</tt> statement.</p>
 
       <p>A dataset that is the <tt>void:propertyPartition</tt> of another dataset must have exactly one <tt>void:property</tt> property. The partition contains all triples that have this property as their predicate.</p>
 
@@ -1483,7 +1485,7 @@ See also <a href="examples/ex6.sparql" title="example query 6">example query 6</
 <p><em>Note that classes start with a capital letter, properties with lower case. The following table is intended to give a quick overview; it is not normative. The only normative place is at the voiD vocabulary location at <a href="http://rdfs.org/ns/void/">http://rdfs.org/ns/void/</a>.</em>
 	</p>
 <p>
-	The entities defined in the voiD vocabulary (in alphabetical order, classes first) are:
+	The terms defined in the voiD vocabulary (in alphabetical order, classes first) are:
 </p>
   <p class="todo">TODO: Table needs updating with Version 2 classes and properties</p>
 
