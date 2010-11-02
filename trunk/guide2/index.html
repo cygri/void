@@ -196,7 +196,7 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 		<a id="Scope" name="Scope"></a> Scope 
 	</h2>
 	<p>
-		This document, the voiD guide, is one of the two core documents of voiD; the other is the <strong>voiD vocabulary</strong> document  <a href="#ref-voiD-voc">[voiD vocabulary]</a>. The voiD guide is aimed at both <strong>dataset publishers</strong> (those involved in maintaining, administering, and hosting, datasets), and <strong>data users</strong> (those involved in finding, querying, crawling, and indexing, datasets). We assume that readers of this document are familiar with the core concepts about the Web of Data, such as URIs and RDF, and have some basic knowledge about certain widely-used vocabularies such as Dublin Core (DC) and Friend of a Friend (FOAF).
+		This document, the voiD guide, is one of the two core documents of voiD; the other is the <strong>voiD vocabulary</strong> document  <a href="#ref-voiD-voc">[voiD vocabulary]</a>. The voiD guide is aimed at both <strong>dataset publishers</strong> (those involved in maintaining, administering, and hosting, datasets), and <strong>data users</strong> (those involved in finding, querying, crawling, and indexing, datasets). We assume that readers of this document are familiar with the core concepts about the Web of Data, such as URIs and RDF, and with the <a href="http://www.w3.org/TeamSubmission/turtle/">Turtle syntax</a> for RDF. Basic knowledge about certain widely-used vocabularies such as Dublin Core (DC) and Friend of a Friend (FOAF) is also assumed.
 	</p>
 	<h2>
 		<a id="Introduction" name="Introduction"></a> Introduction
@@ -740,6 +740,8 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
     void:exampleResource &lt;http://dbpedia.org/resource/Physics&gt; ;
     void:exampleResource &lt;http://dbpedia.org/resource/Ludwig_van_Beethoven&gt; ;
     .</pre>
+
+<p><em>Note: Datasets that are published as linked data with resolvable URIs often have <a href="http://www.w3.org/TR/cooluris/">two distinct URIs for an entity and for the RDF document describing the entity</a> [<a href="#COOL">COOL</a>]. True entity URIs should be preferred as <tt>void:exampleResource</tt>s.</em></p>
 
 <p>Example resources can also be given for <em>linksets</em> (see <a href="#Describing_Dataset_Interlink">Section 2</a>). The resource should be either the subject or the object of a representative link from the set.</p>
 
@@ -1692,7 +1694,7 @@ See also <a href="examples/ex6.sparql" title="example query 6">example query 6</
 </h2>
 <p>Our thanks go out to some chaps who influenced the design of voiD, provided use cases and ensured that we would never get bored too quickly. These people were (alphabetically): Orri Erling, Hugh Glaser, Olaf Hartig, Tom Heath, Ian Millard, Marc-Alexandre Nolin, Yves Raimond, Yrj&auml;n&auml; Rankka, Francois Scharffe, Giovanni Tummarello.</p>
 
-<p class="todo">TODO: Who else for Guide 2?</p>
+<p class="todo">TODO: Who else for Guide 2? William Waites, Li Ding, …</p>
 
 <p>The work has partly been supported by the following projects: EC FP7 project ICT-2007.1.2 ROMULUS (<a href="http://www.ict-romulus.eu/">http://www.ict-romulus.eu/</a>), etc.</p>
 
