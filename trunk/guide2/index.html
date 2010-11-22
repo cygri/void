@@ -137,9 +137,6 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 					<li>
 						<a href="#Back-links" >4.2 Back-links</a>
 					</li>
-					<li>
-						<a href="#Publishing_tools" >4.3 Tools</a>
-					</li>
 				</ul>
 			</li>
 			<li>
@@ -207,10 +204,27 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 	<p>
 		The Vocabulary of Interlinked Datasets (voiD) therefore aims to provide a vocabulary to bridge data publishers and data users, so that users can find the right data for their tasks more easily using the voiD description about a linked dataset. With discovery of datasets we mean the identification of datasets given certain attributes, trying to answer the question: <i>given a set of attributes, which available datasets match the criteria, and how can I access them?</i>
 	</p>
-	<p>
-	The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <a href="#ref-RFC2119">[RFC2119]</a>. All examples in this document are informative, and are not meant to be interpreted as normative requirements.
-	</p>
-	<p><em>Note: Feedback on this document should be sent to <strong>void-rdfs-internals[AT]googlegroups.com</strong>. We also try to be available via IRC, on <a href="http://swig.xmlhack.com/">#swig</a> channel at <a href="irc://irc.freenode.net">irc.freenode.net</a>.</em></p>
+
+  <p>All examples in this document are written in the Turtle RDF syntax <a href="#ref-turtle">[Turtle]</a>.  Throughout the document, the following namespaces are used:</p>
+	<pre>
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
+@prefix dcterms: &lt;http://purl.org/dc/terms/&gt; .
+@prefix wv: &lt;http://vocab.org/waiver/terms/norms&gt; .        
+@prefix dbp: &lt;http://dbpedia.org/property/&gt; .
+@prefix void: &lt;http://rdfs.org/ns/void#&gt; .</pre>
+
+  <p>Furthermore, we assume that the empty prefix is bound to the base URL of the current file like this:</p>
+  <pre>
+@prefix : &lt;#&gt; .</pre>
+
+  <p>
+    This allows us to quickly mint new identifiers in the local namespace: <code>:MyDataset</code>, <code>:DBpedia</code> and so on. For further information about publishing and deploying voiD descriptions see section <a href="#Publishing_voiD" >4. Publishing voiD descriptions of datasets</a>.</p>
+
+	<p><em>Note: Feedback on this document should be sent to <strong>void-rdfs-internals[AT]googlegroups.com</strong>.</em> (@@@ Replace with void-discuss link)</p>
 	
   <h2>
     <a id="Datasets_and_Linksets" name="Datasets_and_Linksets"></a> Datasets and Linksets
@@ -241,34 +255,10 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 		The basic functionality that voiD offers is describing a <em>dataset</em> (see <a href="#defintion_dataset">definition</a>). A dataset is described by an instance of the <code>void:Dataset</code> class.
   </p>
 
-	<p>
-		<em>Note: The <code>void:Dataset</code> class is a subclass of <code><a href="http://purl.org/dc/dcmitype/Dataset">dcmi:Dataset</a></code>. Consult the DCMI type vocabulary <a href="#ref-DCMI-typevoc">[DCMI type voc]</a> for further information.</em>
-	</p>
-		
 	<p>	
-		In the following we describe the most common cases for using voiD along with reusing terms from other, widely deployed vocabularies such as <a href="http://dublincore.org/documents/dcmi-terms/">Dublin Core</a> or <a href="http://xmlns.com/foaf/spec/">FOAF</a>. Throughout the document, the following namespaces are used:
-	</p>
-	<pre>
-        <code>
-    @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
-    @prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
-    @prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
-    @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
-    @prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
-    @prefix dcterms: &lt;http://purl.org/dc/terms/&gt; .
-    @prefix wv: &lt;http://vocab.org/waiver/terms/norms&gt; .        
-    @prefix dbp: &lt;http://dbpedia.org/property/&gt; .
-    @prefix void: &lt;http://rdfs.org/ns/void#&gt; .</code>
-    </pre>
-	
-	<p>All examples in this document are written in the Turtle RDF syntax <a href="#ref-turtle">[Turtle]</a>. To keep the examples simple and consistent, we will assume that we are creating a file called <code><a href="examples/void.ttl" title="void.ttl">void.ttl</a></code> which will contain a voiD description of the dataset under discussion in the example. We will further assume that the empty prefix is bound to the file like this:
-		</p>
-		<pre>
-	        <code>
-    @prefix : &lt;#&gt; .</code>
-		 </pre>
-	<p>
-		This allows us to quickly mint new identifiers in the local namespace: <code>:MyDataset</code>, <code> :DBpedia</code> and so on. For further information about publishing and deploying voiD descriptions see section  <a href="#Publishing_voiD" >4. Publishing voiD descriptions of datasets</a>.</p>
+		In the following we describe the most common cases for using voiD along with reusing terms from other, widely deployed vocabularies such as <a href="http://dublincore.org/documents/dcmi-terms/">Dublin Core</a> or <a href="http://xmlns.com/foaf/spec/">FOAF</a>.
+  </p>
+
 		<h3>
 			<a id="General_Dataset_Metadata" name="General_Dataset_Metadata"></a>1.1 General Dataset Metadata 
 		</h3>
@@ -1247,64 +1237,6 @@ ex:MyDataset a void:Dataset;
 <p><em>Note: The first version of this guide suggested to use <code>dcterms:isPartOf</code> for the same purpose. As <code>dcterms:isPartOf</code> is used for other purposes as well, we introduced a dedicated property in the voiD namespace.</em>
 </p>			
 			
-			<h3>
-				<a id="Publishing_tools" name="Publishing_tools"></a> 4.3 Tools 
-			</h3>
-<p class="todo">TODO: Remove this section?</p>
-
-			<p>In order to support you to create voiD descriptions, we expect tools and libraries to emerge in the near future. One example currently already available is <a href="http://code.google.com/p/void-impl/source/browse/#svn/trunk/liftSSM" title="liftSSM XSLT">liftSSM</a>, an XSLT that takes a semantic sitemap in XML and creates a stub voiD description in RDF/XML. Take for example the following semantic sitemap as the starting point:</p>
-			<pre>
- <code>
-&lt;?xml version="1.0" encoding="UTF-8"?&gt;  
-  &lt;urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-          xmlns:sc="http://sw.deri.org/2007/07/sitemapextension/scschema.xsd"&gt;  
-    &lt;sc:dataset&gt;  
-      &lt;sc:datasetLabel&gt;Example Corp. Product Catalog&lt;/sc:datasetLabel&gt;  
-      &lt;sc:datasetURI&gt;http://example.com/catalog.rdf#catalog&lt;/sc:datasetURI&gt;  
-      &lt;sc:linkedDataPrefix&gt;http://example.com/products/&lt;/sc:linkedDataPrefix&gt;  
-      &lt;sc:sampleURI&gt;http://example.com/products/widgets/X42&lt;/sc:sampleURI&gt;  
-      &lt;sc:sampleURI&gt;http://example.com/products/categories/all&lt;/sc:sampleURI&gt;  
-      &lt;sc:sparqlEndpointLocation&gt;http://example.com/sparql&lt;/sc:sparqlEndpointLocation&gt;  
-      &lt;sc:dataDumpLocation&gt;http://example.com/data/catalogdump.rdf.gz&lt;/sc:dataDumpLocation&gt;  
-      &lt;sc:dataDumpLocation&gt;http://example.org/data/catalog_archive.rdf.gz&lt;/sc:dataDumpLocation&gt;  
-      &lt;sc:dataDumpLocation&gt;http://example.org/data/product_categories.rdf.gz&lt;/sc:dataDumpLocation&gt;  
-      &lt;changefreq&gt;weekly&lt;/changefreq&gt;  
-    &lt;/sc:dataset&gt;  
-  &lt;/urlset&gt;</code>
-				</pre>   
-			 <p>After applying the liftSSM transformation the resulting RDF/XML document would look like:</p> 
-<pre>
- <code>
-&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-  &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-           xmlns:sc="http://sw.deri.org/2007/07/sitemapextension/scschema.xsd" 
-           xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" 
-           xmlns:dcterms="http://purl.org/dc/terms/" 
-           xmlns:foaf="http://xmlns.com/foaf/0.1/"
-           xmlns:scovo="http://purl.org/NET/scovo#" 
-           xmlns:void="http://rdfs.org/ns/void#"&gt;
-    &lt;void:Dataset rdf:about="http://example.com/catalog.rdf#catalog"&gt; 
-      &lt;dcterms:comment&gt;Example Corp. Product Catalog&lt;/dcterms:comment&gt;
-      &lt;foaf:homepage rdf:resource="http://example.org/dataset.html"/&gt;
-      &lt;dcterms:subject rdf:resource="http://dbpedia.org/resource/EXAMPLE"/&gt;
-      &lt;dcterms:creator rdf:resource="http://example.org/creator#me"/&gt;
-      &lt;dcterms::license rdf:resource="http://creativecommons.org/licenses/by/3.0/"/&gt; 
-      &lt;void:statItem rdf:parseType="Resource"&gt; 
-        &lt;scovo:dimension rdf:resource="http://rdfs.org/ns/void#numOfTriples"/&gt; 
-        &lt;rdf:value rdf:datatype="http://www.w3.org/2001/XMLSchema#integer"&gt;0&lt;/void:value&gt;
-      &lt;/void:statItem&gt; 
-      &lt;void:exampleResource rdf:resource="http://example.com/products/widgets/X42"/&gt; 
-      &lt;void:exampleResource rdf:resource="http://example.com/products/categories/all"/&gt; 
-      &lt;void:sparqlEndpoint rdf:resource="http://example.com/sparql"/&gt;
-      &lt;void:dataDump rdf:resource="http://example.com/data/catalogdump.rdf.gz"/&gt; 
-      &lt;void:dataDump rdf:resource="http://example.org/data/catalog_archive.rdf.gz"/&gt; 
-      &lt;void:dataDump rdf:resource="http://example.org/data/product_categories.rdf.gz"/&gt; 
-      &lt;void:uriPattern&gt;^http://example.com/products/$&lt;/void:uriPattern&gt; 
-    &lt;/void:Dataset&gt; 
-  &lt;/rdf:RDF&gt;</code>
-
-</pre>      
-			 
 			<h2>
 				<a id="Consuming_voiD" name="Consuming_voiD"></a> 5. Consuming voiD descriptions
 			</h2>
@@ -1642,11 +1574,6 @@ See also <a href="examples/ex6.sparql" title="example query 6">example query 6</
 		<a name="ref-DCMI-typevoc" id="ref-DCMI-typevoc"></a>[DCMI type voc]
 	</dt>
 	<dd><a href="http://dublincore.org/documents/2008/01/14/dcmi-type-vocabulary/"><cite>DCMI Type Vocabulary</cite></a>, January 2008. URI: http://dublincore.org/documents/2008/01/14/dcmi-type-vocabulary/
-	</dd>
-	<dt>
-		<a name="ref-RFC2119" id="ref-RFC2119"></a>[RFC2119]
-	</dt>
-	<dd><a href="http://www.rfc-editor.org/rfc/rfc2119.txt"><cite>Key words for use in RFCs to indicate requirement levels</cite></a>, RFC 2119, S. Bradner, March 1997. URI: http://www.rfc-editor.org/rfc/rfc2119.txt
 	</dd>
 	<dt>
 		<a name="ref-rdfconcepts" id="ref-rdfconcepts"></a>[RDF Concepts]
