@@ -224,8 +224,10 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
   <p>
     This allows us to quickly mint new identifiers in the local namespace: <code>:MyDataset</code>, <code>:DBpedia</code> and so on. For further information about publishing and deploying voiD descriptions see section <a href="#Publishing_voiD" >4. Publishing voiD descriptions of datasets</a>.</p>
 
-	<p><em>Note: Feedback on this document should be sent to <strong>void-rdfs-internals[AT]googlegroups.com</strong>.</em> (@@@ Replace with void-discuss link)</p>
+	<p><em>Note: Feedback on this document should be sent to <strong>void-rdfs-internals[AT]googlegroups.com</strong>.</em></p>
 	
+  <p class="todo">TODO: Replace this with a link to void-discuss</p>
+
   <h2>
     <a id="Datasets_and_Linksets" name="Datasets_and_Linksets"></a> Datasets and Linksets
   </h2>
@@ -249,25 +251,23 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 	<h2>
 		<a id="Describing_Datasets" name="Describing_Datasets"></a> 1. Describing Datasets
 	</h2>
-  <p class="todo">TODO: This section should perhaps be somewhat consolidated with 4.1.</p>
 
 	<p>
-		The basic functionality that voiD offers is describing a <em>dataset</em> (see <a href="#defintion_dataset">definition</a>). A dataset is described by an instance of the <code>void:Dataset</code> class.
+		The main purpose of voiD is to describe <em>datasets</em> (see <a href="#defintion_dataset">definition</a>). This is achieved by typing an RDF resource as an instance of the <code>void:Dataset</code> class. A single instance of <code>void:Dataset</code> is a proxy for an entire dataset. Hence, statements made about the <code>void:Dataset</code> resource are thought to apply to the entire dataset and all its triples.
   </p>
 
-	<p>	
-		In the following we describe the most common cases for using voiD along with reusing terms from other, widely deployed vocabularies such as <a href="http://dublincore.org/documents/dcmi-terms/">Dublin Core</a> or <a href="http://xmlns.com/foaf/spec/">FOAF</a>.
+  <p>
+    The following example declares the resource <code>:DBpedia</code> as a <code>void:Dataset</code>. The resource is intended as a proxy for the well-known <a href="http://dbpedia.org/" title="DBpedia">DBpedia</a> dataset. We will later add additional statements to unambigously make clear that we intend to denote the DBpedia dataset.
   </p>
+
+  <pre>:DBpedia a void:Dataset .</pre>
 
 		<h3>
 			<a id="General_Dataset_Metadata" name="General_Dataset_Metadata"></a>1.1 General Dataset Metadata 
 		</h3>
-		<p>Let us assume that we are describing a well-known linked dataset, <a href="http://dbpedia.org/" title="DBpedia">DBpedia</a>. We will first mint an identifier, and type it as a <code>void:Dataset</code>:</p>
-		<pre>
-	        <code>
-    :DBpedia a void:Dataset .</code>
-		</pre>
-		<p>Next, we will add some basic information about the dataset: its <b>name</b>, a short <b>description</b>, its <b>homepage</b>, and links to some <b>example resources</b> that give a quick impression of the kind of data available in the dataset. This can be considered the most basic information that should be provided in any voiD description.</p>
+
+		<p>First, we will add some basic information about the dataset: its <b>name</b>, a short <b>description</b>, its <b>homepage</b>, and links to some <b>example resources</b> that give a quick impression of the kind of data available in the dataset. This can be considered the most basic information that should be provided in any voiD description.</p>
+
 			<pre>
 				<code> 
     :DBpedia a void:Dataset ;
@@ -279,7 +279,7 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
              void:exampleResource &lt;http://dbpedia.org/resource/Ludwig_van_Beethoven&gt; .</code>
 				</pre>
 			
-					<p>Additional metadata can be provided. <a href="#tab-general-metadata">[Table 1]</a> below lists some RDF properties that are especially useful and recommended, many from the <a href="http://dublincore.org/documents/dcmi-terms/" title="Dublin Core Metadata Terms">Dublin Core Metadata Terms</a>. Other properties can also be used, if not listed here.</p>
+					<p>Additional metadata can be provided. <a href="#tab-general-metadata">[Table 1]</a> below lists some RDF properties that are especially useful and recommended, many from the <a href="http://dublincore.org/documents/dcmi-terms/" title="Dublin Core Metadata Terms">Dublin Core Metadata Terms</a>. Due to the inherently extensible design of RDF, any other property not listed here can of course also be used.</p>
 			
 			<a name="tab-general-metadata" id="tab-general-metadata"></a>
 			   <div style="text-align:center;">
