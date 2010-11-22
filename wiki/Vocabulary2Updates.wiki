@@ -63,14 +63,14 @@ void:property a rdf:Property, owl:FunctionalProperty;
 void:classPartition a rdf:Property;
     rdfs:label "Class Partition"@en;
     rdfs:comment "Links a dataset to a class-based partition of the dataset. The class-based partition is a subset that describes only entities of a single class."@en;
-    rdfs:subPropertyOf void:Dataset;
+    rdfs:subPropertyOf void:subset;
     rdfs:domain void:Dataset;
     rdfs:range void:Dataset;
     .
 void:propertyPartition a rdf:Property;
     rdfs:label "Property Partition"@en;
     rdfs:comment "Links a dataset to a property-based partition of the dataset. The property-based partition is a subset that contains only triples having a single property."@en;
-    rdfs:subPropertyOf void:Dataset;
+    rdfs:subPropertyOf void:subset;
     rdfs:domain void:Dataset;
     rdfs:range void:Dataset;
     .
