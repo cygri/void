@@ -256,6 +256,7 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
     @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
     @prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
     @prefix dcterms: &lt;http://purl.org/dc/terms/&gt; .
+    @prefix wv: &lt;http://vocab.org/waiver/terms/norms&gt; .        
     @prefix dbp: &lt;http://dbpedia.org/property/&gt; .
     @prefix void: &lt;http://rdfs.org/ns/void#&gt; .</code>
     </pre>
@@ -468,7 +469,8 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 			 It is very important that publishers make explicit the terms under which the dataset can be used. 
 			</p>
 			
-			
+ <p><em>Note: Licensing of datasets is a complex issue. Datasets are collections of facts rather than creative works, and different laws apply. Most licenses such as Creative Commons or the GPL are based on copyright and are designed to protect creative works, but not databases, and applying them to datasets might not have the desired legal result. Meanwhile, efforts such as <a href="http://www.opendatacommons.org/" title="Open Data Commons">Open Data Commons</a>, <a href="http://sciencecommons.org/" title="Science Commons">Science Commons</a> and <a href="http://sciencecommons.org/projects/healthcommons/" title="Health Commons">Health Commons</a> are developing dedicated licenses for data, and the <a href="http://www.opendoar.org/tools/en/policies.php" title="OpenDOAR">OpenDOAR</a> project provides tools allowing open-access digital repositories to create customised policies.</em></p> 
+ 				
 			<p>The <code title="http://purl.org/dc/terms/license">dcterms:license</code> property SHOULD be used to to point to the license under which a dataset has been published. </p> 
 			
 			<p>
@@ -503,16 +505,18 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 			
 	
  <p>
-   While a publisher may want to facilitate reuse of their data with a very liberal rights statement, they may still wish to point to some "community norms". Norms are non-binding conditions of use that publishers would like to encourage the users of their data to adopt. This can be done with the <a href="http://vocab.org/waiver/terms/norms">waiver:norms</a> property.
+   While a publisher may want to facilitate reuse of their data with a very liberal rights statement, they may still wish to point to some <em>community norms</em>. Norms are non-binding conditions of use that publishers would like to encourage the users of their data to adopt. This can be done with the <code><a href="http://vocab.org/waiver/terms/norms">waiver:norms</a></code> property.
  </p>
  
- <p>This example states that the Example dataset is published under the terms of the Open Data Commons Public Domain  Dedication and License, and that users are encouraged (but not legally bound) to "Sharealike" any derivative datasets that they create.</p>
+ <p>
+    A common community norm is <a href="http://www.opendatacommons.org/norms/odc-by-sa/">http://www.opendatacommons.org/norms/odc-by-sa/</a>. In brief, it asks that changes and updates to the dataset are made public too, that credit is given, that the source of the data is linked, that open formats are used, and that no DRM is applied.
+ </p>
+
+ <p>The following example states that the Example dataset is published under the terms of the Open Data Commons Public Domain  Dedication and License, and that users are encouraged (but not legally bound) to follow the community norms mentioned above.</p>
  
  <pre>
     <code>
-@prefix wv: &lt;http://vocab.org/waiver/terms/norms&gt; .        
-:Example 
-    a void:Dataset ;
+:Example a void:Dataset ;
     dcterms:license &lt;http://www.opendatacommons.org/odc-public-domain-dedication-and-licence/&gt; ;
     wv:norms &lt;http://www.opendatacommons.org/norms/odc-by-sa/&gt; ;
     wv:waiver """To the extent possible under law, The Example Organisation has waived all
@@ -520,11 +524,6 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
     </code>
  </pre>
  
- <p>
-    A common norm is <a href="http://www.opendatacommons.org/norms/odc-by-sa/">http://www.opendatacommons.org/norms/odc-by-sa/</a>.
- </p>
- <p><em>Note: Licensing of datasets is a complex issue. Datasets are collections of facts rather than creative works, and different laws apply. Most licenses such as Creative Commons or the GPL are based on copyright and are designed to protect creative works, but not databases, and applying them to datasets might not have the desired legal result. Meanwhile, efforts such as <a href="http://www.opendatacommons.org/" title="Open Data Commons">Open Data Commons</a>, <a href="http://sciencecommons.org/" title="Science Commons">Science Commons</a> and <a href="http://sciencecommons.org/projects/healthcommons/" title="Health Commons">Health Commons</a> are developing dedicated licenses for data, and the <a href="http://www.opendoar.org/tools/en/policies.php" title="OpenDOAR">OpenDOAR</a> project provides tools allowing open-access digital repositories to create customised policies.</em></p> 
- 				
 	
 						
 <h3><a id="Partitioning_Datasets" name="Partitioning_Datasets"></a>1.4 Describing partitioned datasets</h3>
