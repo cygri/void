@@ -101,6 +101,9 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
 					<li>
 						<a href="#SPARQL_SD" >1.10 Using voiD wtih the SPARQL Service Description Vocabulary</a>
 					</li>
+					<li>
+						<a href="#root-resource" >1.11 Root resources</a>
+					</li>
 				</ul>
 			</li>
 			<li>
@@ -804,6 +807,24 @@ Note: For your convenience,  there is also a <a href="">PDF version of the voiD 
         ];
     ];
     .</pre>
+
+
+<h3>
+  <a id="root-resource" name="root-resource"></a>1.11 Root resources
+</h3>
+
+<p>Many datasets are structured in a tree-like fashion, with one or a few natural “top concepts” or “entry points”, and all other entities reachable from these root resources in a small number of steps.</p>
+
+<p>One or more such root resources can be named using the <code>void:rootResource</code> property. Naming a resource as a root resource implies:</p>
+
+<ol>
+<li>that it is a central entity of particular importance in the dataset; and</li>
+<li>that the entire dataset can be crawled by resolving the root resource(s) and recursively following links to other URIs in the retrieved RDF responses.</li>
+</ol>
+
+<p>Root resources make good entry points for crawling an RDF dataset.</p>
+
+<p>This property is similar to <code>void:exampleResource</code>. While <code>void:exampleResource</code> names particularly representative or typical resources in the dataset, <code>void:rootResource</code> names particularly important or central resources that make good entry points for navigating the dataset.</p>
 
 
 			<h2>
