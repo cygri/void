@@ -104,7 +104,6 @@ th, td { border: 1px solid #888; margin: 0; padding: 0.3em 0.5em; }
       <li><a href="#target">5.1 Naming a linkset's two target datasets</a></li>
       <li><a href="#linkset-subset">5.2 Linksets as part of larger datasets</a></li>
       <li><a href="#link-predicate">5.3 Stating the link predicate of a linkset</a></li>
-      <li><a href="#linkset-examples">5.4 Linkset examples</a></li>
     </ol>
   </li>
   <li>
@@ -767,7 +766,7 @@ th, td { border: 1px solid #888; margin: 0; padding: 0.3em 0.5em; }
 
 <p>The structure of a typical linkset description is illustrated below: It expresses that the DBpedia dataset contains a subset of <code>owl:sameAs</code> links that connect resources in DBpedia to resources in Geonames.</p>
 
-<p class="image"><img src="img/EXAMPLE_classic_non-directed_with-link-predicate.png" alt="RDF graph of a typical linkset description" /></p>
+<p class="image"><img src="img/linkset.png" alt="RDF graph of a typical linkset description" /></p>
 
 
 <h3 id="target">5.1 Naming a linkset's two target datasets</h3>
@@ -828,94 +827,6 @@ th, td { border: 1px solid #888; margin: 0; padding: 0.3em 0.5em; }
     void:target :D2;
     .</pre>
 
-
-<h3 id="linkset-examples">5.4 Linkset examples</h3>
-
-<p class="todo">TODO: Which of those do we still need? Fold them into the subsections above!</p>
-
-<p>The following figure exemplifies the concept of a linkset. It states that the dataset <code>DS1</code> contains 3000 links of type <code>owl:sameAs</code> that connect resources in dataset <code>DS1</code> to resources in another dataset <code>DS2</code>:</p>
-			
-			 <div style="text-align:center;">
-				<img src="img/void-linkset-conceptual.png" style="width: 600px;" alt="concept of a voiD linkset" />
-			</div>			
-			
-			<p>The simplest interlinking case (the <b>classic LOD</b> case), found in many of the current LOD clouds, is, that two datasets are interlinked and one of the datasets actually hosts the interlinking triples. Let us assume we want to model the interlinking we find in DBpedia regarding to its links to DBLP in voiD:</p>   
-<pre>
-	<code>
-    :DBpedia void:subset :DBpedia2DBLP .  
-
-    :DBpedia2DBLP rdf:type void:Linkset ;
-                  void:target :DBpedia ;
-                  void:target :DBLP .</code>
-
-</pre>  
-<p>
-	The above example basically states that DBpedia and DBLP are interlinked and that these links are contained in the DBpedia dataset. The according RDF graph would then render as follows:
-</p>
- <div style="text-align:center;">
-	<img src="img/EXAMPLE_classic_non-directed.png" style="width: 600px;" alt="example interlinking for the classic LOD, non-directed case" />
-</div>
-<p>
-	Further, there may be cases where a third dataset contains the data that talks about the interlinking between two datasets (<b>3rd-party</b> case). Let us assume a provider keeping track of the interlinking between DBpedia and DBLP (maybe offering some more detailed information, such as statistics, etc.) wants to express this using voiD:
-</p>
-<pre>
- <code>
-    :DBpedia2DBLP rdf:type void:Linkset ;  
-                  void:target :DBpedia ;  
-                  void:target :DBLP .</code>
-
-</pre>  
-<p> The above example states that DBpedia and DBLP are interlinked (but not necessarily asserted by either DBpedia or DBLP). The RDF graph for this example is:</p> 
-			 
-<div style="text-align:center;">
-<img src="img/EXAMPLE_3rdparty_non-directed.png" style="width: 600px;" alt="example interlinking for the 3rd-party, non-directed case" />
-</div>
-
-			<p>Depending on the type of interlinking, one may be interested in stating the direction of the interlinking.</p> 
-			<p> 
-			In the <b>non-directed</b> case you can simply use <code>void:target</code>:</p> 
-<pre>
- <code>
-    :DBpedia void:subset :DBpedia2Geonames .  
-
-    :DBpedia2Geonames a void:Linkset ; 
-                       void:target :DBpedia ;
-                       void:target :Geonames .</code>
-
-</pre>  
-<p>The voiD snippet above basically states that there are links between DBpedia and Geonames and that these links are contained in the DBpedia dataset, which can also be seen in the RDF graph below:</p> 
-			 
- <div style="text-align:center;">
-	<img src="img/EXAMPLE_classic_non-directed_with-link-predicate.png" style="width: 600px;" alt="example interlinking for the classic LOD, non-directed case with a link predicate" />
-	</div>
-			<p>In the <b>directed</b> case (for example with <code>foaf:based_near</code>) you would use <code>void:subjectsTarget</code> and <code>void:objectsTarget</code> to state the direction of the interlinking:</p> 
-<pre>
- <code>
-    :Jamendo void:subset :Jamendo2Geonames .  
-
-    :Jamendo2Geonames a void:Linkset ;  
-                      void:subjectsTarget :Jamendo ;  
-                      void:objectsTarget :Geonames .</code>
-
-</pre>  
-<p>The above snippet basically states that there are links <strong>from</strong> Jamendo <strong>to</strong> Geonames and that these links are contained in the Jamendo dataset (see also the RDF graph in the following).</p> 
- <div style="text-align:center;">
-	<img src="img/EXAMPLE_classic_directed_with-link-predicate.png" style="width: 600px;" alt="example interlinking for the classic LOD, directed case with a link predicate" />
-	</div>
-			<p>
-			The directed case may of course as well play together with the 3rd-party interlinking such as in the following example where some dataset contains information about the interlinking between Jamendo and Geonames:</p> 
-			<pre>
-				<code>
-    :Jamendo2Geonames a void:Linkset ;  
-                      void:subjectsTarget :Jamendo ;  
-                      void:objectsTarget :Geonames .</code>
-
-</pre>  
-<p>So, some provider states that Jamendo and Geonames are linked, but not necessarily asserted by either Jamendo or Geonames; the respective RDF graph for the above example is:</p> 
- <div style="text-align:center;">
-	<img src="img/EXAMPLE_3rdparty_directed_with-link-predicate.png" style="width: 600px;" alt="example interlinking for the 3rd-party, directed case with a link predicate" />
- </div>
-	
 
 <h2 id="deploying">6. Deploying voiD descriptions</h2>
 
