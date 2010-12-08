@@ -1,0 +1,82 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix scovo: <http://purl.org/NET/scovo#> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix ex: <http://example.com/void/datasets/> .
+@prefix : <#> .
+
+<> a void:DatasetDescription ;
+   dcterms:title "An example voiD file" ;
+   foaf:primaryTopic :Dbpedia 
+
+:DBpedia	a void:Dataset ;
+			dcterms:title "DBPedia" ;
+			dcterms:description "RDF data extracted from Wikipedia" ;
+			dcterms:license <http://www.gnu.org/copyleft/fdl.html> ;
+			foaf:homepage <http://dbpedia.org/> ;
+			void:exampleResource <http://dbpedia.org/resource/Berlin> ;
+			void:exampleResource <http://dbpedia.org/resource/Physics> ;
+			void:exampleResource <http://dbpedia.org/resource/Ludwig_van_Beethoven> ;
+			dcterms:source <http://dbpedia.org/resource/Wikipedia> ;
+			dcterms:modified "2008-11-17"^^xsd:date ;
+			void:feature :RDFXML ;
+			void:sparqlEndpoint <http://dbpedia.org/sparql> ;
+			void:subset :DBpedia2DBLP ;
+			void:subset :DBpedia2Geonames .
+
+ex:DBpedia	a void:Dataset ;
+			dcterms:title "DBPedia: Wikipedia as Linked Data" ;
+			foaf:homepage <http://dbpedia.org/> ;
+			dcterms:contributor :FU_Berlin ;
+			dcterms:contributor :University_Leipzig ;
+			dcterms:contributor :OpenLink_Software ;
+			dcterms:contributor :DBpedia_community .
+			
+	
+
+:FU_Berlin	a foaf:Organization ;
+			rdfs:label "Freie Universität Berlin" ;
+			foaf:homepage <http://www.fu-berlin.de/> .
+			
+<http://dbpedia.org/data/Berlin> dcterms:isPartOf :DBpedia .
+
+:RDFXML	a void:TechnicalFeature;
+		rdfs:label "RDF/XML" ;
+		rdfs:comment "Available as linked data in RDF/XML format" ;
+		dcterms:format "application/rdf+xml" . 
+
+:DBLP	a void:Dataset;
+		dcterms:subject <http://dbpedia.org/resource/Computer_science> ;
+		dcterms:subject <http://dbpedia.org/resource/Journal> ;
+		dcterms:subject <http://dbpedia.org/resource/Proceedings> .
+
+:Geonames	a void:Dataset;
+			dcterms:subject <http://dbpedia.org/resource/Location> .
+
+:Bio2RDF	a void:Dataset ;
+			foaf:homepage <http://bio2rdf.org/> ;
+			dcterms:subject <http://purl.uniprot.org/core/Gene> .
+
+:Jamendo	a void:Dataset ;
+			void:subset :Jamendo2Geonames .
+
+# INTERLINKING
+
+:DBpedia2DBLP	a void:Linkset ;
+				void:target :DBpedia ;
+				void:target :DBLP .
+
+:DBpedia2Geonames	a void:Linkset ;
+					void:linkPredicate owl:sameAs ;
+					void:target :DBpedia ;
+					void:target :Geonames .
+
+:Jamendo2Geonames	a void:Linkset ;
+					void:linkPredicate foaf:based_near ;
+					void:subjectsTarget :Jamendo ;
+					void:objectsTarget :Geonames .
+					
