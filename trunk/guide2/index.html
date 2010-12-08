@@ -349,8 +349,6 @@ th, td { border: 1px solid #888; margin: 0; padding: 0.3em 0.5em; }
 
 <p><em>Note: Licensing of datasets is a complex issue. Datasets are collections of facts rather than creative works, and different laws apply. Most licenses such as Creative Commons or the GPL are based on copyright and are designed to protect creative works, but not databases, and applying them to datasets might not have the desired legal result. Meanwhile, efforts such as <a href="http://www.opendatacommons.org/" title="Open Data Commons">Open Data Commons</a>, <a href="http://sciencecommons.org/" title="Science Commons">Science Commons</a> and <a href="http://sciencecommons.org/projects/healthcommons/" title="Health Commons">Health Commons</a> are developing dedicated licenses for data, and the <a href="http://www.opendoar.org/tools/en/policies.php" title="OpenDOAR">OpenDOAR</a> project provides tools allowing open-access digital repositories to create customised policies.</em></p> 
  
-<p class="todo">TODO: The note above should be shortened</p>
-
 
 <h3 id="subject">2.4 Categorizing datasets by subject</h3>
 
@@ -935,19 +933,15 @@ th, td { border: 1px solid #888; margin: 0; padding: 0.3em 0.5em; }
 
 <h3 id="void-file">6.2 Publishing a voiD file alongside a dataset</h3>
 
-<p>We encourage publishers to provide a description of their datasets by publishing a voiD file on the web along with the dataset.</p>
+<p>Publishers are encouraged to provide descriptions of their datasets by publishing a voiD file on the web along with the dataset.</p>
 
-<p>Publishing a voiD file means to physically deploy it on the Web in an RDF serialisation. When deploying a voiD file one has basically three options:</p>
+<p>Popular options for publishing a voiD description alongside a dataset include:</p>
 
 <ol>
-    <li>Deploy it using Turtle RDF syntax <a href="#ref-turtle">[Turtle]</a> in a file called <code>void.ttl</code>and make it accessible by assign an URI. <b>Pro</b>: easily readable by humans. <b>Con</b>: current parser support not overly well; higher costs of setup when accessing.</li>
-    <li>Deploy it using RDF/XML syntax <a href="#ref-rdfxml">[RDF/XML]</a> in a file called <code>void.rdf</code> and make it accessible by assign an URI. <b>Pro</b>: wide parser support. <b>Con</b>: awkward syntax.</li>
-    <li>Deploy it using XHTML+RDFa syntax <a href="#ref-rdfa">[RDFa]</a> in the homepage of the dataset. <b>Pro</b>: can be directly embedded into the web page that describes the dataset hence does not require the publisher to maintain a separate voiD file. <b>Con</b>: weak current parser support (incl. SPARQL consumption).</li>
+    <li>Placing a Turtle file named <code>void.ttl</code> in the root directory of the site, with a local “hash URI” for the dataset, yielding a dataset URI such as <code>http://example.com/void.ttl#MyDataset</code>.</li>
+    <li>Using the root URI of the site, such as <code>http://example.com/</code>, as the dataset URI, and serving both HTML and an RDF format via content negotiation from that URI (see <a href="http://www.w3.org/TR/cooluris/"><em>Cool URIs for the Semantic Web</em></a> [COOL] for a more detailed description of this publishing approach).</li>
+    <li>Embedding the voiD description as HTML+RDFa markup into the homepage of the dataset, with a local “hash URI” for the dataset, yielding a dataset URI such as <code>http://example.com/#MyDataset</code></li>
 </ol>
-
-<p><em>Note: We have not decided on the canonical deployment format, yet. For the casual user, Turtle may seem to be the best option currently, but implementers are free to choose their deployment format as fit with their infrastructure. We explicitly solicit feedback on this issue!</em></p>
-
-<p class="todo">TODO: We should improve the preceding advice.</p>
 
 <p>voiD authors are encouraged to provide metadata for their voiD files.
   This can be done by adding a document metadata block to the voiD file.
