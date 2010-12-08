@@ -38,10 +38,10 @@ th, td { border: 1px solid #888; margin: 0; padding: 0.3em 0.5em; }
 
     <dt>Authors:</dt>
     <dd>
-        <a href="http://semanticweb.org/wiki/Keith_Alexander">Keith Alexander</a> (Talis) <br/> 
-        <a href="http://semanticweb.org/wiki/Richard_Cyganiak">Richard Cyganiak</a> (DERI, National University of Ireland, Galway) <br/> 
-        <a href="http://semanticweb.org/wiki/Michael_Hausenblas">Michael Hausenblas</a> (DERI, National University of Ireland, Galway) <br/> 
-        <a href="http://semanticweb.org/wiki/Jun_Zhao">Jun Zhao</a> (University of Oxford) <br/>
+        <a href="http://keithalexander.co.uk/">Keith Alexander</a> (Talis) <br/> 
+        <a href="http://richard.cyganiak.de/">Richard Cyganiak</a> (DERI, National University of Ireland, Galway) <br/> 
+        <a href="http://sw-app.org/mic.xhtml">Michael Hausenblas</a> (DERI, National University of Ireland, Galway) <br/> 
+        <a href="http://users.ox.ac.uk/~zool0770/">Jun Zhao</a> (University of Oxford) <br/>
     </dd>
 </dl>
 
@@ -228,7 +228,7 @@ th, td { border: 1px solid #888; margin: 0; padding: 0.3em 0.5em; }
 
 <p>It is expected that the homepage linked to in fact talks about the dataset described.</p>
 
-<p>As <code>foaf:homepage</code> is an Inverse Functional Property (<a href="http://esw.w3.org/topic/InverseFunctionalProperty" title="Inverse Functional Property">IFP</a>), different descriptions of a dataset provided in different places on the Web can be automatically connected or “smushed” if they use the same homepage URI. To avoid inappropriate “smushing”, one should not use related pages that are not specifically about the dataset, such as the funding project's homepage or publishing organisation's homepage, as the value of <code>foaf:homepage</code>.</p>
+<p>As <code>foaf:homepage</code> is an Inverse Functional Property (<a href="http://www.w3.org/TR/2009/REC-owl2-primer-20091027/#a_InverseFunctionalObjectProperty" title="Inverse Functional Property">IFP</a>), different descriptions of a dataset provided in different places on the Web can be automatically connected or “smushed” if they use the same homepage URI. To avoid inappropriate “smushing”, one should not use related pages that are not specifically about the dataset, such as the funding project's homepage or publishing organisation's homepage, as the value of <code>foaf:homepage</code>.</p>
 
 <p>Additional web pages with relevant information that can not be considered the homepage of the dataset can be linked with <code>foaf:page</code>:</p>
 
@@ -358,7 +358,7 @@ th, td { border: 1px solid #888; margin: 0; padding: 0.3em 0.5em; }
 
 <p>For the general case, we recommend the use of a DBpedia resource URI (<code>http://dbpedia.org/resource/XXX</code>) to categorise a dataset, where XXX stands for the thing which best describes the main topic of what the dataset is about.</p> 
 
-<p>Two examples are given below. <a href="http://www4.wiwiss.fu-berlin.de/dblp/all" title="DBLP">DBLP</a> is a computer science bibliography database, and <a href="http://sws.geonames.org/" title="Geonames">Geonames</a> offers data about places. We define this in voiD:</p>
+<p>Two examples are given below. <a href="http://www4.wiwiss.fu-berlin.de/dblp/" title="DBLP">DBLP</a> is a computer science bibliography database, and <a href="http://sws.geonames.org/" title="Geonames">Geonames</a> offers data about places. We define this in voiD:</p>
 
 <pre class="turtle">:DBLP a void:Dataset; 
     dcterms:subject &lt;http://dbpedia.org/resource/Computer_science&gt;;
@@ -617,7 +617,7 @@ th, td { border: 1px solid #888; margin: 0; padding: 0.3em 0.5em; }
   <li>Parts can be downloaded separately in different RDF dumps (different <code>void:dataDump</code>)</li>
 </ul>
 
-<p>The last example is expressed in the following snippet, which expresses the fact that parts of the DBpedia dataset can be downloaded <a href="http://wiki.dbpedia.org/Downloads">as separate RDF dumps</a>:</p>
+<p>The last example is expressed in the following snippet, which expresses the fact that parts of the DBpedia dataset can be downloaded as separate RDF dumps:</p>
 
 <pre class="turtle">:DBpedia a void:Dataset;
     void:subset :DBpedia_shortabstracts;
