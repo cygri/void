@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="http://www.w3.org/StyleSheets/TR/W3C-ED.css" />
     <style type="text/css">
 h2 { font-size: 160%; margin: 1.8em 0 0.4em; }
+.head h2 { font-size: 140%; margin: 0.5em 0 0.83em; }
 h3 { font-size: 120%; margin: 1.8em 0 0.4em; }
 pre { background: #d0ddee; padding: 1.3em 2em; margin-left: 0; }
 dd { margin-bottom: 1em; }
@@ -22,12 +23,11 @@ th, td { border: 1px solid #888; margin: 0; padding: 0.3em 0.5em; }
 </head>
 <body>
 
+<div class="head">
+<div><a href="http://www.w3.org/"><img height="48" width="72" alt="W3C" src="http://www.w3.org/Icons/w3c_home" /></a></div>
 
-<h1>voiD Guide 2 Draft</h1>
-
-<p class="todo">TODO: Abstract needs work. Title should probably be changed?</p>
-
-<p>voiD is a vocabulary and a set of instructions that enables the discovery and usage of linked datasets. A dataset is a collection of data, published and maintained by a single provider, available as RDF, and accessible, for example, through dereferenceable HTTP URIs or a SPARQL endpoint. Based on the <a href="http://rdfs.org/ns/void">voiD vocabulary</a> this document explains how to use voiD in a practical setup, for both data consumers and data providers.</p>
+<h1 id="title">Describing Linked Datasets with the voiD Vocabulary</h1>
+<h2 id="doctype"><em>Editor's draft</em></h2>
 
 <dl>
     <dt>This version:</dt>
@@ -44,15 +44,30 @@ th, td { border: 1px solid #888; margin: 0; padding: 0.3em 0.5em; }
         <a href="http://users.ox.ac.uk/~zool0770/">Jun Zhao</a> (University of Oxford) <br/>
     </dd>
 </dl>
-
 <p>
     <img src="img/cc-license.png" style="width: 88px;" alt="Creative Commons Attribution 3.0 License" /><br />
     <small>This document is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 License</a>.</small>
 </p>
 
-<p><em>Note: Feedback on this document should be sent to <strong>void-discussion@googlegroups.com</strong>.</em></p>
-
 <hr />
+</div>
+
+
+<h2>Abstract</h2>
+
+<p>VoiD is an RDF Schema vocabulary for expressing metadata about RDF datasets. It is intended as a bridge between the publishers and users of RDF data, with applications ranging from data discovery to cataloging and archiving of datasets. This document is a detailed guide to the voiD vocabulary. It describes how voiD can be used to express general metadata based on Dublin Core, access metadata, structural metadata, and links between datasets. It also provides deployment advice and discusses the discovery of voiD descriptions.</p>
+
+
+<h2>Status of this Document</h2>
+
+<p>This document enjoys <strong>no status whatsoever within W3C</strong>. The authors are currently preparing this document for submission to the W3C. The W3C brand and logo are only used in anticipation of this submission.</p>
+
+<p>The document will be submitted for consideration to the W3C's Semantic Web Interest Group (SWIG). After the submission and a public feedback period, the SWIG will possibly publish this document as a W3C Note.</p>
+
+<p>A first version of this document was published by the authors in 2008. This is an extended and improved version, based on community feedback received since the publication of the first version.</p>
+
+<p class="todo"><em>Feedback on this document should be submitted to the <a href="http://code.google.com/p/void-impl/issues/list?q=product=vocab">voiD issue tracker</a> or sent to <a href="http://groups.google.com/group/void-discussion">void-discussion@googlegroups.com</a>.</em></p>
+
 
 <h2 id="toc">Table of Contents</h2>
 
@@ -137,11 +152,18 @@ th, td { border: 1px solid #888; margin: 0; padding: 0.3em 0.5em; }
 
 <h2 id="introduction">1. Introduction</h2>
 
-<p class="todo">TODO: Intro needs work</p>
+<p>The Vocabulary of Interlinked Datasets (voiD) is concerned with <em>metadata about RDF datasets</em>. It is an RDF Schema vocabulary that provides terms and patterns for describing RDF datasets, and is intended as a bridge between the publishers and users of RDF data. VoiD descriptions can be used in many situations, ranging from data discovery to cataloging and archiving of datasets, but most importantly it helps users find the right data for their tasks.</p>
 
-<p>The Web of Data aims at providing technologies to support tasks that are tedious, time-consuming or otherwise non-human-friendly. Two technologies form the base of the Web of Data, namely URIs and RDF. URIs enable the worldwide, universal addressing of entities (such as people, events, places, genes, etc.); RDF provides a common data model that defines how to express properties and relations between these entities. Such RDF descriptions of entities can be published by anyone in a distributed manner onto the Web. Still, finding the right data for the right task is not always easy <a href="#ref-nodmag4-discovery">[WOD Discovery]</a>.</p>
+<p>VoiD covers four areas of metadata:</p>
 
-<p>The Vocabulary of Interlinked Datasets (voiD) therefore aims to provide a vocabulary to bridge data publishers and data users, so that users can find the right data for their tasks more easily using the voiD description about a linked dataset. With discovery of datasets we mean the identification of datasets given certain attributes, trying to answer the question: <i>given a set of attributes, which available datasets match the criteria, and how can I access them?</i></p>
+<ul>
+    <li><a href="#metadata">General metadata</a> following the Dublin Core model.</li>
+    <li><a href="#access">Access metadata</a> describes how RDF data can be accessed using various protocols.</li>
+    <li><a href="#structural">Structural metadata</a> describes the structure and schema of datasets and is useful for tasks such as querying and data integration.</li>
+    <li><a href="#describing-linksets">Description of links between datasets</a> are helpful for understanding how multiple datasets are related and can be used together.</li>
+</ul>
+
+<p><a href="#deploying">Deployment</a> and <a href="#discovery">discovery</a> of voiD descriptions is discussed as well.</p>
 
 
 <h3 id="scope">1.1 Scope</h3>
