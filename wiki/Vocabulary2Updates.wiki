@@ -84,3 +84,23 @@ void:statItem a owl:DeprecatedProperty .
 # void:numberOfDistinctSubjects
 # void:numberOfDistinctObjects
 }}}
+
+=== void:rootResource ===
+
+{{{
+void:rootResource a rdf:Property;
+    rdfs:label "Root Resource";
+    rdfs:comment "A resource of particular importance in a dataset. All resources in a dataset can be reached by following links from its root resources in a small number of steps.";
+    rdfs:domain void:Dataset;
+    .
+}}}
+
+=== void:uriSpace ===
+
+{{{
+void:uriSpace a rdf:Property;
+   rdfs:label "URI Space";
+   rdfs:comment "@@@";
+   rdfs:domain void:Dataset;
+   .
+}}}
