@@ -566,23 +566,42 @@ th, td { border: 1px solid #888; margin: 0; padding: 0.3em 0.5em; }
 
 <h3 id="pattern">4.2 Patterns for resource URIs</h3>
 
-<p class="todo">TODO: A simpler alternative, <code>void:uriSpace</code>, is under discussion. This is <a href="http://code.google.com/p/void-impl/issues/detail?id=75">Issue 75</a>.</p>
+<p>Often, the entities described in a dataset share URIs of a common form. For example, all DBpedia entity URIs start with <code>http://dbpedia.org/resource/</code>.</p>
 
-<p>The <code>void:uriRegexPattern</code> property can be used to express a regular expression pattern that matches the URIs of some resources that are described in the dataset. The pattern should use the same regular expression syntax as SPARQL, which uses the syntax definition of <a href="http://www.w3.org/TR/xmlschema-2/#regexs" title="The Regular Expression syntax defined by XML Schema Part 2">XML Schema 2: Regular Expressions</a>. The regular expression must match anywhere in the URI. It is a good practice to anchor the regular expression with a <code>^</code> in the beginning, and to escape dots with a backslash.</p>
+<p>The <code>void:uriSpace</code> property can be used to state that all entity URIs in a dataset start with a given string. In other words, they share a common “URI namespace”:</p>
 
-<p>An example of using <code>void:uriRegexPattern</code> looks like the following:</p>
-
-<pre class="turtle">&lt;http://acm.rkbexplorer.com/id/void&gt; a void:Dataset;
-    void:uriRegexPattern "^http://acm\\.rkbexplorer\\.com/id/";
+<pre class="turtle">:DBpedia a void:Dataset;
+    void:uriSpace &lt;http://dbpedia.org/resource/&gt;;
     .</pre>
 
-<p>This states that the dataset contains descriptions of entities whose URIs start with <code>http://acm.rkbexplorer.com/id/</code> (and possibly of other entities).</p>
+<p>In cases where a simple string prefix match is insufficient, the <code>void:uriRegexPattern</code> property can be used. It expresses a regular expression pattern that matches the URIs of the dataset's entities.</p>
+
+<p>The pattern should use the same regular expression syntax as SPARQL, which uses the syntax definition of <a href="http://www.w3.org/TR/xmlschema-2/#regexs" title="The Regular Expression syntax defined by XML Schema Part 2">XML Schema 2: Regular Expressions</a> [<a href="#ref-XS-REGEX">XS-REGEX</a>]. The regular expression must match somewhere in the URI. It is a good practice to anchor the regular expression with a <code>^</code> in the beginning, and to escape dots with a backslash.</p>
+
+<p>A simple example of using <code>void:uriRegexPattern</code>, equivalent to the <code>void:uriSpace</code> example above:</p>
+
+<pre class="turtle">:DBpedia a void:Dataset;
+    void:uriRegexPattern "^http://dbpedia\\.org/resource/";
+    .</pre>
+
+<p><em>Note: Unlike <code>void:uriSpace</code>, the value of <code>void:uriRegexPattern</code> is a literal and not a URI.</em></p>
 
 <p><em>Note: In the Turtle syntax, any backslashes in literals have to be escaped with another backslash. This is why the example above contains double backslashes. In RDF/XML, the same literal would be written as:</em></p>
 
-<pre class="rdfxml-fragment">&lt;void:uriRegexPattern&gt;^http://acm\.rkbexplorer\.com/id/&lt;/void:uriRegexPattern&gt;.</pre>
+<pre class="rdfxml-fragment">&lt;void:uriRegexPattern&gt;^http://dbpedia\.org/resource/&lt;/void:uriRegexPattern&gt;</pre>
 
+<p>A more complex example follows:</p>
 
+<pre class="turtle">:DBpediaTurtleFiles a void:Dataset;
+    void:uriRegexPattern "^http://dbpedia\.org/(.+)\.ttl$";
+    void:feature &lt;http://www.w3.org/ns/formats/Turtle&gt;
+    .</pre>
+
+<p>This defines a dataset (presumably a <a href="#subset">subset</a> of <code>:DBpedia</code>) that contains only URIs ending in <code>.ttl</code>, and states that they have Turtle representations, using <a href="#features"><code>void:feature</code></a>.</p>
+
+<p><em>Note: One can use the <code>REGEX</code> filter function of SPARQL to check whether a URI matches a <code>void:uriRegexPattern</code>. The SPARQL standard does not contain a function for comparing string prefixes, so the same cannot be safely done with <code>void:uriSpace</code> (although some SPARQL implementations support such string comparisons via extension functions). This is one advantage of <code>void:uriRegexPattern</code>. To obtain an equivalent regular expression from a <code>void:uriSpace</code> URI, prepend it with the “<code>^</code>” character and escape any of the characters “<code>.()[]+*?$</code>” with a backslash.</em></p>
+
+ 
 <h3 id="vocabularies">4.3 Vocabularies used in a dataset</h3>
 
 <p>Every RDF dataset uses one or more RDFS vocabularies or OWL ontologies. The vocabulary provides the terms (classes and properties) for expressing the data. The <code>void:vocabulary</code> property can be used to list vocabularies used in a dataset.</p>
