@@ -133,10 +133,6 @@ th, td { border: 1px solid #888; margin: 0; padding: 0.3em 0.5em; }
   </li>
   <li>
     <a href="#discovery">7. Discovering voiD descriptions</a>
-    <ol>
-      <li><a href="#discovery-links">7.1 Discovery via links in the dataset's documents</a></li>
-      <li><a href="#sitemaps">7.2 Discovery via <code>sitemap.xml</code></a></li>
-    </ol>
   </li>
   <li>
     <a href="#cheatsheet">8. Cheat Sheet</a>
@@ -996,37 +992,13 @@ th, td { border: 1px solid #888; margin: 0; padding: 0.3em 0.5em; }
 
 <h2 id="discovery">7. Discovering voiD descriptions</h2>
 
-<p class="todo">TODO: This section will see some major rework. This is <a href="http://code.google.com/p/void-impl/issues/detail?id=74">Issue 74</a>.</p>
+<p class="todo">This is <a href="http://code.google.com/p/void-impl/issues/detail?id=74">Issue 74</a>.</p>
 
-<p>This section describes approaches for discovering the voiD description of a dataset given the URI of an entity described in a dataset.</p> 
+<p>
+	<em>Note: a <a href="http://vocab.deri.ie/void/guide/2009-01-29">previous versions of voiD</a> had a discovery mechanism based on <code>robots.txt</code> and Semantic Sitemaps, which was deprecated because it was not widely adopted.</em>
+</p> 
 
-
-<h3 id="discovery-links">7.1 Discovery via links in the dataset's documents</h3>
-
-<p>For datasets that are published as a collection of RDF documents in the linked data style, the preferred mechanism of discovering an associated voiD description is the <a href="#backlinks"><code>void:inDataset</code> back-link mechanism</a>. Clients should look for a <code>void:inDataset</code> triple that links the RDF document to the dataset:</p> 
-
-<pre class="turtle">&lt;document.rdf&gt; void:inDataset &lt;void.ttl#MyDataset&gt;.</pre>
-
-
-<h3 id="sitemaps">7.2 Discovery via <code>sitemap.xml</code></h3>
-
-<p>This section describes a discovery mechanism for voiD descriptions based on <code>robots.txt</code> and <code>sitemap.xml</code>. This is useful in several situations:</p>
-
-<ul>
-    <li>Datasets where individual documents contain no back-links</li>
-    <li>Datasets that are not available as linked data</li>
-    <li>Where the client only knows the SPARQL endpoint of a dataset</li>
-    <li>For checking if a given domain contains any RDF datasets</li>
-</ul>
-
-<p>The discovery-via-sitemaps in voiD is defined as follows:</p>
-			 
-<ol>
-    <li>Given a domain name, the client gets the file <code>robots.txt</code> and searches for a line that starts with '<code>Sitemap :</code>'; the rest of that line is the URI of a sitemap. See the specifications for <a href="http://www.robotstxt.org/wc/norobots.html" title="robots.txt">robots.txt</a> and the <a href="http://www.sitemaps.org/" title="sitemap protocol">sitemap protocol</a> for more details.</li>
-    <li>The <a href="http://sw.deri.org/2007/07/sitemapextension/" title="semantic sitemaps extension">semantic sitemaps extension</a> to the sitemap protocol defines a <code>&lt;sc:dataset&gt;</code> element that can have a <code>&lt;sc:datasetURI&gt;</code> child element. The value of that element is a URI that identifies the dataset.</li>
-    <li>The dataset URI is dereferenced (as always, this might involve truncating the hash part of the URI or following an HTTP redirect). The final result of the dereferencing should be a voiD description of the dataset.</li>
-</ol>
-
+<p>From this version on, voiD defines a new discovery in a <a href="http://vocab.deri.ie/void/autodiscovery">separate document</a>.</p> 
 
 <h2 id="cheatsheet">8. Cheat Sheet</h2>
 
