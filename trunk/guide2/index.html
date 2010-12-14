@@ -582,12 +582,9 @@ th.details { width: 5.2em; }
 
 <p>Often, the entities described in a dataset share URIs of a common form. For example, all DBpedia entity URIs start with <code>http://dbpedia.org/resource/</code>.</p>
 
-<p>The <code>void:uriSpace</code> property can be used to state that all entity URIs in a dataset start with a given string. In other words, they share a common “URI namespace”:</p>
+<p>The <code>void:uriSpace</code> property can be used to state that all entity URIs in a dataset start with a given string. In other words, they share a common “URI namespace”.</p>
 
-<pre class="turtle">:DBpedia a void:Dataset;
-    void:uriSpace &lt;http://dbpedia.org/resource/&gt;;
-    .</pre>
-
+<p class="issue">Issue: The range of void:uriSpace (literal or resource) is still under discussion. This is <a href="http://code.google.com/p/void-impl/issues/detail?id=91">Issue 91</a>.</p>
 <p>In cases where a simple string prefix match is insufficient, the <code>void:uriRegexPattern</code> property can be used. It expresses a regular expression pattern that matches the URIs of the dataset's entities.</p>
 
 <p>The pattern should use the same regular expression syntax as SPARQL, which uses the syntax definition of <a href="http://www.w3.org/TR/2004/REC-xmlschema-2-20041028/#regexs">XML Schema 2: Regular Expressions</a> ([<a href="#ref-XSD">XSD</a>], Appendix F). The regular expression must match somewhere in the URI. It is a good practice to anchor the regular expression with a <code>^</code> in the beginning, and to escape dots with a backslash.</p>
@@ -597,8 +594,6 @@ th.details { width: 5.2em; }
 <pre class="turtle">:DBpedia a void:Dataset;
     void:uriRegexPattern "^http://dbpedia\\.org/resource/";
     .</pre>
-
-<p><em>Note: Unlike <code>void:uriSpace</code>, the value of <code>void:uriRegexPattern</code> is a literal and not a URI.</em></p>
 
 <p><em>Note: In the Turtle syntax, any backslashes in literals have to be escaped with another backslash. This is why the example above contains double backslashes. In RDF/XML, the same literal would be written as:</em></p>
 
