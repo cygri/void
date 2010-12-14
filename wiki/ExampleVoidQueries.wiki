@@ -1,0 +1,27 @@
+#summary Example queries
+
+= Example Query By Category =
+
+Returns all datasets that are about [http://dbpedia.org/resource/Computer_science Computer Science]. 
+
+{{{
+SELECT DISTINCT ?dataset
+ WHERE {
+   ?dataset a void:Dataset .
+   ?dataset dcterms:subject &lt;http://dbpedia.org/resource/Computer_science&gt; .
+ }
+}}}
+
+
+= Example Query By Interlinking with certain Dataset =
+
+Returns all datasets that contain links that interlink them with Geonames. 
+
+{{{
+SELECT DISTINCT ?dataset
+ WHERE {
+   ?dataset a void:Dataset .
+   ?linkset void:target ?dataset ;
+   	    void:target :Geonames .
+ }
+}}}
