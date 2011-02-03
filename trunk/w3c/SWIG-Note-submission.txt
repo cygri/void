@@ -1,0 +1,29 @@
+The "Vocabulary of Interlinked Datasets" (voiD) is an RDF-Schema vocabulary for expressing metadata about RDF datasets. 
+With voiD, the discovery and usage of Linked Datasets can be performed both effectively and efficiently. A dataset is a collection of data, published and maintained by a single provider, available as RDF, and accessible, for example, through dereferenceable HTTP URIs or a SPARQL endpoint. 
+
+The development of voiD started in mid 2008, with a first version of the vocabulary and guide published in 01/2009 [1]. Since then, voiD has enjoyed considerable uptake in the Linked Data community and beyond, with usage throughout from data.gov.uk to individual datasets [2]. 
+
+A number of voiD-based implementations is available via [3]. The development of the core voiD vocabulary and the guide is an open process with a dedicated mailing list [4] and issue tracker [5].
+
+W3C-wise, voiD is relevant for the work in the SPARQL WG [6] as well as the upcoming eGov WG [7].
+
+We hereby submit the ED 'Describing Linked Datasets with the voiD Vocabulary' [8] to W3C's Semantic Web Interest Group (SWIG) with the goal to publish it as a W3C Interest Group Note. We appreciate feedback on this ED till 31 Jan 2011 via the 'semantic-web@w3.org' mailing list.
+
+Cheers,
+		the voiD 'Editors Team': Keith Alexander, Richard Cyganiak, Michael Hausenblas, Jun Zhao
+
+[1] http://vocab.deri.ie/void/guide/2009-01-29
+[2] http://www4.wiwiss.fu-berlin.de/lodcloud/state/#data-set-level-metadata  
+[3] http://semanticweb.org/wiki/VoiD 
+[4] http://groups.google.com/group/void-discussion
+[5] http://code.google.com/p/void-impl/issues/    
+[6] http://www.w3.org/TR/sparql11-service-description/
+[7] http://www.w3.org/2011/govdata/charter
+[8] http://www.w3.org/2001/sw/interest/void/
+          
+
+===
+! announce void-discussion at public-lod (after DanBri has sent out mail)
+
+
+
