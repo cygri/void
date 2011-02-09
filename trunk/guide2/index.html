@@ -9,6 +9,7 @@ h2 { font-size: 160%; margin: 1.8em 0 0.4em; }
 .head h2 { font-size: 140%; margin: 0.5em 0 0.83em; }
 h3 { font-size: 120%; margin: 1.8em 0 0.4em; }
 pre { background: #d0ddee; padding: 1.3em 2em; margin-left: 0; }
+pre.ietf-template { background: #ddeed0; }
 dd { margin-bottom: 1em; }
 table { border-collapse: collapse; margin: 1.5em auto 2em; }
 table caption { margin-bottom: 0.2em; }
@@ -145,7 +146,7 @@ th.details { width: 5.2em; }
     <a href="#discovery">7. Discovering VoID descriptions</a>
     <ol>
       <li><a href="#discovery-links">7.1 Discovery via links in the dataset's documents</a></li>
-      <li><a href="#well-knwon">7.2 Discovery with well-known URI</a></li>
+      <li><a href="#well-known">7.2 Discovery with well-known URI</a></li>
     </ol>
   </li>
   <li>
@@ -953,6 +954,10 @@ th.details { width: 5.2em; }
     foaf:primaryTopic :DBpedia;
     .</pre>
 
+<p class="note">
+	In cases where multiple different <code>void:Dataset</code>s are published on the same website, the easiest option is usually to create a single <code>void:DatasetDescription</code> document that describes all of them.
+</p>
+
 
 <h3 id="backlinks">6.3 Multi-document datasets and backlinks</h3>
 
@@ -1048,9 +1053,37 @@ th.details { width: 5.2em; }
 
 <h3 id="well-known">7.2 Discovery with well-known URI</h3>
 
-<p>A new discovery mechanism for VoID, based on <a href="http://tools.ietf.org/html/rfc5785">the <code>.well-known</code> mechanism defined in RFC 5758</a> [<a href="#ref-RFC5758">RFC5758</a>], is currently under preparation. This mechanism is defined in a separate document, <cite><a href="http://vocab.deri.ie/void/autodiscovery">Autodiscovery of VoID descritpions</a></cite> [<a href="#ref-DISCOVERY">DISCOVERY</a>].</p> 
+<p>
+	The <a href="http://tools.ietf.org/html/rfc5785">RFC 5758</a> [<a href="#ref-RFC5758">RFC5758</a>] defines a mechanism for reserving 'well-known' URIs on any Web server.
+</p>
 
-<p class="issue">Progress on the IETF registration is tracked as <a href="http://code.google.com/p/void-impl/issues/detail?id=74">Issue 74</a>.</p>
+<p>
+	The URI <code>/.well-known/void</code> on any Web server is registered by this specification for a VoID description of any datasets hosted on that server. For example, on the host <code>www.example.com</code>, this URI would be <code>http://www.example.com/.well-known/void</code>.
+</p>
+
+<p>
+	This URI may be an HTTP redirect to the location of the actual VoID file. The most appropriate HTTP redirect code is 302. Clients accessing this well-known URI MUST handle HTTP redirects.
+</p>
+
+<p>
+	The VoID file accessible via the well-known URI should contain descriptions of all RDF datasets hosted on the server. This includes any datasets that have resolvable URIs, a SPARQL endpoint, a data dump, or any other access mechanism (see <a href="#access">Section 3</a>, <em>Access metadata</em>) whose URI is on the server's hostname.
+</p>
+
+<p>
+	Any VoID file accessible via the well-known URI should follow the guidelines set out in <a href="#void-file">Section 6.2</a>, <em>Publishing a voiD file alongside a dataset</em>.
+</p>
+
+<p>
+	This document defines the ".well-known" URI <code>void</code> using the registration procedure and template from Section 5.1 of [<a href="#ref-RFC5758">RFC5758</a>] as follows:
+</p>
+
+<pre class="ietf-template">URI suffix:  void
+
+Change controller:  voiD editors, that is: Keith Alexander, Richard Cyganiak, Michael Hausenblas and Jun Zhao.
+
+Specification document(s):  This document.
+</pre>
+
 
 
 <h2 id="cheatsheet">8. Index of VoID classes and properties</h2>
