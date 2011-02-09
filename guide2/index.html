@@ -95,9 +95,10 @@ th.details { width: 5.2em; }
     <ol>
       <li><a href="#webpage">2.1 Web page links</a></li>
       <li><a href="#dublin-core">2.2 Basic Dublin Core metadata</a></li>
-      <li><a href="#license">2.3 Announcing the license of a dataset</a></li>
-      <li><a href="#subject">2.4 Categorizing datasets by subject</a></li>
-      <li><a href="#features">2.5 Technical features</a></li>
+      <li><a href="#contactinfo">2.3 Contact Information</a></li>
+      <li><a href="#license">2.4 Announcing the license of a dataset</a></li>
+      <li><a href="#subject">2.5 Categorizing datasets by subject</a></li>
+      <li><a href="#features">2.6 Technical features</a></li>
     </ol>
   </li>
   <li>
@@ -346,7 +347,26 @@ th.details { width: 5.2em; }
  # Similar descriptions of the other contributors go here</pre>
 
 
-<h3 id="license">2.3 Announcing the license of a dataset</h3>
+<h3 id="contactinfo">2.3 Contact Information</h3>
+
+<p>Potential users of a dataset may want to get in touch with the publisher or other contributors. Contact information can be attached to any of the entities that are given as the <code>dcterms:publisher</code>, <code>dcterms:creator</code> and <code>dcterms:contributor</code> of a dataset. In particular, the <a href="http://xmlns.com/foaf/spec/#term_mbox"><code>foaf:mbox</code></a>  property [<a href="#ref-FOAF">FOAF</a>] can be used to specify that entity's contact email address.</p>
+
+<p>The following example shows how to provide a contact email address for the publisher of a dataset:</p>
+
+<pre>
+:ExampleDataset a void:Dataset;
+    dcterms:publisher :Alice;
+    .
+:Alice a foaf:Person;
+    rdfs:label "Alice McExample";
+    foaf:mbox <mailto:alice@example.com>;
+    .
+</pre>
+
+<p>If the publisher were an organization, then typing it as <code>foaf:Organization</code> would be appropriate.</p>
+
+
+<h3 id="license">2.4 Announcing the license of a dataset</h3>
 			
 <p>Using data that does not have an explicit license is a potential legal liability. Therefore, it is very important that publishers make explicit the terms under which the dataset can be used.</p>
 			
@@ -393,7 +413,7 @@ th.details { width: 5.2em; }
 <p><em>Note: Licensing of datasets is a complex issue. Datasets are collections of facts rather than creative works, and different laws apply. Most licenses such as Creative Commons or the GPL are based on copyright and are designed to protect creative works, but not databases, and applying them to datasets might not have the desired legal result. Meanwhile, efforts such as <a href="http://www.opendatacommons.org/" title="Open Data Commons">Open Data Commons</a>, <a href="http://sciencecommons.org/" title="Science Commons">Science Commons</a> and <a href="http://sciencecommons.org/projects/healthcommons/" title="Health Commons">Health Commons</a> are developing dedicated licenses for data, and the <a href="http://www.opendoar.org/tools/en/policies.php" title="OpenDOAR">OpenDOAR</a> project provides tools allowing open-access digital repositories to create customised policies.</em></p> 
  
 
-<h3 id="subject">2.4 Categorizing datasets by subject</h3>
+<h3 id="subject">2.5 Categorizing datasets by subject</h3>
 
 <p>When someone wants to select a dataset, one of the fundamental questions is, what does the dataset actually offer? There are datasets such as DBpedia that cover quite a range of topics, whereas there are others that only talk about a certain domain (books, places, etc.).</p> 
 
@@ -423,7 +443,7 @@ th.details { width: 5.2em; }
     .</pre>
 
 
-<h3 id="features">2.5 Technical features</h3>
+<h3 id="features">2.6 Technical features</h3>
 
 <p>The property of <code>void:feature</code> can be used for expressing certain technical features of a dataset, such as its supported RDF serialization formats. The domain of the property is <code>void:Dataset</code> and its range is <code>void:TechnicalFeature</code>. W3C provides <a href="http://www.w3.org/ns/formats/">a list of unique URIs</a> [<a href="#ref-UUFFF">UUFFF</a>] to describe file formats. Those that are relevant to RDF serialization format are listed in the following table.</p>
 
