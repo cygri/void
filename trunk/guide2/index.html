@@ -25,17 +25,21 @@ th.details { width: 5.2em; }
 <body>
 
 <div class="head">
-<div><a href="http://www.w3.org/"><img height="48" width="72" alt="W3C" src="img/w3c-logo.png" /></a></div>
+<div><a href="http://www.w3.org/"><img height="48" width="72" alt="W3C" src="http://www.w3.org/Icons/w3c_home"/></a></div>
 
-<h1 id="title">Describing Linked Datasets with the voiD Vocabulary</h1>
-<h2 id="doctype"><em>Editor's draft</em></h2>
+
+<h1 id="title">Describing Linked Datasets with the VoID Vocabulary</h1>
+<h2 id="doctype"><em>Editor's Draft</em></h2>
 
 <dl>
     <dt>This version:</dt>
-    <dd>$Id$</dd>
+    <dd><a href="http://www.w3.org/2001/sw/interest/ED-void-201102XX/">http://www.w3.org/2001/sw/interest/ED-void-201102XX/</a></dd>
 
-    <dt>Latest published version:</dt>
-    <dd><a href="http://rdfs.org/ns/void-guide">http://rdfs.org/ns/void-guide</a></dd>
+    <dt>Latest version:</dt>
+    <dd><a href="http://www.w3.org/2001/sw/interest/void/">http://www.w3.org/2001/sw/interest/void/</a></dd>
+
+    <dt>Previous version:</dt>
+    <dd><a href="http://www.w3.org/2001/sw/interest/ED-void-20101216/">http://www.w3.org/2001/sw/interest/ED-void-20101216/</a></dd>
 
     <dt>Authors:</dt>
     <dd>
@@ -45,29 +49,33 @@ th.details { width: 5.2em; }
         <a href="http://users.ox.ac.uk/~zool0770/">Jun Zhao</a> (University of Oxford) <br/>
     </dd>
 </dl>
-<p>
-    <img src="img/cc-license.png" style="width: 88px;" alt="Creative Commons Attribution 3.0 License" /><br />
-    <small>This document is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 License</a>.</small>
-</p>
+
 
 <hr />
+<p class="copyright">
+	<a href="http://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> &copy; 2010 <a href="http://www.w3.org/"><acronym title="World Wide Web Consortium">W3C</acronym></a><sup>&reg;</sup> (<a href="http://www.csail.mit.edu/"><acronym title="Massachusetts Institute of Technology">MIT</acronym></a>, <a href="http://www.ercim.eu/"><acronym title="European Research Consortium for Informatics and Mathematics">ERCIM</acronym></a>, <a href="http://www.keio.ac.jp/">Keio</a>), All Rights Reserved. W3C <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>, <a href="http://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a href="http://www.w3.org/Consortium/Legal/copyright-documents">document use</a> rules apply.</p>
+<hr />
+
 </div>
 
 
 <h2>Abstract</h2>
 
-<p>VoiD is an RDF Schema vocabulary for expressing metadata about RDF datasets. It is intended as a bridge between the publishers and users of RDF data, with applications ranging from data discovery to cataloging and archiving of datasets. This document is a detailed guide to the voiD vocabulary. It describes how voiD can be used to express general metadata based on Dublin Core, access metadata, structural metadata, and links between datasets. It also provides deployment advice and discusses the discovery of voiD descriptions.</p>
-
+<p>VoiD is an RDF Schema vocabulary for expressing metadata about RDF datasets. It is intended as a bridge between the publishers and users of RDF data, with applications ranging from data discovery to cataloging and archiving of datasets. This document is a detailed guide to the VoID vocabulary. It describes how VoID can be used to express general metadata based on Dublin Core, access metadata, structural metadata, and links between datasets. It also provides deployment advice and discusses the discovery of VoID descriptions.</p>
 
 <h2>Status of this Document</h2>
 
-<p>This document enjoys <strong>no status whatsoever within W3C</strong>. The authors are currently preparing this document for submission to the W3C. The W3C brand and logo are only used in anticipation of this submission.</p>
+<p><em>This section describes the status of this document at the time of its publication. Other documents may supersede this document. A list of current W3C publications and the latest revision of this technical report can be found in the <a href="http://www.w3.org/TR/">W3C technical reports index</a> at http://www.w3.org/TR/.</em></p>
 
-<p>The document will be submitted for consideration to the W3C's <a href="http://www.w3.org/2001/sw/interest/">Semantic Web Interest Group</a> (SWIG). After the submission and a public feedback period, the SWIG will possibly publish this document as a W3C Note.</p>
+<p>The document is submitted for consideration to the W3C's <a href="http://www.w3.org/2001/sw/interest/">Semantic Web Interest Group</a> (SWIG) to publish it as a W3C Interest Group Note. The SWIG does not expect this document to become a W3C Recommendation.</p>
+
+<p>Publication as an Editor's Draft does not imply endorsement by the W3C Membership. This is a draft document and may be updated, replaced or obsoleted by other documents at any time. It is inappropriate to cite this document as other than work in progress.</p>
+
+<p>Feedback on this document is welcome - please send comments to semantic-web@w3.org  (with <a href="http://lists.w3.org/Archives/Public/semantic-web/">public archive</a>). Additionally, we encourage to use the <a href="http://code.google.com/p/void-impl/issues/list?q=product=vocab">VoID issue tracker</a> to record and track comments.</p>
+
+<p>The IPR status of information provided in this document is in accordance with <a href="http://www.w3.org/Consortium/Patent-Policy-20030520.html#sec-Disclosure">Section 6</a> of the W3C Patent Policy. Disclosure obligations of the Participants of this group are described in the <a href="http://www.w3.org/2006/07/swig-charter.html">SWIG charter</a>.</p>
 
 <p>A first version of this document was developed and published by the authors, starting in 2008. This is an extended and improved version, based on community feedback received since the original publication.</p>
-
-<p class="issue"><em>Feedback on this document should be submitted to the <a href="http://code.google.com/p/void-impl/issues/list?q=product=vocab">voiD issue tracker</a> or sent to <a href="http://groups.google.com/group/void-discussion">void-discussion@googlegroups.com</a>.</em></p>
 
 
 <h2 id="toc">Table of Contents</h2>
@@ -123,24 +131,24 @@ th.details { width: 5.2em; }
     </ol>
   </li>
   <li>
-    <a href="#deploying">6. Deploying voiD descriptions</a>
+    <a href="#deploying">6. Deploying VoID descriptions</a>
     <ol>
       <li><a href="#dataset-uris">6.1 Choosing URIs for datasets</a></li>
-      <li><a href="#void-file">6.2 Publishing a voiD file alongside a dataset</a></li>
+      <li><a href="#void-file">6.2 Publishing a VoID file alongside a dataset</a></li>
       <li><a href="#backlinks">6.3 Multi-document datasets and backlinks</a></li>
       <li><a href="#rdf-dumps">6.4 Describing RDF dumps</a></li>
-      <li><a href="#sparql-sd">6.5 Using voiD with the SPARQL Service Description Vocabulary</a></li>
+      <li><a href="#sparql-sd">6.5 Using VoID with the SPARQL Service Description Vocabulary</a></li>
     </ol>
   </li>
   <li>
-    <a href="#discovery">7. Discovering voiD descriptions</a>
+    <a href="#discovery">7. Discovering VoID descriptions</a>
     <ol>
       <li><a href="#discovery-links">7.1 Discovery via links in the dataset's documents</a></li>
       <li><a href="#well-knwon">7.2 Discovery with well-known URI</a></li>
     </ol>
   </li>
   <li>
-    <a href="#cheatsheet">8. Cheat Sheet</a>
+    <a href="#cheatsheet">8. Index of VoID classes and properties</a>
   </li>
   <li>
     <a href="#acknowledgements">9. Acknowledgements</a>
@@ -153,7 +161,7 @@ th.details { width: 5.2em; }
 
 <h2 id="introduction">1. Introduction</h2>
 
-<p>The Vocabulary of Interlinked Datasets (voiD) is concerned with <em>metadata about RDF datasets</em>. It is an RDF Schema vocabulary that provides terms and patterns for describing RDF datasets, and is intended as a bridge between the publishers and users of RDF data. VoiD descriptions can be used in many situations, ranging from data discovery to cataloging and archiving of datasets, but most importantly it helps users find the right data for their tasks.</p>
+<p>The Vocabulary of Interlinked Datasets (VoID) is concerned with <em>metadata about RDF datasets</em>. It is an RDF Schema vocabulary that provides terms and patterns for describing RDF datasets, and is intended as a bridge between the publishers and users of RDF data. VoiD descriptions can be used in many situations, ranging from data discovery to cataloging and archiving of datasets, but most importantly it helps users find the right data for their tasks.</p>
 
 <p>VoiD covers four areas of metadata:</p>
 
@@ -164,12 +172,12 @@ th.details { width: 5.2em; }
     <li><a href="#describing-linksets">Description of links between datasets</a> are helpful for understanding how multiple datasets are related and can be used together.</li>
 </ul>
 
-<p><a href="#deploying">Deployment</a> and <a href="#discovery">discovery</a> of voiD descriptions is discussed as well.</p>
+<p><a href="#deploying">Deployment</a> and <a href="#discovery">discovery</a> of VoID descriptions is discussed as well.</p>
 
 
 <h3 id="scope">1.1 Scope</h3>
 
-<p>This document is one of the two core documents of voiD; the other is the <strong><a href="http://rdfs.org/ns/void">voiD vocabulary definition</a></strong> <a href="#ref-VOID-VOC">[VOID-VOC]</a>.</p>
+<p>This document is one of the two core documents of VoID; the other is the <strong><a href="http://rdfs.org/ns/void">VoID vocabulary definition</a></strong> <a href="#ref-VOID-VOC">[VOID-VOC]</a>.</p>
 
 <p>This document is aimed at both dataset publishers (those involved in maintaining, administering and hosting datasets), and data users (those involved in finding, querying, crawling and indexing datasets).</p>
 
@@ -196,16 +204,16 @@ th.details { width: 5.2em; }
 
 <pre class="turtle">@prefix : &lt;#&gt; .</pre>
 
-<p>This allows us to quickly mint new identifiers in the local namespace: <code>:MyDataset</code>, <code>:DBpedia</code> and so on. Later sections of this specification provide more guidance on <a href="#deploying">deploying voiD descriptions</a>.</p>
+<p>This allows us to quickly mint new identifiers in the local namespace: <code>:MyDataset</code>, <code>:DBpedia</code> and so on. Later sections of this specification provide more guidance on <a href="#deploying">deploying VoID descriptions</a>.</p>
 
 
 <h3 id="dataset">1.3 Definition: Dataset</h3>
 
-<p>The fundamental concept of voiD is the <em><strong>dataset</strong></em>. A dataset is a set of RDF triples that are published, maintained or aggregated by a single provider. Unlike <em>RDF graphs</em>, which are <a href="http://www.w3.org/TR/rdf-concepts/#section-rdf-graph">purely mathematical constructs</a> [<a href="#ref-RDF-CONCEPTS">RDF-CONCEPTS</a>], the term <em>dataset</em> has a social dimension: We think of a dataset as a <em>meaningful</em> collection of triples, that deal with a certain topic, originate from a certain source or process, are hosted on a certain server, or are aggregated by a certain custodian. Also, typically a dataset is accessible on the Web, for example through resolvable HTTP URIs or through a SPARQL endpoint, and it contains sufficiently many triples that there is benefit in providing a concise summary.</p>
+<p>The fundamental concept of VoID is the <em><strong>dataset</strong></em>. A dataset is a set of RDF triples that are published, maintained or aggregated by a single provider. Unlike <em>RDF graphs</em>, which are <a href="http://www.w3.org/TR/rdf-concepts/#section-rdf-graph">purely mathematical constructs</a> [<a href="#ref-RDF-CONCEPTS">RDF-CONCEPTS</a>], the term <em>dataset</em> has a social dimension: We think of a dataset as a <em>meaningful</em> collection of triples, that deal with a certain topic, originate from a certain source or process, are hosted on a certain server, or are aggregated by a certain custodian. Also, typically a dataset is accessible on the Web, for example through resolvable HTTP URIs or through a SPARQL endpoint, and it contains sufficiently many triples that there is benefit in providing a concise summary.</p>
 
 <p>Since most datasets describe a well-defined set of <em>entities</em>, datasets can also be seen as a set of descriptions of certain entities, which often share a common URI prefix (such as <code>http://dbpedia.org/resource/</code>).</p>
 
-<p>In voiD, a dataset is modelled as an instance of the <code>void:Dataset</code> class. Such a <code>void:Dataset</code> instance is a single RDF resource that represents the entire dataset, and thus allows us to easily make statements about the entire dataset and all its triples.</p>
+<p>In VoID, a dataset is modelled as an instance of the <code>void:Dataset</code> class. Such a <code>void:Dataset</code> instance is a single RDF resource that represents the entire dataset, and thus allows us to easily make statements about the entire dataset and all its triples.</p>
 
 <p>The relationship between a <code>void:Dataset</code> instance and the concrete triples contained in the dataset is established through <a href="#access">access information</a>, such as the address of a SPARQL endpoint where the triples can be accessed.</p>
 
@@ -218,11 +226,11 @@ th.details { width: 5.2em; }
 
 <h3 id="linkset">1.4 Definition: Linkset</h3>
 
-<p>voiD also allows the description of <em><strong>RDF links</strong></em> between datasets. An RDF link is an RDF triple whose subject and object are described in different datasets.</p>
+<p>VoID also allows the description of <em><strong>RDF links</strong></em> between datasets. An RDF link is an RDF triple whose subject and object are described in different datasets.</p>
 
 <p>A <em><strong>linkset</strong></em> is a collection of such RDF links between two datasets. It is a set of RDF triples where all subjects are in one dataset and all objects are in another dataset. RDF links often have the <code>owl:sameAs</code> predicate, but any other property could occur as the predicate of RDF links as well.</p>
 
-<p>In voiD, a linkset is modelled as an instance of the <code>void:Linkset</code> class. <code>void:Linkset</code> is a subclass of <code>void:Dataset</code>.</p>
+<p>In VoID, a linkset is modelled as an instance of the <code>void:Linkset</code> class. <code>void:Linkset</code> is a subclass of <code>void:Dataset</code>.</p>
 
 <p>The following example declares the resource <code>:DBpedia_Geonames</code> as a <code>void:Linkset</code>:</p>
 
@@ -230,9 +238,9 @@ th.details { width: 5.2em; }
 
 <p>The resource is intended as a proxy for a set of triples that link resources in the <a href="http://dbpedia.org/">DBpedia</a> [<a href="#ref-DBPEDIA">DBPEDIA</a>] and <a href="http://www.geonames.org/">Geonames</a> [<a href="#ref-GEONAMES">GEONAMES</a>] datasets. A good next step would be to make this clear by stating that these two datasets are the <a href="#describing-linksets">targets of the linkset</a>.
 
-<p>Links are sometimes published as part of a larger dataset. For example, many of the resources described in the DBpedia dataset are linked via <code>owl:sameAs</code> to other datasets. In other cases, linksets are handled as stand-alone sets of triples, independently from either of the two linked datasets. For example, link generation tools such as <a href="http://www4.wiwiss.fu-berlin.de/bizer/silk/">Silk</a> [<a href="#ref-SILK">SILK</a>] can discover new links between two existing datasets. Both cases—linksets published as part of a larger dataset, and linksets that are independent from the linked datasets—can be described in voiD.</p>
+<p>Links are sometimes published as part of a larger dataset. For example, many of the resources described in the DBpedia dataset are linked via <code>owl:sameAs</code> to other datasets. In other cases, linksets are handled as stand-alone sets of triples, independently from either of the two linked datasets. For example, link generation tools such as <a href="http://www4.wiwiss.fu-berlin.de/bizer/silk/">Silk</a> [<a href="#ref-SILK">SILK</a>] can discover new links between two existing datasets. Both cases—linksets published as part of a larger dataset, and linksets that are independent from the linked datasets—can be described in VoID.</p>
 
-<p>Note that <code>rdf:type</code> statements are not considered links for the purposes of voiD, even though subject and object typically reside on different domains. VoiD has <a href="#vocabularies">a dedicated mechanism</a> for listing the classes used in a dataset.</p>
+<p>Note that <code>rdf:type</code> statements are not considered links for the purposes of VoID, even though subject and object typically reside on different domains. VoiD has <a href="#vocabularies">a dedicated mechanism</a> for listing the classes used in a dataset.</p>
 
 
 <h2 id="metadata">2. General dataset metadata</h2>
@@ -268,7 +276,7 @@ th.details { width: 5.2em; }
 <p>The <a href="http://dublincore.org/documents/2010/10/11/dcmi-terms/">Dublin Core Metadata Terms</a> [<a href="#ref-DC">DC</a>] contain a number of useful and recommended properties for providing basic metadata about a dataset.</p>
 
 <table>
-    <caption>Using Dublin Core Metadata Terms in voiD for general dataset metadata</caption>
+    <caption>Using Dublin Core Metadata Terms in VoID for general dataset metadata</caption>
     <thead>
         <tr>
             <th>Term</th>
@@ -389,11 +397,11 @@ th.details { width: 5.2em; }
 
 <p>When someone wants to select a dataset, one of the fundamental questions is, what does the dataset actually offer? There are datasets such as DBpedia that cover quite a range of topics, whereas there are others that only talk about a certain domain (books, places, etc.).</p> 
 
-<p>In voiD, the <code>dcterms:subject</code> property should be used to tag a dataset with a topic.</p> 
+<p>In VoID, the <code>dcterms:subject</code> property should be used to tag a dataset with a topic.</p> 
 
 <p>For the general case, we recommend the use of a DBpedia resource URI (<code>http://dbpedia.org/resource/XXX</code>) to categorise a dataset, where XXX stands for the thing which best describes the main topic of what the dataset is about.</p> 
 
-<p>Two examples are given below. DBLP is a computer science bibliography database, and Geonames offers data about places. We define this in voiD:</p>
+<p>Two examples are given below. DBLP is a computer science bibliography database, and Geonames offers data about places. We define this in VoID:</p>
 
 <pre class="turtle">:DBLP a void:Dataset; 
     dcterms:subject &lt;http://dbpedia.org/resource/Computer_science&gt;;
@@ -468,7 +476,7 @@ th.details { width: 5.2em; }
 
 <h2 id="access">3. Access metadata</h2>
 
-<p>Datasets in voiD <a href="#dataset">are defined as</a> sets of RDF triples. But the actual RDF triples are not part of the voiD description. Instead, <em>access metadata</em> is used to describe methods of accessing the actual RDF triples.</p>
+<p>Datasets in VoID <a href="#dataset">are defined as</a> sets of RDF triples. But the actual RDF triples are not part of the VoID description. Instead, <em>access metadata</em> is used to describe methods of accessing the actual RDF triples.</p>
 
 
 <h3 id="resolvable">3.1 Resolvable HTTP URIs</h3>
@@ -486,9 +494,9 @@ th.details { width: 5.2em; }
 
 <p>This states that the default graph of the SPARQL endpoint contains the triples in the DBpedia dataset.</p>
 
-<p>voiD descriptions <a href="#sparql-sd">can be deployed</a> as part of a SPARQL Service Description. This also allows the expression of further information about the features and capabilites of the SPARQL endpoint, as described in the <a href="http://www.w3.org/TR/sparql11-service-description/">SPARQL 1.1 Service Description</a> [<a href="#ref-SPARQL-SD">SPARQL-SD</a>] specification.</p>
+<p>VoID descriptions <a href="#sparql-sd">can be deployed</a> as part of a SPARQL Service Description. This also allows the expression of further information about the features and capabilites of the SPARQL endpoint, as described in the <a href="http://www.w3.org/TR/sparql11-service-description/">SPARQL 1.1 Service Description</a> [<a href="#ref-SPARQL-SD">SPARQL-SD</a>] specification.</p>
 
-<p><em>Note: In some SPARQL endpoints, named graphs are used to partition the data. Currently voiD doesn't provide a dedicated way of stating that a dataset is contained in a specific named graph. This kind of information can be provided in a SPARQL Service Description, as <a href="#sparql-sd">described below</a>.</em></p>
+<p><em>Note: In some SPARQL endpoints, named graphs are used to partition the data. Currently VoID doesn't provide a dedicated way of stating that a dataset is contained in a specific named graph. This kind of information can be provided in a SPARQL Service Description, as <a href="#sparql-sd">described below</a>.</em></p>
 
 
 <h3 id="dumps">3.3 RDF data dumps</h3>
@@ -527,7 +535,7 @@ th.details { width: 5.2em; }
 
 <h3 id="lookup">3.5 URI lookup endpoints</h3>
 
-<p>Besides the SPARQL protocol, a simple URI lookup protocol for accessing a dataset can also be described using voiD. Such a protocol could take the following steps:</p>
+<p>Besides the SPARQL protocol, a simple URI lookup protocol for accessing a dataset can also be described using VoID. Such a protocol could take the following steps:</p>
 
 <ol>
     <li>Take the URI of an entity <em>E</em> that is described in the dataset</li>
@@ -538,7 +546,7 @@ th.details { width: 5.2em; }
 
 <p><em>Note: The HTTP request should be performed with an HTTP Accept header that indicates the formats supported by the requesting client, e.g. “<code>Accept: application/rdf+xml</code>” for a client that only supports RDF/XML.</em></p>
 
-<p>The following example shows how the <a href="http://sindice.com/developers/api">Sindice API</a> [<a href="#ref-SINDICE-API">SINDICE-API</a>] could be described as a voiD dataset with a URI lookup endpoint:</p>
+<p>The following example shows how the <a href="http://sindice.com/developers/api">Sindice API</a> [<a href="#ref-SINDICE-API">SINDICE-API</a>] could be described as a VoID dataset with a URI lookup endpoint:</p>
 
 <pre class="turtle">:Sindice a void:Dataset ; 
     void:uriLookupEndpoint &lt;http://api.sindice.com/v2/search?qt=term&amp;q=&gt; .</pre>
@@ -726,16 +734,16 @@ th.details { width: 5.2em; }
 
 <h3 id="statistics">4.6 Providing statistics about datasets</h3>
 
-<p>voiD provides a number of properties for expressing numeric statistics about a dataset, such as the number of RDF triples it contains, or the number of entities it describes.</p>
+<p>VoID provides a number of properties for expressing numeric statistics about a dataset, such as the number of RDF triples it contains, or the number of entities it describes.</p>
 
-<p><em>Note: A previous version of voiD defined a different approach to statistics, based on the <a href="http://sw.joanneum.at/scovo/schema.html">Statistical Core Vocabulary</a> [<a href="#ref-SCOVO">SCOVO</a>]. It was found to have several disadvantages. Statistics would be verbose, and querying them with SPARQL was difficult. <a href="http://vocab.deri.ie/void/guide/2009-01-29#sec_3_Expressing_dataset_statistic">A description of the SCOVO-based approach</a> can be found in archived older versions of the voiD Guide ([<a href="#ref-VOID-GUIDE-1">VOID-GUIDE-1</a>], Section 3). We discourage its further use.</em></p>
+<p><em>Note: A previous version of VoID defined a different approach to statistics, based on the <a href="http://sw.joanneum.at/scovo/schema.html">Statistical Core Vocabulary</a> [<a href="#ref-SCOVO">SCOVO</a>]. It was found to have several disadvantages. Statistics would be verbose, and querying them with SPARQL was difficult. <a href="http://vocab.deri.ie/void/guide/2009-01-29#sec_3_Expressing_dataset_statistic">A description of the SCOVO-based approach</a> can be found in archived older versions of the VoID Guide ([<a href="#ref-VOID-GUIDE-1">VOID-GUIDE-1</a>], Section 3). We discourage its further use.</em></p>
 			 
-<p>As a general rule, statistics in voiD can always be provided as approximate numbers.</p>
+<p>As a general rule, statistics in VoID can always be provided as approximate numbers.</p>
 
-<p>voiD defines the following properties for expressing different statistical characteristics of datasets:</p>
+<p>VoID defines the following properties for expressing different statistical characteristics of datasets:</p>
 
 <table>
-    <caption>Properties in voiD for expressing dataset statistics</caption>
+    <caption>Properties in VoID for expressing dataset statistics</caption>
     <thead>
         <tr>
             <th>Property</th>
@@ -749,7 +757,7 @@ th.details { width: 5.2em; }
         </tr>
         <tr>
             <td><code>void:entities</code></td>
-            <td>The total number of entities that are described in the dataset. To be an entity in a dataset, a resource must have a URI, and the URI must match the dataset's <code>void:uriRegexPattern</code>, if any. Authors of voiD files may impose arbitrary additional requirements, for example, they may consider any <code>foaf:Document</code> resources as not being entities.</td>
+            <td>The total number of entities that are described in the dataset. To be an entity in a dataset, a resource must have a URI, and the URI must match the dataset's <code>void:uriRegexPattern</code>, if any. Authors of VoID files may impose arbitrary additional requirements, for example, they may consider any <code>foaf:Document</code> resources as not being entities.</td>
         </tr>
         <tr>
             <td><code>void:classes</code></td>
@@ -790,7 +798,7 @@ th.details { width: 5.2em; }
     void:triples 10000;
     .</pre>
 
-<p><a href="#class-property-partitions">Class- and property-based partitions</a> can be used to provide statistics such as the number of instances of a given class and the number of triples that have a certain predicate. Partitions can be described with voiD's usual statistical features, such as <code>void:entities</code> and <code>void:triples</code>.</p>
+<p><a href="#class-property-partitions">Class- and property-based partitions</a> can be used to provide statistics such as the number of instances of a given class and the number of triples that have a certain predicate. Partitions can be described with VoID's usual statistical features, such as <code>void:entities</code> and <code>void:triples</code>.</p>
 
 <p>The following example shows how this approach is used to state that the DBpedia dataset contains 312,000 entities of class <code>foaf:Person</code>, and 312,000 triples that have the <code>foaf:name</code> predicate:</p>
 
@@ -807,7 +815,7 @@ th.details { width: 5.2em; }
 
 <p>A class-based partition for the <code>foaf:Person</code> class is defined, and it is stated to contain 312,000 entities. Because a class-based partition contains only the subset that describes entities of a single class (<code>foaf:Person</code> in this case), we can conclude that the DBpedia dataset describes 312,000 people. Statistics about further classes could be given in the same way.</p>
 
-<p><em>Note: Many dataset statistics can be calculated automatically by running SPARQL queries over the dataset. Some informative examples for <a href="http://code.google.com/p/void-impl/wiki/SPARQLQueriesForStatistics">SPARQL queries that compute statistics</a> are given in the voiD wiki.</em></p>
+<p><em>Note: Many dataset statistics can be calculated automatically by running SPARQL queries over the dataset. Some informative examples for <a href="http://code.google.com/p/void-impl/wiki/SPARQLQueriesForStatistics">SPARQL queries that compute statistics</a> are given in the VoID wiki.</em></p>
 
 
 <h2 id="describing-linksets">5. Describing linksets</h2>
@@ -823,7 +831,7 @@ th.details { width: 5.2em; }
 
 <p>Linksets <a href="#linkset">are defined as</a> collections of RDF triples where subjects and objects of the triples are described in different datasets. The <code>void:target</code> property is used to name the two datasets. Every linkset must have exactly two distinct <code>void:target</code>s.</p>
 
-<p>The following example states that the <code>:DBpedia_Geonames</code> linkset connects the <code>:DBpedia</code> and <code>:Geonames</code> datasets. Presumably, the voiD file would contain additional information about those two resources:</p>
+<p>The following example states that the <code>:DBpedia_Geonames</code> linkset connects the <code>:DBpedia</code> and <code>:Geonames</code> datasets. Presumably, the VoID file would contain additional information about those two resources:</p>
 
 <pre class="turtle">:DBpedia_Geonames a void:Linkset;
     void:target :DBpedia;
@@ -878,9 +886,9 @@ th.details { width: 5.2em; }
     .</pre>
 
 
-<h2 id="deploying">6. Deploying voiD descriptions</h2>
+<h2 id="deploying">6. Deploying VoID descriptions</h2>
 
-<p>The voiD classes and properties are designed to be flexible and can be used in many different contexts. Some typical deployment scenarios for voiD and deployment-related considerations will be discussed in this section.</p>
+<p>The VoID classes and properties are designed to be flexible and can be used in many different contexts. Some typical deployment scenarios for VoID and deployment-related considerations will be discussed in this section.</p>
 
 
 <h3 id="dataset-uris">6.1 Choosing URIs for datasets</h3>
@@ -889,38 +897,38 @@ th.details { width: 5.2em; }
 
 <p>The use of blank nodes for <code>void:Dataset</code> and <code>void:Linkset</code> instances is generally discouraged, because blank nodes do not provide identifiers for linking to a resource. However, if the dataset resource is not of particular importance, and if the creation of stable URIs would be difficult, then a blank node can be acceptable, for example when subsets and partitions are defined solely for the purpose of expressing statistics.</p>
 
-<p>When referring to a dataset published by another party (for example as a linkset target, or in a store that aggregates multiple other datasets), it is good practice to check whether the original publisher of the dataset has provided a voiD description (see the <a href="#discovery">Discovery</a> section on methods for discovering voiD descriptions), and use the URI assigned to the dataset there. If no URI has been provided by the original publisher, then one should mint a new URI in one's own namespace.</p>
+<p>When referring to a dataset published by another party (for example as a linkset target, or in a store that aggregates multiple other datasets), it is good practice to check whether the original publisher of the dataset has provided a VoID description (see the <a href="#discovery">Discovery</a> section on methods for discovering VoID descriptions), and use the URI assigned to the dataset there. If no URI has been provided by the original publisher, then one should mint a new URI in one's own namespace.</p>
 
 <p>When one doesn't use a URI provided by the original data provider, then one should <a href="#webpage">include a link to the homepage of the dataset</a> to allow “smushing” based on the <code>foaf:homepage</code> Inverse Functional Property.</p>
 
 
-<h3 id="void-file">6.2 Publishing a voiD file alongside a dataset</h3>
+<h3 id="void-file">6.2 Publishing a VoID file alongside a dataset</h3>
 
-<p>Publishers are encouraged to provide descriptions of their datasets by publishing a voiD file on the web along with the dataset.</p>
+<p>Publishers are encouraged to provide descriptions of their datasets by publishing a VoID file on the web along with the dataset.</p>
 
-<p>Popular options for publishing a voiD description alongside a dataset include:</p>
+<p>Popular options for publishing a VoID description alongside a dataset include:</p>
 
 <ol>
     <li>Placing a <a href="http://www.w3.org/TeamSubmission/turtle/">Turtle file</a> [<a href="#ref-TURTLE">TURTLE</a>] named <code>void.ttl</code> in the root directory of the site, with a local “hash URI” for the dataset, yielding a dataset URI such as <code>http://example.com/void.ttl#MyDataset</code>.</li>
     <li>Using the root URI of the site, such as <code>http://example.com/</code>, as the dataset URI, and serving both HTML and an RDF format via content negotiation from that URI (see <a href="http://www.w3.org/TR/2008/NOTE-cooluris-20081203/"><em>Cool URIs for the Semantic Web</em></a> [<a href="#ref-COOL">COOL</a>] for a more detailed description of this publishing approach).</li>
-    <li>Embedding the voiD description as <a href="http://www.w3.org/TR/xhtml-rdfa-primer/">HTML+RDFa markup</a> [<a href="#ref-RDFA">RDFA</a>] into the homepage of the dataset, with a local “hash URI” for the dataset, yielding a dataset URI such as <code>http://example.com/#MyDataset</code></li>
+    <li>Embedding the VoID description as <a href="http://www.w3.org/TR/xhtml-rdfa-primer/">HTML+RDFa markup</a> [<a href="#ref-RDFA">RDFA</a>] into the homepage of the dataset, with a local “hash URI” for the dataset, yielding a dataset URI such as <code>http://example.com/#MyDataset</code></li>
 </ol>
 
-<p>voiD authors are encouraged to provide metadata for their voiD files.
-  This can be done by adding a document metadata block to the voiD file.
+<p>VoID authors are encouraged to provide metadata for their VoID files.
+  This can be done by adding a document metadata block to the VoID file.
   A typical document metadata block will contain:</p>
 
 <ul>
-  <li>A statement that types the voiD file as a <code>void:DatasetDescription</code>.</li>
-  <li>A title for the voiD file.</li>
-  <li><code>foaf:topic</code> or <code>foaf:primaryTopic</code> statements that relate the voiD file to the dataset(s) described therein. If the voiD file describes a single dataset, then <code>foaf:primaryTopic</code> should be used. If the file describes several datasets of equal importance, then <code>foaf:topic</code> should be used.</li>
-  <li>Perhaps additional metadata statements, such as the author and creation date of the voiD file (not to be confused with the author and creation date of the dataset that is described in the voiD file).</li>
+  <li>A statement that types the VoID file as a <code>void:DatasetDescription</code>.</li>
+  <li>A title for the VoID file.</li>
+  <li><code>foaf:topic</code> or <code>foaf:primaryTopic</code> statements that relate the VoID file to the dataset(s) described therein. If the VoID file describes a single dataset, then <code>foaf:primaryTopic</code> should be used. If the file describes several datasets of equal importance, then <code>foaf:topic</code> should be used.</li>
+  <li>Perhaps additional metadata statements, such as the author and creation date of the VoID file (not to be confused with the author and creation date of the dataset that is described in the VoID file).</li>
 </ul>
 
 <p>An example metadata block is shown below. Note the use of an empty-string relative URI (&lt;&gt;) as a syntactic shortcut. In Turtle and RDF/XML, the empty string URI stands for the URI of the document that contains the statements.</p>
 
 <pre class="turtle">&lt;&gt; a void:DatasetDescription;
-    dcterms:title "A voiD Description of the DBpedia Dataset";
+    dcterms:title "A VoID Description of the DBpedia Dataset";
     dcterms:creator &lt;http://richard.cyganiak.de/foaf.rdf#cygri&gt;;
     foaf:primaryTopic :DBpedia;
     .</pre>
@@ -930,9 +938,9 @@ th.details { width: 5.2em; }
 
 <p>RDF datasets are often published on the web as many individual RDF documents. A common deployment pattern is to provide one description document for each resource in the dataset. On RDFa-enabled websites, each web page becomes an RDF document.</p>
 
-<p>Providing metadata about the entire dataset in such a scenario should <em>not</em> be done by including voiD details in every document. Rather, a single voiD description of the entire dataset should be published, and individual documents should point to this description via <em>backlinks</em>.</p>
+<p>Providing metadata about the entire dataset in such a scenario should <em>not</em> be done by including VoID details in every document. Rather, a single VoID description of the entire dataset should be published, and individual documents should point to this description via <em>backlinks</em>.</p>
 
-<p>A voiD backlink is a triple that points from an RDF document URI to a <code>void:Dataset</code> URI using the <code>void:inDataset</code> property:</p>
+<p>A VoID backlink is a triple that points from an RDF document URI to a <code>void:Dataset</code> URI using the <code>void:inDataset</code> property:</p>
 
 <pre class="turtle">&lt;http://dbpedia.org/data/Berlin&gt; void:inDataset :DBpedia .</pre>
 
@@ -940,7 +948,7 @@ th.details { width: 5.2em; }
 
 <p>One should not specify multiple <code>void:inDataset</code> for the same document. Rather, we encourage to create a new void:Dataset that contains both as a subset, and link to that. Then, you can explicitly add metadata, like licenses, to the joint dataset.</p>
 			
-<p><em>Note: Older versions of voiD suggested to use <code>dcterms:isPartOf</code> instead of <code>void:inDataset</code>. As <code>dcterms:isPartOf</code> is used for other purposes as well, we introduced a dedicated property in the voiD namespace.</em>
+<p><em>Note: Older versions of VoID suggested to use <code>dcterms:isPartOf</code> instead of <code>void:inDataset</code>. As <code>dcterms:isPartOf</code> is used for other purposes as well, we introduced a dedicated property in the VoID namespace.</em>
 </p>			
 			
 
@@ -953,18 +961,18 @@ th.details { width: 5.2em; }
 <p>Instead, one should use a different URI for the <code>void:Dataset</code>, following the <a href="#dataset-uris">good practices for choosing dataset URIs</a>. Metadata statements should then be made about that URI. <a href="#dumps">The <code>void:dataDump</code> property</a> should be used to relate the dataset URI to the download URI of the RDF dump.</p>
 
 
-<h3 id="sparql-sd">6.5 Using voiD with the SPARQL Service Description Vocabulary</h3>
+<h3 id="sparql-sd">6.5 Using VoID with the SPARQL Service Description Vocabulary</h3>
 
 <p>The W3C <a href="http://www.w3.org/TR/sparql11-service-description/">SPARQL 1.1 Service Description</a> [<a href="#ref-SPARQL-SD">SPARQL-SD</a>] specification provides a rich vocabulary for describing a SPARQL endpoint's capabilities and features, as well as a discovery mechanism for such SPARQL service descriptions. VoiD can be used in SPARQL service descriptions to provide additional information about the data available in a store.</p>
 
-<p>The SPARQL Service Description vocabulary defines two classes that can be aligned with voiD:</p>
+<p>The SPARQL Service Description vocabulary defines two classes that can be aligned with VoID:</p>
 
 <ol>
 <li><strong><code>sd:Dataset</code></strong> represents a <a href="http://www.w3.org/TR/2008/REC-rdf-sparql-query-20080115/#rdfDataset">SPARQL dataset</a> ([<a href="#ref-SPARQL">SPARQL</a>], Section 8), that is, a set of zero or more named graphs plus an optional default graph. Note that <code>sd:Dataset</code> has a narrower definition than <code>void:Dataset</code>: Any collection of triples can be a <code>void:Dataset</code>, while <code>sd:Dataset</code> also requires that the triples are associated with the default graph or named graphs.</li>
 <li><strong><code>sd:Graph</code></strong> represents an RDF graph within an <code>sd:Dataset</code>, either the default graph or one of the named graphs.</li>
 </ol>
 
-<p><code>void:Dataset</code> is a superclass of <code>sd:Dataset</code> and of <code>sd:Graph</code>. Therefore, any instance of these classes can be described just like any other voiD dataset.</p>
+<p><code>void:Dataset</code> is a superclass of <code>sd:Dataset</code> and of <code>sd:Graph</code>. Therefore, any instance of these classes can be described just like any other VoID dataset.</p>
 
 <p>The following fictional example describes a SPARQL endpoint that provides access to a mirror of DBpedia and Geonames in distinct named graphs, as well as to the service description itself in the default graph:</p>
 
@@ -978,7 +986,7 @@ th.details { width: 5.2em; }
         sd:defaultGraph [
             a sd:Graph, void:Dataset;
             dcterms:title "GeoPedia SPARQL Endpoint Description";
-            dcterms:description "Contains a copy of this SD+voiD file!";
+            dcterms:description "Contains a copy of this SD+VoID file!";
             void:triples 100;
         ];
         sd:namedGraph [
@@ -1003,37 +1011,37 @@ th.details { width: 5.2em; }
     .</pre>
 
 
-<h2 id="discovery">7. Discovering voiD descriptions</h2>
+<h2 id="discovery">7. Discovering VoID descriptions</h2>
 
-<p>This section describes approaches for discovering the voiD description of a dataset given the URI of an entity described in a dataset.</p> 
+<p>This section describes approaches for discovering the VoID description of a dataset given the URI of an entity described in a dataset.</p> 
 
 <p>
-	<em>Note: a <a href="http://vocab.deri.ie/void/guide/2009-01-29">previous version of voiD</a> had a discovery mechanism based on <code>robots.txt</code> and Semantic Sitemaps, which was deprecated because it was not widely adopted.</em>
+	<em>Note: a <a href="http://vocab.deri.ie/void/guide/2009-01-29">previous version of VoID</a> had a discovery mechanism based on <code>robots.txt</code> and Semantic Sitemaps, which was deprecated because it was not widely adopted.</em>
 </p> 
 
 <h3 id="discovery-links">7.1 Discovery via links in the dataset's documents</h3>
 
-<p>For datasets that are published as a collection of RDF documents in the linked data style, the preferred mechanism of discovering an associated voiD description is the <a href="#backlinks"><code>void:inDataset</code> back-link mechanism</a>. Clients should look for a <code>void:inDataset</code> triple that links the RDF document to the dataset:</p> 
+<p>For datasets that are published as a collection of RDF documents in the linked data style, the preferred mechanism of discovering an associated VoID description is the <a href="#backlinks"><code>void:inDataset</code> back-link mechanism</a>. Clients should look for a <code>void:inDataset</code> triple that links the RDF document to the dataset:</p> 
 
 <pre class="turtle">&lt;document.rdf&gt; void:inDataset &lt;void.ttl#MyDataset&gt;.</pre>
 
 
 <h3 id="well-known">7.2 Discovery with well-known URI</h3>
 
-<p>A new discovery mechanism for voiD, based on <a href="http://tools.ietf.org/html/rfc5785">the <code>.well-known</code> mechanism defined in RFC 5758</a> [<a href="#ref-RFC5758">RFC5758</a>], is currently under preparation. This mechanism is defined in a separate document, <cite><a href="http://vocab.deri.ie/void/autodiscovery">Autodiscovery of voiD descritpions</a></cite> [<a href="#ref-DISCOVERY">DISCOVERY</a>].</p> 
+<p>A new discovery mechanism for VoID, based on <a href="http://tools.ietf.org/html/rfc5785">the <code>.well-known</code> mechanism defined in RFC 5758</a> [<a href="#ref-RFC5758">RFC5758</a>], is currently under preparation. This mechanism is defined in a separate document, <cite><a href="http://vocab.deri.ie/void/autodiscovery">Autodiscovery of VoID descritpions</a></cite> [<a href="#ref-DISCOVERY">DISCOVERY</a>].</p> 
 
 <p class="issue">Progress on the IETF registration is tracked as <a href="http://code.google.com/p/void-impl/issues/detail?id=74">Issue 74</a>.</p>
 
 
-<h2 id="cheatsheet">8. Cheat Sheet</h2>
+<h2 id="cheatsheet">8. Index of VoID classes and properties</h2>
 
-<p>The following tables give a quick overview of the terms defined in the voiD vocabulary. These tables are not normative; the normative definition of these terms is the <a href="http://rdfs.org/ns/void">voiD vocabulary document</a> [<a href="#ref-VOID-VOC">VOID-VOC</a>].</p>
+<p>The following tables give a quick overview of the terms defined in the VoID vocabulary. These tables are not normative; the normative definition of these terms is the <a href="http://rdfs.org/ns/void">VoID vocabulary document</a> [<a href="#ref-VOID-VOC">VOID-VOC</a>].</p>
 
 <table>
-    <caption>voiD cheat sheet: Classes</caption>
+    <caption>VoID Classes</caption>
     <thead>
         <tr>
-            <th>voiD Term</th>
+            <th>VoID Term</th>
             <th>Description</th>
             <th class="details">Details</th>
         </tr>
@@ -1063,10 +1071,10 @@ th.details { width: 5.2em; }
 </table>
 
 <table>
-    <caption>voiD cheat sheet: Properties</caption>
+    <caption>VoID Properties</caption>
     <thead>
         <tr>
-            <th>voiD Term</th>
+            <th>VoID Term</th>
             <th>Description</th>
             <th class="details">Details</th>
         </tr>
@@ -1213,7 +1221,7 @@ th.details { width: 5.2em; }
 
 <h2 id="acknowledgements">9. Acknowledgements</h2>
 
-<p>Our thanks go out to some chaps who influenced the design of voiD, provided use cases and ensured that we would never get bored too quickly. These people were (alphabetically): Dan Brickley, Li Ding, Orri Erling, Hugh Glaser, Olaf Hartig, Tom Heath, Toby Inkster, Ian Millard, Marc-Alexandre Nolin, Yves Raimond, Yrj&auml;n&auml; Rankka, Francois Scharffe, Giovanni Tummarello, William Waites, Stuart Williams.</p>
+<p>Our thanks go out to some chaps who influenced the design of VoID, provided use cases and ensured that we would never get bored too quickly. These people were (alphabetically): Dan Brickley, Li Ding, Orri Erling, Hugh Glaser, Olaf Hartig, Tom Heath, Toby Inkster, Ian Millard, Marc-Alexandre Nolin, Yves Raimond, Yrj&auml;n&auml; Rankka, Francois Scharffe, Giovanni Tummarello, William Waites, Stuart Williams.</p>
 
 <p>The work has partly been supported by the following projects:</p>
 
@@ -1233,7 +1241,7 @@ th.details { width: 5.2em; }
     <dd><cite><a href="http://www.w3.org/TR/2008/NOTE-cooluris-20081203/">Cool URIs for the Semantic Web</a></cite>, L. Sauermann, R. Cyganiak, W3C Interest Group Note 03 December 2008. http://www.w3.org/TR/2008/NOTE-cooluris-20081203/</dd>
 
     <dt id="ref-DISCOVERY">[DISCOVERY]</dt>
-    <dd><cite><a href="http://vocab.deri.ie/void/autodiscovery">Autodiscovery of voiD descriptions</a></cite>, @@@, http://vocab.deri.ie/void/autodiscovery</dd>
+    <dd><cite><a href="http://vocab.deri.ie/void/autodiscovery">Autodiscovery of VoID descriptions</a></cite>, @@@, http://vocab.deri.ie/void/autodiscovery</dd>
 
     <dt id="ref-DBPEDIA">[DBPEDIA]</dt>
     <dd><cite><a href="http://dbpedia.org/">DBpedia project homepage</a></cite>, http://dbpedia.org/</dd>
@@ -1296,10 +1304,10 @@ th.details { width: 5.2em; }
     <dd><cite><a href="http://www.w3.org/ns/formats/">Unique URIs for File Formats</a></cite>, Ivan Herman, 12 May 2010. http://www.w3.org/ns/formats/</dd>
 
     <dt id="ref-VOID-GUIDE-1">[VOID-GUIDE-1]</dt>
-    <dd><cite><a href="http://vocab.deri.ie/void/guide/2009-01-29">voiD Guide, version 1</a></cite>, K. Alexander, R. Cyganiak, M. Hausenblas, J. Zhao, 29 January 2009. http://vocab.deri.ie/void/guide/2009-01-29</dd>
+    <dd><cite><a href="http://vocab.deri.ie/void/guide/2009-01-29">VoID Guide, version 1</a></cite>, K. Alexander, R. Cyganiak, M. Hausenblas, J. Zhao, 29 January 2009. http://vocab.deri.ie/void/guide/2009-01-29</dd>
 
     <dt id="ref-VOID-VOC">[VOID-VOC]</dt>
-    <dd><cite><a href="http://rdfs.org/ns/void">voiD Vocabulary</a></cite>, K. Alexander, R. Cyganiak, M. Hausenblas, J. Zhao. http://rdfs.org/ns/void</dd>
+    <dd><cite><a href="http://rdfs.org/ns/void">VoID Vocabulary</a></cite>, K. Alexander, R. Cyganiak, M. Hausenblas, J. Zhao. http://rdfs.org/ns/void</dd>
 
     <dt id="ref-WAIVER">[WAIVER]</dt>
     <dd><cite><a href="http://vocab.org/waiver/terms/">WAIVER: A vocabulary for waivers of rights</a></cite>, Ian Davis, 6 July 2009. http://vocab.org/waiver/terms/</dd>
