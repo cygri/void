@@ -20,6 +20,7 @@ th, td { border: 1px solid #888; margin: 0; padding: 0.3em 0.5em; }
 .toc > li { margin-top: 1em; }
 .toc ol { margin-bottom: 1em; }
 .issue { background: #fd9; border: 1px solid red; padding: 0.3em 0.5em; }
+.note { border: 0.11em solid #fb6; margin-left: -0.15em; margin-right: -0.15em; padding: 0.6em 0.8em; }
 th.details { width: 5.2em; }
     </style>
 </head>
@@ -242,7 +243,7 @@ th.details { width: 5.2em; }
 
 <p>Links are sometimes published as part of a larger dataset. For example, many of the resources described in the DBpedia dataset are linked via <code>owl:sameAs</code> to other datasets. In other cases, linksets are handled as stand-alone sets of triples, independently from either of the two linked datasets. For example, link generation tools such as <a href="http://www4.wiwiss.fu-berlin.de/bizer/silk/">Silk</a> [<a href="#ref-SILK">SILK</a>] can discover new links between two existing datasets. Both cases—linksets published as part of a larger dataset, and linksets that are independent from the linked datasets—can be described in VoID.</p>
 
-<p>Note that <code>rdf:type</code> statements are not considered links for the purposes of VoID, even though subject and object typically reside on different domains. VoiD has <a href="#vocabularies">a dedicated mechanism</a> for listing the classes used in a dataset.</p>
+<p class="note"><em>Note:</em> <code>rdf:type</code> statements are not considered links for the purposes of VoID, even though subject and object typically reside on different domains. VoiD has <a href="#vocabularies">a dedicated mechanism</a> for listing the classes used in a dataset.</p>
 
 
 <h2 id="metadata">2. General dataset metadata</h2>
@@ -411,7 +412,7 @@ th.details { width: 5.2em; }
           copyright and related or neighboring rights to The Example Dataset.""";
     .</pre>
 
-<p><em>Note: Licensing of datasets is a complex issue. Datasets are collections of facts rather than creative works, and different laws apply. Most licenses such as Creative Commons or the GPL are based on copyright and are designed to protect creative works, but not databases, and applying them to datasets might not have the desired legal result. Meanwhile, efforts such as <a href="http://www.opendatacommons.org/" title="Open Data Commons">Open Data Commons</a>, <a href="http://sciencecommons.org/" title="Science Commons">Science Commons</a> and <a href="http://sciencecommons.org/projects/healthcommons/" title="Health Commons">Health Commons</a> are developing dedicated licenses for data, and the <a href="http://www.opendoar.org/tools/en/policies.php" title="OpenDOAR">OpenDOAR</a> project provides tools allowing open-access digital repositories to create customised policies.</em></p> 
+<p class="note"><em>Note:</em> Licensing of datasets is a complex issue. Datasets are collections of facts rather than creative works, and different laws apply. Most licenses such as Creative Commons or the GPL are based on copyright and are designed to protect creative works, but not databases, and applying them to datasets might not have the desired legal result. Meanwhile, efforts such as <a href="http://www.opendatacommons.org/" title="Open Data Commons">Open Data Commons</a>, <a href="http://sciencecommons.org/" title="Science Commons">Science Commons</a> and <a href="http://sciencecommons.org/projects/healthcommons/" title="Health Commons">Health Commons</a> are developing dedicated licenses for data, and the <a href="http://www.opendoar.org/tools/en/policies.php" title="OpenDOAR">OpenDOAR</a> project provides tools allowing open-access digital repositories to create customised policies.</p> 
  
 
 <h3 id="subject">2.5 Categorizing datasets by subject</h3>
@@ -517,7 +518,7 @@ th.details { width: 5.2em; }
 
 <p>VoID descriptions <a href="#sparql-sd">can be deployed</a> as part of a SPARQL Service Description. This also allows the expression of further information about the features and capabilites of the SPARQL endpoint, as described in the <a href="http://www.w3.org/TR/sparql11-service-description/">SPARQL 1.1 Service Description</a> [<a href="#ref-SPARQL-SD">SPARQL-SD</a>] specification.</p>
 
-<p><em>Note: In some SPARQL endpoints, named graphs are used to partition the data. Currently VoID doesn't provide a dedicated way of stating that a dataset is contained in a specific named graph. This kind of information can be provided in a SPARQL Service Description, as <a href="#sparql-sd">described below</a>.</em></p>
+<p class="note"><em>Note:</em> In some SPARQL endpoints, named graphs are used to partition the data. Currently VoID doesn't provide a dedicated way of stating that a dataset is contained in a specific named graph. This kind of information can be provided in a SPARQL Service Description, as <a href="#sparql-sd">described below</a>.</p>
 
 
 <h3 id="dumps">3.3 RDF data dumps</h3>
@@ -535,7 +536,7 @@ th.details { width: 5.2em; }
     void:dataDump &lt;http://data.nytimes.com/descriptors.rdf&gt;;
     .</pre>
 
-<p><em>Note: The <code>void:dataDump</code> property should not be used for linking to a download web page. It should only be used for linking directly to dump files. This is to ensure that the link can be used by automated spiders that cannot find their way through an HTML page. If a publisher desires to provide a link to a download page as well, then they should use the <code>foaf:page</code> property instead.</em></p>
+<p class="note"><em>Note:</em> The <code>void:dataDump</code> property should not be used for linking to a download web page. It should only be used for linking directly to dump files. This is to ensure that the link can be used by automated spiders that cannot find their way through an HTML page. If a publisher desires to provide a link to a download page as well, then they should use the <code>foaf:page</code> property instead.</p>
  
 
 <h3 id="root-resource">3.4 Root resources</h3>
@@ -565,7 +566,7 @@ th.details { width: 5.2em; }
     <li>The HTTP response is expected to be an RDF description of <em>E</em>.</li>
 </ol>
 
-<p><em>Note: The HTTP request should be performed with an HTTP Accept header that indicates the formats supported by the requesting client, e.g. “<code>Accept: application/rdf+xml</code>” for a client that only supports RDF/XML.</em></p>
+<p class="note"><em>Note:</em> The HTTP request should be performed with an HTTP Accept header that indicates the formats supported by the requesting client, e.g. “<code>Accept: application/rdf+xml</code>” for a client that only supports RDF/XML.</p>
 
 <p>The following example shows how the <a href="http://sindice.com/developers/api">Sindice API</a> [<a href="#ref-SINDICE-API">SINDICE-API</a>] could be described as a VoID dataset with a URI lookup endpoint:</p>
 
@@ -596,7 +597,7 @@ th.details { width: 5.2em; }
     void:exampleResource &lt;http://dbpedia.org/resource/Ludwig_van_Beethoven&gt; ;
     .</pre>
 
-<p><em>Note: Datasets that are published as linked data with resolvable URIs often have <a href="http://www.w3.org/TR/2008/NOTE-cooluris-20081203/">two distinct URIs for an entity and for the RDF document describing the entity</a> [<a href="#ref-COOL">COOL</a>]. True entity URIs should be preferred as <code>void:exampleResource</code>s.</em></p>
+<p class="note"><em>Note:</em> Datasets that are published as linked data with resolvable URIs often have <a href="http://www.w3.org/TR/2008/NOTE-cooluris-20081203/">two distinct URIs for an entity and for the RDF document describing the entity</a> [<a href="#ref-COOL">COOL</a>]. True entity URIs should be preferred as <code>void:exampleResource</code>s.</p>
 
 <p>Example resources can also be given for linksets. The resource should be either the subject or the object of a representative link from the set.</p>
 
@@ -624,9 +625,11 @@ th.details { width: 5.2em; }
     void:uriRegexPattern "^http://dbpedia\\.org/resource/";
     .</pre>
 
+<div class="note">
 <p><em>Note: In the Turtle syntax, any backslashes in literals have to be escaped with another backslash. This is why the example above contains double backslashes. In RDF/XML, the same literal would be written as:</em></p>
 
 <pre class="rdfxml-fragment">&lt;void:uriRegexPattern&gt;^http://dbpedia\.org/resource/&lt;/void:uriRegexPattern&gt;</pre>
+</div>
 
 <p>A more complex example follows:</p>
 
@@ -637,7 +640,7 @@ th.details { width: 5.2em; }
 
 <p>This defines a dataset (presumably a <a href="#subset">subset</a> of <code>:DBpedia</code>) that contains only URIs ending in <code>.ttl</code>, and states that they have Turtle representations, using <a href="#features"><code>void:feature</code></a>.</p>
 
-<p><em>Note: One can use the <code>REGEX</code> filter function of SPARQL to check whether a URI matches a <code>void:uriRegexPattern</code>. The SPARQL standard does not contain a function for comparing string prefixes, so the same cannot be safely done with <code>void:uriSpace</code> (although some SPARQL implementations support such string comparisons via extension functions). This is one advantage of <code>void:uriRegexPattern</code>. To obtain an equivalent regular expression from a <code>void:uriSpace</code> URI, prepend it with the “<code>^</code>” character and escape any of the characters “<code>.()[]+*?$</code>” with a backslash.</em></p>
+<p class="note"><em>Note:</em> One can use the <code>REGEX</code> filter function of SPARQL to check whether a URI matches a <code>void:uriRegexPattern</code>. The SPARQL standard does not contain a function for comparing string prefixes, so the same cannot be safely done with <code>void:uriSpace</code> (although some SPARQL implementations support such string comparisons via extension functions). This is one advantage of <code>void:uriRegexPattern</code>. To obtain an equivalent regular expression from a <code>void:uriSpace</code> URI, prepend it with the “<code>^</code>” character and escape any of the characters “<code>.()[]+*?$</code>” with a backslash.</p>
 
  
 <h3 id="vocabularies">4.3 Vocabularies used in a dataset</h3>
@@ -757,7 +760,7 @@ th.details { width: 5.2em; }
 
 <p>VoID provides a number of properties for expressing numeric statistics about a dataset, such as the number of RDF triples it contains, or the number of entities it describes.</p>
 
-<p><em>Note: A previous version of VoID defined a different approach to statistics, based on the <a href="http://sw.joanneum.at/scovo/schema.html">Statistical Core Vocabulary</a> [<a href="#ref-SCOVO">SCOVO</a>]. It was found to have several disadvantages. Statistics would be verbose, and querying them with SPARQL was difficult. <a href="http://vocab.deri.ie/void/guide/2009-01-29#sec_3_Expressing_dataset_statistic">A description of the SCOVO-based approach</a> can be found in archived older versions of the VoID Guide ([<a href="#ref-VOID-GUIDE-1">VOID-GUIDE-1</a>], Section 3). We discourage its further use.</em></p>
+<p class="note"><em>Note:</em> A previous version of VoID defined a different approach to statistics, based on the <a href="http://sw.joanneum.at/scovo/schema.html">Statistical Core Vocabulary</a> [<a href="#ref-SCOVO">SCOVO</a>]. It was found to have several disadvantages. Statistics would be verbose, and querying them with SPARQL was difficult. <a href="http://vocab.deri.ie/void/guide/2009-01-29#sec_3_Expressing_dataset_statistic">A description of the SCOVO-based approach</a> can be found in archived older versions of the VoID Guide ([<a href="#ref-VOID-GUIDE-1">VOID-GUIDE-1</a>], Section 3). We discourage its further use.</p>
 			 
 <p>As a general rule, statistics in VoID can always be provided as approximate numbers.</p>
 
@@ -836,7 +839,7 @@ th.details { width: 5.2em; }
 
 <p>A class-based partition for the <code>foaf:Person</code> class is defined, and it is stated to contain 312,000 entities. Because a class-based partition contains only the subset that describes entities of a single class (<code>foaf:Person</code> in this case), we can conclude that the DBpedia dataset describes 312,000 people. Statistics about further classes could be given in the same way.</p>
 
-<p><em>Note: Many dataset statistics can be calculated automatically by running SPARQL queries over the dataset. Some informative examples for <a href="http://code.google.com/p/void-impl/wiki/SPARQLQueriesForStatistics">SPARQL queries that compute statistics</a> are given in the VoID wiki.</em></p>
+<p class="note"><em>Note:</em> Many dataset statistics can be calculated automatically by running SPARQL queries over the dataset. Some informative examples for <a href="http://code.google.com/p/void-impl/wiki/SPARQLQueriesForStatistics">SPARQL queries that compute statistics</a> are given in the VoID wiki.</p>
 
 
 <h2 id="describing-linksets">5. Describing linksets</h2>
@@ -859,9 +862,22 @@ th.details { width: 5.2em; }
     void:target :Geonames;
     .</pre>
 
-<p><code>void:target</code> has subproperties <code>void:subjectsTarget</code> and <code>void:objectsTarget</code>. These can be used to state the directions of the links explicitly: The subjects of all link triples are in the dataset named by <code>void:subjectsTarget</code>, and the objects in <code>void:objectsTarget</code>. Note that this does not say anything about which dataset physically contains the link triples; they could be in either one.</p>
+<p><code>void:target</code> has subproperties <code>void:subjectsTarget</code> and <code>void:objectsTarget</code>. These can be used to state the subject-object direction of the links explicitly: The subjects of all link triples are in the dataset named by <code>void:subjectsTarget</code>, and the objects in <code>void:objectsTarget</code>.</p>
 
 <p>A linkset may not have more than one <code>void:subjectsTarget</code>. A linkset may not have more than one <code>void:objectsTarget</code>.</p>
+
+<div class="note">
+<p><em>Note:</em> There are two different notions of “directionality” for RDF links:</p>
+
+<ol>
+<li>Which dataset provides the subjects of the triples, and which the objects?</li>
+<li>Which dataset contains the links? (Who published them?)</li>
+</ol>
+
+<p>The <code>void:subjectsTarget</code> and <code>void:objectsTarget</code> properties express the first notion, while not stating anything about containment of the links. The second notion is expressed by making the linkset a <code>void:subset</code> of the respective target datasets.</p>
+
+<p>Especially when referring to <code>owl:sameAs</code> links, usually the second notion is intended. The property is symmetric, so their subjects and objects are exchangeable. The question is usually which publisher made the links available as part of their dataset.</p>
+</div>
 
 
 <h3 id="linkset-subset">5.2 Linksets as part of larger datasets</h3>
@@ -954,7 +970,7 @@ th.details { width: 5.2em; }
     foaf:primaryTopic :DBpedia;
     .</pre>
 
-<p class="note">
+<p class="note"><em>Note:</em>
 	In cases where multiple different <code>void:Dataset</code>s are published on the same website, the easiest option is usually to create a single <code>void:DatasetDescription</code> document that describes all of them.
 </p>
 
@@ -973,7 +989,7 @@ th.details { width: 5.2em; }
 
 <p>One should not specify multiple <code>void:inDataset</code> for the same document. Rather, we encourage to create a new void:Dataset that contains both as a subset, and link to that. Then, you can explicitly add metadata, like licenses, to the joint dataset.</p>
 			
-<p><em>Note: Older versions of VoID suggested to use <code>dcterms:isPartOf</code> instead of <code>void:inDataset</code>. As <code>dcterms:isPartOf</code> is used for other purposes as well, we introduced a dedicated property in the VoID namespace.</em>
+<p class="note"><em>Note:</em> Older versions of VoID suggested to use <code>dcterms:isPartOf</code> instead of <code>void:inDataset</code>. As <code>dcterms:isPartOf</code> is used for other purposes as well, we introduced a dedicated property in the VoID namespace.
 </p>			
 			
 
@@ -1040,8 +1056,8 @@ th.details { width: 5.2em; }
 
 <p>This section describes approaches for discovering the VoID description of a dataset given the URI of an entity described in a dataset.</p> 
 
-<p>
-	<em>Note: a <a href="http://vocab.deri.ie/void/guide/2009-01-29">previous version of VoID</a> had a discovery mechanism based on <code>robots.txt</code> and Semantic Sitemaps, which was deprecated because it was not widely adopted.</em>
+<p class="note">
+	<em>Note:</em> a <a href="http://vocab.deri.ie/void/guide/2009-01-29">previous version of VoID</a> had a discovery mechanism based on <code>robots.txt</code> and Semantic Sitemaps, which was deprecated because it was not widely adopted.
 </p> 
 
 <h3 id="discovery-links">7.1 Discovery via links in the dataset's documents</h3>
@@ -1074,14 +1090,18 @@ th.details { width: 5.2em; }
 </p>
 
 <p>
-	This document defines the ".well-known" URI <code>void</code> using the registration procedure and template from Section 5.1 of [<a href="#ref-RFC5758">RFC5758</a>] as follows:
+	This document defines the “.well-known” URI <code>void</code> using the registration procedure and template from Section 5.1 of [<a href="#ref-RFC5758">RFC5758</a>] as follows:
 </p>
 
-<pre class="ietf-template">URI suffix:  void
+<pre class="ietf-template">URI suffix:
+    void
 
-Change controller:  voiD editors, that is: Keith Alexander, Richard Cyganiak, Michael Hausenblas and Jun Zhao.
+Change controller:
+    voiD editors, that is: Keith Alexander, Richard Cyganiak,
+    Michael Hausenblas and Jun Zhao.
 
-Specification document(s):  This document.
+Specification document(s):
+    This document.
 </pre>
 
 
