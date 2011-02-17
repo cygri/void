@@ -614,7 +614,12 @@ th.details { width: 5.2em; }
 
 <p>The <code>void:uriSpace</code> property can be used to state that all entity URIs in a dataset start with a given string. In other words, they share a common “URI namespace”.</p>
 
-<p class="issue">Issue: The range of void:uriSpace (literal or resource) is still under discussion. This is <a href="http://code.google.com/p/void-impl/issues/detail?id=91">Issue 91</a>.</p>
+<pre class="turtle">:DBpedia a void:Dataset;
+    void:uriSpace "http://dbpedia.org/resource/";
+    .</pre>
+
+
+
 <p>In cases where a simple string prefix match is insufficient, the <code>void:uriRegexPattern</code> property can be used. It expresses a regular expression pattern that matches the URIs of the dataset's entities.</p>
 
 <p>The pattern should use the same regular expression syntax as SPARQL, which uses the syntax definition of <a href="http://www.w3.org/TR/2004/REC-xmlschema-2-20041028/#regexs">XML Schema 2: Regular Expressions</a> ([<a href="#ref-XSD">XSD</a>], Appendix F). The regular expression must match somewhere in the URI. It is a good practice to anchor the regular expression with a <code>^</code> in the beginning, and to escape dots with a backslash.</p>
