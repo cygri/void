@@ -212,7 +212,7 @@ th.details { width: 5.2em; }
 
 <h3 id="dataset">1.3 Definition: Dataset</h3>
 
-<p>The fundamental concept of VoID is the <em><strong>dataset</strong></em>. A dataset is a set of RDF triples that are published, maintained or aggregated by a single provider. Unlike <em>RDF graphs</em>, which are <a href="http://www.w3.org/TR/rdf-concepts/#section-rdf-graph">purely mathematical constructs</a> [<a href="#ref-RDF-CONCEPTS">RDF-CONCEPTS</a>], the term <em>dataset</em> has a social dimension: We think of a dataset as a <em>meaningful</em> collection of triples, that deal with a certain topic, originate from a certain source or process, are hosted on a certain server, or are aggregated by a certain custodian. Also, typically a dataset is accessible on the Web, for example through resolvable HTTP URIs or through a SPARQL endpoint, and it contains sufficiently many triples that there is benefit in providing a concise summary.</p>
+<p>The fundamental concept of VoID is the <em><strong>dataset</strong></em>. A dataset is a set of RDF triples that are published, maintained or aggregated by a single provider. Unlike <em>RDF graphs</em>, which are <a href="http://www.w3.org/TR/rdf-concepts/#section-rdf-graph">purely mathematical constructs</a> [<a href="#ref-RDF-CONCEPTS">RDF-CONCEPTS</a>], the term <em>dataset</em> has a social dimension: we think of a dataset as a <em>meaningful</em> collection of triples, that deal with a certain topic, originate from a certain source or process, are hosted on a certain server, or are aggregated by a certain custodian. Also, typically a dataset is accessible on the Web, for example through resolvable HTTP URIs or through a SPARQL endpoint, and it contains sufficiently many triples that there is benefit in providing a concise summary.</p>
 
 <p>Since most datasets describe a well-defined set of <em>entities</em>, datasets can also be seen as a set of descriptions of certain entities, which often share a common URI prefix (such as <code>http://dbpedia.org/resource/</code>).</p>
 
@@ -370,9 +370,10 @@ th.details { width: 5.2em; }
 
 <h3 id="license">2.4 Announcing the license of a dataset</h3>
 			
-<p>Using data that does not have an explicit license is a potential legal liability. Therefore, it is very important that publishers make explicit the terms under which the dataset can be used.</p>
+<p>
+	Data without explicit license is a potential legal liability and leaves consumers unclear what the usage conditions are. Therefore, it is very important that publishers make explicit the terms under which the dataset can be used.</p>
 			
-<p>The <code>dcterms:license</code> property should be used to to point to the license under which a dataset has been published. The URIs of Some licenses designed specifically for data are:</p>
+<p>The <code>dcterms:license</code> property should be used to to point to the license under which a dataset has been published. The URIs of some licenses designed specifically for data are:</p>
 
 <ul>
     <li><a href="http://www.opendatacommons.org/licenses/pddl/">Public Domain Dedication and License (PDDL)</a> — “Public Domain for data/databases”<br />
@@ -487,7 +488,7 @@ th.details { width: 5.2em; }
     void:feature &lt;http://www.w3.org/ns/formats/RDF_XML&gt;;
     .</pre>
 			
-<p>These W3C URIs are instances of class <code>http://www.w3.org/ns/formats/vocab-data/Format</code>, which is a sub-class of <code>void:TechnicalFeature</code>. If users need to describe, for example, other media types besides those provided by W3C or HTTP features such as content negotiation or etag headers, they should create the URIs under their own namespace or reuse existing URIs and define them as an instance of <code>void:TechnicalFeature</code>. For example, the following code shows how one could define a feature <code>:HTTPCachingETags</code> as an instance of <code>void:TechnicalFeature</code>.</p>
+<p>These W3C URIs are instances of class <code>http://www.w3.org/ns/formats/vocab-data/Format</code>, which is a sub-class of <code>void:TechnicalFeature</code>. If users need to describe, for example, other media types besides those provided by W3C or HTTP features such as content negotiation or ETag headers, they should create the URIs under their own namespace or reuse existing URIs and define them as an instance of <code>void:TechnicalFeature</code>. For example, the following code shows how one could define a feature <code>:HTTPCachingETags</code> as an instance of <code>void:TechnicalFeature</code>.</p>
 
 <pre class="turtle">:HTTPCachingETags a void:TechnicalFeature;
     rdfs:label "HTTP ETag support";
@@ -601,7 +602,7 @@ th.details { width: 5.2em; }
 
 <p>Example resources can also be given for linksets. The resource should be either the subject or the object of a representative link from the set.</p>
 
-<p>If the linkset is a <code>void:subset</code> of another dataset <em>D</em>, that is, the linkset is contained in <em>D</em>, then a resource described in <em>D</em> should be preferred as the example for the linkset. For example, if the linkset <code>:DBpedia_Geonames</code> is a subset of DBpedia, and we choose</p>
+<p>If the linkset is a <code>void:subset</code> (see <a href="#subset">Section 4.4</a>) of another dataset <em>D</em>, that is, the linkset is contained in <em>D</em>, then a resource described in <em>D</em> should be preferred as the example for the linkset. For example, if the linkset <code>:DBpedia_Geonames</code> is a subset of DBpedia, and we choose</p>
 
 <pre class="turtle">&lt;http://dbpedia.org/resource/Berlin&gt; owl:sameAs &lt;http://sws.geonames.org/2950159/&gt;.</pre>
 
@@ -639,8 +640,8 @@ th.details { width: 5.2em; }
 <p>A more complex example follows:</p>
 
 <pre class="turtle">:DBpediaTurtleFiles a void:Dataset;
-    void:uriRegexPattern "^http://dbpedia\.org/(.+)\.ttl$";
-    void:feature &lt;http://www.w3.org/ns/formats/Turtle&gt;
+    void:uriRegexPattern "^http://dbpedia\\.org/(.+)\\.ttl$";
+    void:feature &lt;http://www.w3.org/ns/formats/Turtle&gt;;
     .</pre>
 
 <p>This defines a dataset (presumably a <a href="#subset">subset</a> of <code>:DBpedia</code>) that contains only URIs ending in <code>.ttl</code>, and states that they have Turtle representations, using <a href="#features"><code>void:feature</code></a>.</p>
@@ -695,7 +696,7 @@ th.details { width: 5.2em; }
 
 <h3 id="subset">4.4 Describing partitioned datasets</h3>
 
-<p>The <code>void:subset</code> property can be used to provide descriptions of <em>parts</em> of a dataset. A part of a dataset is itself a <code>void:Dataset</code>, and any of the annotations for datasets listed in this Guide can be applied to the subset. Reasons for subdividing a dataset might include:</p>
+<p>The <code>void:subset</code> property can be used to provide descriptions of <em>parts</em> of a dataset. A part of a dataset is itself a <code>void:Dataset</code>, and any of the annotations for datasets listed in this guide can be applied to the subset. Reasons for subdividing a dataset might include:</p>
 
 <ul>
   <li>Parts have different provenance (different <code>dcterms:source</code>)</li>
@@ -765,7 +766,7 @@ th.details { width: 5.2em; }
 
 <p>VoID provides a number of properties for expressing numeric statistics about a dataset, such as the number of RDF triples it contains, or the number of entities it describes.</p>
 
-<p class="note"><em>Note:</em> A previous version of VoID defined a different approach to statistics, based on the <a href="http://sw.joanneum.at/scovo/schema.html">Statistical Core Vocabulary</a> [<a href="#ref-SCOVO">SCOVO</a>]. It was found to have several disadvantages. Statistics would be verbose, and querying them with SPARQL was difficult. <a href="http://vocab.deri.ie/void/guide/2009-01-29#sec_3_Expressing_dataset_statistic">A description of the SCOVO-based approach</a> can be found in archived older versions of the VoID Guide ([<a href="#ref-VOID-GUIDE-1">VOID-GUIDE-1</a>], Section 3). We discourage its further use.</p>
+<p class="note"><em>Note:</em> A previous version of VoID defined a different approach to statistics, based on the <a href="http://purl.org/NET/scovo">Statistical Core Vocabulary</a>. It was found to have several disadvantages. Statistics would be verbose, and querying them with SPARQL was difficult. <a href="http://vocab.deri.ie/void/guide/2009-01-29#sec_3_Expressing_dataset_statistic">A description of the SCOVO-based approach</a> can be found in archived older versions of the VoID Guide ([<a href="#ref-VOID-GUIDE-1">VOID-GUIDE-1</a>], Section 3). We discourage its further use.</p>
 			 
 <p>As a general rule, statistics in VoID can always be provided as approximate numbers.</p>
 
@@ -1000,7 +1001,7 @@ th.details { width: 5.2em; }
 
 <h3 id="rdf-dumps">6.4 Describing RDF dumps</h3>
 
-<p>VoiD can be used to provide self-describing metadata in RDF dumps.</p>
+<p>VoID can be used to provide self-describing metadata in RDF dumps.</p>
 
 <p>To describe an RDF dump, one <em>should not</em> use the dump's download URL as a <code>void:Dataset</code> and attach metadata to it.</p>
 
@@ -1009,7 +1010,7 @@ th.details { width: 5.2em; }
 
 <h3 id="sparql-sd">6.5 Using VoID with the SPARQL Service Description Vocabulary</h3>
 
-<p>The W3C <a href="http://www.w3.org/TR/sparql11-service-description/">SPARQL 1.1 Service Description</a> [<a href="#ref-SPARQL-SD">SPARQL-SD</a>] specification provides a rich vocabulary for describing a SPARQL endpoint's capabilities and features, as well as a discovery mechanism for such SPARQL service descriptions. VoiD can be used in SPARQL service descriptions to provide additional information about the data available in a store.</p>
+<p>The W3C <a href="http://www.w3.org/TR/sparql11-service-description/">SPARQL 1.1 Service Description</a> [<a href="#ref-SPARQL-SD">SPARQL-SD</a>] specification provides a rich vocabulary for describing a SPARQL endpoint's capabilities and features, as well as a discovery mechanism for such SPARQL service descriptions. VoID can be used in SPARQL service descriptions to provide additional information about the data available in a store.</p>
 
 <p>The SPARQL Service Description vocabulary defines two classes that can be aligned with VoID:</p>
 
@@ -1318,9 +1319,6 @@ Specification document(s):
     <dt id="ref-COOL">[COOL]</dt>
     <dd><cite><a href="http://www.w3.org/TR/2008/NOTE-cooluris-20081203/">Cool URIs for the Semantic Web</a></cite>, L. Sauermann, R. Cyganiak, W3C Interest Group Note 03 December 2008. http://www.w3.org/TR/2008/NOTE-cooluris-20081203/</dd>
 
-    <dt id="ref-DISCOVERY">[DISCOVERY]</dt>
-    <dd><cite><a href="http://vocab.deri.ie/void/autodiscovery">Autodiscovery of VoID descriptions</a></cite>, @@@, http://vocab.deri.ie/void/autodiscovery</dd>
-
     <dt id="ref-DBPEDIA">[DBPEDIA]</dt>
     <dd><cite><a href="http://dbpedia.org/">DBpedia project homepage</a></cite>, http://dbpedia.org/</dd>
 
@@ -1354,17 +1352,11 @@ Specification document(s):
     <dt id="ref-RFC5758">[RFC5758]</dt>
     <dd><cite><a href="http://tools.ietf.org/html/rfc5785">Defining Well-Known Uniform Resource Identifiers (URIs)</a></cite>, M. Nottingham, E. Hammer-Lanav, Internet Engineering Task Force RFC 5758, April 2010. http://tools.ietf.org/html/rfc5785</dd>
 
-    <dt id="ref-SCOVO">[SCOVO]</dt>
-    <dd><cite><a href="http://sw.joanneum.at/scovo/schema.html">The Statistical Core Vocabulary (scovo)</a></cite>, D. Ayers, L. Feigenbaum, W. Halb, M. Hausenblas, T. Heath, Y. Raimond. http://sw.joanneum.at/scovo/schema.html</dd>
-
     <dt id="ref-SILK">[SILK]</dt>
     <dd><cite><a href="http://www4.wiwiss.fu-berlin.de/bizer/silk/">Silk - A Link Discovery Framework for the Web of Data</a></cite>, R. Isele, A. Jentzsch, C. Bizer, J. Volz. http://www4.wiwiss.fu-berlin.de/bizer/silk/</dd>
 
     <dt id="ref-SINDICE-API">[SINDICE-API]</dt>
     <dd><cite><a href="http://sindice.com/developers/api">Sindice Query Services</a></cite>. http://sindice.com/developers/api</dd>
-
-    <dt id="ref-SITEMAPS">[SITEMAPS]</dt>
-    <dd><cite><a href="http://www.sitemaps.org/">Sitemaps XML format</a></cite>. http://www.sitemaps.org/</dd>
 
     <dt id="ref-SKOS">[SKOS]</dt>
     <dd><cite><a href="http://www.w3.org/TR/2009/NOTE-skos-primer-20090818/">SKOS Simple Knowledge Organization System Primer</a></cite>, A. Isaac, E. Summers, W3C Working Group Note 18 August 2009. http://www.w3.org/TR/2009/NOTE-skos-primer-20090818/</dd>
